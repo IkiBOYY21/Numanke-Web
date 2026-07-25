@@ -1,0 +1,358 @@
+/* assets/css/style.css */
+/* Mengimpor font klasik (Playfair Display) dan modern (Poppins) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --primary-red: #d32f2f;
+    --primary-red-dark: #b71c1c;
+    --accent-yellow: #ffb300;
+    --light-bg: #fcfcfc;
+    --white: #ffffff;
+    --text-dark: #2c2c2c;
+    --text-muted: #666666;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    line-height: 1.7;
+}
+
+/* Menggunakan font klasik khusus untuk judul agar terlihat elegan */
+h1, h2, h3, .logo {
+    font-family: 'Playfair Display', serif;
+}
+
+a { text-decoration: none; }
+ul { list-style: none; }
+section { scroll-margin-top: 80px; } /* Mencegah judul tertutup navbar saat discroll */
+
+/* --- NAVBAR (HEADER) --- */
+.navbar {
+    background-color: var(--primary-red); /* Navbar diubah menjadi merah */
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(211,47,47,0.4); /* Bayangan disesuaikan */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* Penyesuaian Logo Navbar agar rapi dengan gambar */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--white); /* Teks logo menjadi putih */
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+.logo img {
+    height: 45px;
+    width: auto;
+    border-radius: 8px;
+}
+.logo span { color: var(--accent-yellow); font-family: 'Poppins', sans-serif; }
+
+.nav-links { display: flex; gap: 30px; align-items: center; }
+
+.nav-links a {
+    color: var(--white); /* Teks menu menjadi putih */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.3s;
+}
+
+/* Efek garis bawah klasik yang muncul saat di-hover (diubah kuning) */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent-yellow);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--accent-yellow); }
+.nav-links a:hover::after { width: 100%; }
+
+/* Penyesuaian Tombol "Pesan Sekarang" khusus di Navbar */
+.navbar .btn-primary { 
+    background-color: var(--accent-yellow); 
+    color: var(--text-dark); 
+    box-shadow: 0 4px 15px rgba(255, 179, 0, 0.3); 
+}
+.navbar .btn-primary:hover { 
+    background-color: var(--white); 
+    color: var(--primary-red); 
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3); 
+}
+
+/* --- BUTTONS UMUM --- */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 30px; /* Dibuat membulat agar lebih modern */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary { background-color: var(--primary-red); color: var(--white); box-shadow: 0 4px 15px rgba(211,47,47,0.3); }
+.btn-primary:hover { background-color: var(--primary-red-dark); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(211,47,47,0.4); }
+.btn-accent { background-color: transparent; color: var(--text-dark); border: 2px solid var(--text-dark); }
+.btn-accent:hover { background-color: var(--text-dark); color: var(--white); transform: translateY(-3px); }
+
+/* --- HERO SECTION --- */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px 5%;
+    background-color: var(--light-bg);
+    min-height: 85vh;
+}
+
+.hero-content { max-width: 50%; }
+.hero-content h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 25px; color: var(--text-dark); }
+.hero-content h1 span { color: var(--primary-red); font-style: italic; }
+.hero-content p { color: var(--text-muted); font-size: 1.15rem; margin-bottom: 40px; }
+.hero-buttons { display: flex; gap: 15px; }
+
+/* Desain dasar foto utama & Efek Hover */
+.hero-image img {
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 10px solid var(--white);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transition: all 0.5s ease; 
+}
+
+.hero-image img:hover {
+    transform: translateY(-15px) scale(1.03); 
+    box-shadow: 0 30px 50px rgba(211,47,47,0.3); 
+    border-color: var(--light-bg);
+}
+
+/* --- SHOWCASE (MENU ANDALAN) SECTION --- */
+.showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.showcase-card {
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    text-align: left;
+}
+
+.showcase-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.showcase-img { height: 250px; background-color: #eee; position: relative; }
+.showcase-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--accent-yellow);
+    color: var(--text-dark);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.showcase-info { padding: 30px; }
+.showcase-info h3 { font-size: 1.8rem; margin-bottom: 10px; color: var(--text-dark); }
+.showcase-info p { color: var(--text-muted); font-size: 1rem; margin-bottom: 0; }
+
+/* --- FOOTER --- */
+footer { background-color: #1a1a1a; color: var(--white); text-align: center; padding: 30px 0; font-family: 'Poppins', sans-serif; font-size: 0.9rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero { flex-direction: column; text-align: center; padding: 60px 5%; }
+    .hero-content { max-width: 100%; margin-bottom: 50px; }
+    .hero-content h1 { font-size: 3rem; }
+    .hero-buttons { justify-content: center; }
+    .nav-links { display: none; }
+    
+    .hero-image img {
+        width: 300px;
+        height: 300px;
+        margin-top: 30px;
+    }
+}
+
+/* --- ORDER PAGE SPECIFIC STYLES --- */
+.order-layout {
+    display: flex;
+    gap: 40px;
+    padding: 60px 5%;
+    max-width: 1400px;
+    margin: auto;
+    align-items: flex-start;
+}
+
+.menu-section { flex: 2; }
+.menu-section h2 { font-size: 2.8rem; color: var(--text-dark); margin-bottom: 30px; }
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+/* Desain Kartu Menu yang Elegan */
+.menu-card {
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid #f5f5f5;
+}
+
+.menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+.menu-img {
+    height: 180px; 
+    background-color: #f0f0f0; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.menu-info {
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.menu-info h3 { font-size: 1.4rem; margin-bottom: 10px; color: var(--text-dark); }
+.menu-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; line-height: 1.6; }
+.menu-price { font-weight: 700; color: var(--primary-red); font-size: 1.3rem; margin-bottom: 20px; font-family: 'Poppins', sans-serif; }
+
+.btn-add-cart { width: 100%; border-radius: 10px; padding: 12px; font-size: 0.95rem; letter-spacing: 0.5px; }
+
+/* Desain Keranjang Belanja Premium */
+.cart-section {
+    flex: 1;
+    background: var(--white);
+    padding: 35px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 100px; /* Jarak dari navbar saat di-scroll */
+    border-top: 6px solid var(--primary-red);
+}
+
+.cart-section h2 { font-size: 2rem; margin-bottom: 25px; color: var(--text-dark); border-bottom: 2px solid var(--light-bg); padding-bottom: 15px; }
+
+.cart-list { margin-bottom: 25px; max-height: 350px; overflow-y: auto; padding-right: 15px; }
+/* Mempercantik Scrollbar Keranjang */
+.cart-list::-webkit-scrollbar { width: 6px; }
+.cart-list::-webkit-scrollbar-thumb { background-color: #ddd; border-radius: 10px; }
+
+.cart-summary {
+    background-color: var(--light-bg);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: right;
+    margin-bottom: 25px;
+    border: 1px dashed #ccc;
+}
+.cart-summary h3 { font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0; color: var(--text-dark); }
+.cart-summary span { color: var(--primary-red); font-weight: 700; }
+
+/* Form Checkout */
+.checkout-form input, .checkout-form textarea {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    background-color: var(--light-bg);
+    transition: all 0.3s;
+}
+
+.checkout-form input:focus, .checkout-form textarea:focus { 
+    outline: none; 
+    border-color: var(--primary-red); 
+    box-shadow: 0 0 0 3px rgba(211,47,47,0.1); 
+}
+
+@media (max-width: 992px) {
+    .order-layout { flex-direction: column; padding: 40px 5%; }
+    .cart-section { position: relative; top: 0; width: 100%; margin-top: 30px; }
+}
+
+/* --- LOADING SCREEN (PRELOADER) --- */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000000; /* Latar hitam agar menyatu dengan background gambar logo Anda */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999; /* Memastikan loading screen berada di tumpukan paling atas */
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+/* Class ini akan dipanggil oleh JavaScript untuk menyembunyikan loading */
+#preloader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.preloader-logo {
+    width: 250px; /* Ukuran logo saat loading */
+    animation: breathing 1.5s infinite alternate; /* Efek detak/napas */
+}
+
+@keyframes breathing {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    100% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 30px rgba(211,47,47,0.5); border-radius: 50%; }
+}
