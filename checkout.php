@@ -370,15 +370,18 @@ require_once 'includes/header.php';
         
         textWa += `Mohon segera diproses dan konfirmasi ya min. Terima kasih!`;
 
-        // Proses enkripsi teks agar aman dari error URL
+      let nomorAdmin = "6288802732001"; // Nomor WA asli Numanke
+
+        // Enkripsi pesan agar aman dari error spasi/simbol
         let pesanFinal = encodeURIComponent(textWa);
-        let nomorAdmin = "6288802732001"; 
-        
-        // Menggunakan api.whatsapp.com agar responsif di HP maupun PC
         let linkWhatsapp = `https://api.whatsapp.com/send?phone=${nomorAdmin}&text=${pesanFinal}`;
+
+        // Hapus keranjang
+        localStorage.removeItem('numanke_cart');
         
-        // Buka WhatsApp (mengarahkan halaman saat ini ke aplikasi WhatsApp)
+        // Alihkan ke WhatsApp
         window.location.href = linkWhatsapp;
+    
     }
 </script>
 

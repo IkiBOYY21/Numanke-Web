@@ -593,7 +593,7 @@ function renderMenuCard($item) {
         let totalSemua = subtotal + (isDiantar && isLokasiSetuju ? ongkirFinal : 0);
         textWa += `%0A*TOTAL BAYAR: Rp ${totalSemua.toLocaleString('id-ID')}*%0A%0AMohon diproses ya min!`;
 
-        let nomorAdmin = "6281234567890"; // GANTI DENGAN NOMOR WA NUMANKE
+        let nomorAdmin = "6288802732001"; // GANTI DENGAN NOMOR WA NUMANKE
         
         localStorage.removeItem('numanke_cart');
         window.open(`https://wa.me/${nomorAdmin}?text=${textWa}`, '_blank');
