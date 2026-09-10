@@ -124,51 +124,60 @@ require_once 'includes/header.php';
 </section>
 
 <!-- 3. SECTION ABOUT -->
-<section id="about" class="py-5">
-    <div class="container py-5">
-        <div class="row align-items-center g-5 flex-column-reverse flex-lg-row">
-            <div class="col-lg-6" data-aos="zoom-in-right">
-                <div class="rounded-4 shadow-lg overflow-hidden d-flex align-items-center justify-content-center border border-secondary border-2" style="height: 400px;">
-                    <img src="assets/images/filosofi.jpg" alt="Filosofi Numanke" class="img-fluid w-100 h-100" style="object-fit: cover; filter: brightness(0.85);">
-                </div>
-            </div>
-            <div class="col-lg-6" data-aos="fade-left">
-                <h2 class="display-5 fw-bold mb-4" style="color: #FFD700;">Filosofi Numanke</h2>
-                <div class="p-4 rounded-4 shadow-sm glass-card">
-                    <p class="fs-5 text-light mb-3 opacity-100">
-                        Berawal dari resep rahasia keluarga, <strong class="text-warning">Numanke</strong> hadir untuk mengembalikan kejayaan rasa Nusantara yang autentik. 
-                        Kata "Brongot" bagi kami bukan sekadar rasa pedas yang lewat, melainkan sebuah jejak rasa—kombinasi dari rempah pilihan, arang berkualitas, dan teknik pembakaran tingkat tinggi.
-                    </p>
-                    <p class="fs-5 text-light mb-0 opacity-100">
-                        Kami percaya bahwa makanan yang baik adalah yang dibuat den n kejujuran. Setiap piring yang keluar dari dapur kami adalah bentuk penghormatan kami terhadap seni kuliner pedas Indonesia.
-                    </p>
-                </div>
-            </div>
+<!-- Section Filosofi (Tetap Mengikuti Tema Gelap Index) -->
+<!-- Section Filosofi (3 Item Terpisah dengan Bentuk Gambar Berbeda) -->
+<section class="filosofi-section py-5" id="filosofi" style="background: transparent;">
+    <div class="container">
+        
+        <!-- Judul Utama -->
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold" style="color: #FFD700;">Filosofi Numanke</h2>
+            <p class="text-light" style="opacity: 0.9;">Tiga pilar utama yang menjadi ruh dalam setiap sajian kami.</p>
         </div>
-    </div>
-</section>
 
-<section id="about" class="py-5">
-    <div class="container py-5">
-        <div class="row align-items-center g-5 flex-column-reverse flex-lg-row">
-            <div class="col-lg-6" data-aos="zoom-in-right">
-                <div class="rounded-4 shadow-lg overflow-hidden d-flex align-items-center justify-content-center border border-secondary border-2" style="height: 400px;">
-                    <img src="assets/images/filosofi.jpg" alt="Filosofi Numanke" class="img-fluid w-100 h-100" style="object-fit: cover; filter: brightness(0.85);">
-                </div>
+        <!-- Filosofi 1: Gambar Kotak Melengkung (Posisi Kiri) -->
+        <div class="row align-items-center mb-5 p-4 p-md-5 rounded-4 shadow-lg" style="background-color: rgba(25, 25, 25, 0.85); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <div class="col-md-5 mb-4 mb-md-0">
+                <!-- Ubah src dengan gambar ke-1 -->
+                <img src="assets/images/filosofi-1.jpg" alt="Srawung" class="img-fluid rounded-4 shadow-lg" style="border: 2px solid rgba(255,255,255,0.1); object-fit: cover; width: 100%; height: 300px;">
             </div>
-            <div class="col-lg-6" data-aos="fade-left">
-                <h2 class="display-5 fw-bold mb-4" style="color: #FFD700;">Filosofi Numanke</h2>
-                <div class="p-4 rounded-4 shadow-sm glass-card">
-                    <p class="fs-5 text-light mb-3 opacity-100">
-                        Berawal dari resep rahasia keluarga, <strong class="text-warning">Numanke</strong> hadir untuk mengembalikan kejayaan rasa Nusantara yang autentik. 
-                        Kata "Brongot" bagi kami bukan sekadar rasa pedas yang lewat, melainkan sebuah jejak rasa—kombinasi dari rempah pilihan, arang berkualitas, dan teknik pembakaran tingkat tinggi.
-                    </p>
-                    <p class="fs-5 text-light mb-0 opacity-100">
-                        Kami percaya bahwa makanan yang baik adalah yang dibuat dengan kejujuran. Setiap piring yang keluar dari dapur kami adalah bentuk penghormatan kami terhadap seni kuliner pedas Indonesia.
-                    </p>
-                </div>
+            <div class="col-md-7 ps-md-5">
+                <h3 class="fw-bold mb-3" style="color: #FFD700;">1. Srawung (Kebersamaan)</h3>
+                <p class="text-light mb-0" style="font-size: 1.1rem; opacity: 0.85; line-height: 1.8;">
+                    Bukan sekadar tempat makan, Numanke adalah ruang berkumpul. Kami menyajikan hidangan untuk dinikmati bersama dalam suasana hangat dan kekeluargaan.
+                </p>
             </div>
         </div>
+
+        <!-- Filosofi 2: Gambar Bulat / Lingkaran (Posisi Kanan) -->
+        <!-- flex-md-row-reverse membalik posisi agar gambar di kanan untuk desktop -->
+        <div class="row align-items-center mb-5 p-4 p-md-5 rounded-4 shadow-lg flex-md-row-reverse" style="background-color: rgba(25, 25, 25, 0.85); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <div class="col-md-5 mb-4 mb-md-0 d-flex justify-content-center">
+                <!-- Ubah src dengan gambar ke-2 -->
+                <img src="assets/images/filosofi-2.jpg" alt="Autentisitas Rasa" class="img-fluid rounded-circle shadow-lg" style="border: 2px solid rgba(255,255,255,0.1); object-fit: cover; width: 300px; height: 300px;">
+            </div>
+            <div class="col-md-7 pe-md-5 text-md-start text-md-end">
+                <h3 class="fw-bold mb-3" style="color: #FFD700;">2. Autentisitas Rasa</h3>
+                <p class="text-light mb-0" style="font-size: 1.1rem; opacity: 0.85; line-height: 1.8;">
+                    Resep warisan yang dibuat dengan kejujuran. Kombinasi rempah pilihan dan teknik pembakaran tingkat tinggi menghadirkan cita rasa yang kaya dan berkarakter.
+                </p>
+            </div>
+        </div>
+
+        <!-- Filosofi 3: Gambar Bentuk Unik/Asimetris (Posisi Kiri) -->
+        <div class="row align-items-center p-4 p-md-5 rounded-4 shadow-lg" style="background-color: rgba(25, 25, 25, 0.85); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <div class="col-md-5 mb-4 mb-md-0">
+                <!-- Ubah src dengan gambar ke-3 -->
+                <img src="assets/images/filosofi-3.jpg" alt="Pelayanan Sepenuh Hati" class="img-fluid shadow-lg" style="border-radius: 50px 10px 50px 10px; border: 2px solid rgba(255,255,255,0.1); object-fit: cover; width: 100%; height: 300px;">
+            </div>
+            <div class="col-md-7 ps-md-5">
+                <h3 class="fw-bold mb-3" style="color: #FFD700;">3. Pelayanan Sepenuh Hati</h3>
+                <p class="text-light mb-0" style="font-size: 1.1rem; opacity: 0.85; line-height: 1.8;">
+                    Setiap piring yang keluar dari dapur adalah bentuk penghormatan. Kami melayani Anda bak keluarga sendiri dengan senyum dan keikhlasan.
+                </p>
+            </div>
+        </div>
+
     </div>
 </section>
 

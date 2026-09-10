@@ -4,15 +4,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 <style>
-    /* Animasi Logo saat website dibuka */
-    @keyframes logoPopIn {
-        0% { opacity: 0; transform: scale(0.3) translateY(-30px) rotate(-15deg); }
-        70% { transform: scale(1.1) rotate(5deg); }
-        100% { opacity: 1; transform: scale(1) translateY(0) rotate(0); }
-    }
-    
-    .logo-animasi {
-        animation: logoPopIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        /* Animasi Logo saat website dibuka */
+        
+        @keyframes logoPopIn {
+            0% { opacity: 0; transform: scale(0.3) translateY(-30px) rotate(-15deg); }
+            70% { transform: scale(1.1) rotate(5deg); }
+            100% { opacity: 1; transform: scale(1) translateY(0) rotate(0); }
+        }
+        
+        .logo-animasi {
+            animation: logoPopIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
     /* Gaya Navbar Merah Tua & Emas */
