@@ -89,7 +89,7 @@
     <div class="container">
         <!-- Logo -->
         <a class="navbar-brand navbar-brand-custom d-flex align-items-center" href="index.php">
-            <img src="assets/images/logo numanke.png" alt="Logo Numanke" height="50" class="me-2 rounded-circle logo-animasi"> 
+            <img src="assets/images/logo numanke.png" alt="Logo Numanke" height="70" class="me-2 rounded-circle logo-animasi"> 
             Numanke
         </a>
         

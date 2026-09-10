@@ -3,7 +3,49 @@
 require_once 'includes/header.php'; 
 ?>
 
+<!-- PRELOADER START -->
+<div id="preloader">
+    <!-- Gambar logo diambil dari path assets yang Anda gunakan -->
+    <img src="assets/images/logo numanke.png" alt="Loading Numanke" class="loading-logo">
+</div>
+<!-- PRELOADER END -->
+
 <style>
+    /* --- PRELOADER STYLES --- */
+    #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #0f0f0f; /* Mengikuti warna tema gelap website Anda */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999; /* Z-index sangat tinggi agar menutupi semuanya */
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .loading-logo {
+        width: 150px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 50%;
+        animation: pulseLogo 1.5s infinite ease-in-out;
+        border: 4px solid rgba(255, 215, 0, 0.5); /* Aksen gold sesuai tema */
+    }
+
+    @keyframes pulseLogo {
+        0% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+        50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 30px rgba(220, 53, 69, 0.6); } /* Kombinasi glow gold & merah */
+        100% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+    }
+
+    .preloader-hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
     /* Background Kayu Gelap */
     body {
         background-image: linear-gradient(rgba(15, 15, 15, 0.88), rgba(15, 15, 15, 0.88)), url('assets/images/image_68b9f7.jpg');
@@ -124,8 +166,6 @@ require_once 'includes/header.php';
 </section>
 
 <!-- 3. SECTION ABOUT -->
-<!-- Section Filosofi (Tetap Mengikuti Tema Gelap Index) -->
-<!-- Section Filosofi (3 Item Terpisah dengan Bentuk Gambar Berbeda) -->
 <section class="filosofi-section py-5" id="filosofi" style="background: transparent;">
     <div class="container">
         
@@ -138,8 +178,7 @@ require_once 'includes/header.php';
         <!-- Filosofi 1: Gambar Kotak Melengkung (Posisi Kiri) -->
         <div class="row align-items-center mb-5 p-4 p-md-5 rounded-4 shadow-lg" style="background-color: rgba(25, 25, 25, 0.85); border: 1px solid rgba(255, 255, 255, 0.05);">
             <div class="col-md-5 mb-4 mb-md-0">
-                <!-- Ubah src dengan gambar ke-1 -->
-                <img src="assets/images/filosofi-1.jpg" alt="Srawung" class="img-fluid rounded-4 shadow-lg" style="border: 2px solid rgba(255,255,255,0.1); object-fit: cover; width: 100%; height: 300px;">
+                <img src="assets/images/filosofi1.jpg" alt="Srawung" class="img-fluid rounded-4 shadow-lg" style="border: 2px solid rgba(255,255,255,0.1); object-fit: cover; width: 100%; height: 300px;">
             </div>
             <div class="col-md-7 ps-md-5">
                 <h3 class="fw-bold mb-3" style="color: #FFD700;">1. Srawung (Kebersamaan)</h3>
@@ -150,11 +189,9 @@ require_once 'includes/header.php';
         </div>
 
         <!-- Filosofi 2: Gambar Bulat / Lingkaran (Posisi Kanan) -->
-        <!-- flex-md-row-reverse membalik posisi agar gambar di kanan untuk desktop -->
         <div class="row align-items-center mb-5 p-4 p-md-5 rounded-4 shadow-lg flex-md-row-reverse" style="background-color: rgba(25, 25, 25, 0.85); border: 1px solid rgba(255, 255, 255, 0.05);">
             <div class="col-md-5 mb-4 mb-md-0 d-flex justify-content-center">
-                <!-- Ubah src dengan gambar ke-2 -->
-                <img src="assets/images/filosofi-2.jpg" alt="Autentisitas Rasa" class="img-fluid rounded-circle shadow-lg" style="border: 2px solid rgba(255,255,255,0.1); object-fit: cover; width: 300px; height: 300px;">
+                <img src="assets/images/filosofi2.jpg" alt="Autentisitas Rasa" class="img-fluid rounded-circle shadow-lg" style="border: 2px solid rgba(255,255,255,0.1); object-fit: cover; width: 300px; height: 300px;">
             </div>
             <div class="col-md-7 pe-md-5 text-md-start text-md-end">
                 <h3 class="fw-bold mb-3" style="color: #FFD700;">2. Autentisitas Rasa</h3>
@@ -167,8 +204,7 @@ require_once 'includes/header.php';
         <!-- Filosofi 3: Gambar Bentuk Unik/Asimetris (Posisi Kiri) -->
         <div class="row align-items-center p-4 p-md-5 rounded-4 shadow-lg" style="background-color: rgba(25, 25, 25, 0.85); border: 1px solid rgba(255, 255, 255, 0.05);">
             <div class="col-md-5 mb-4 mb-md-0">
-                <!-- Ubah src dengan gambar ke-3 -->
-                <img src="assets/images/filosofi-3.jpg" alt="Pelayanan Sepenuh Hati" class="img-fluid shadow-lg" style="border-radius: 50px 10px 50px 10px; border: 2px solid rgba(255,255,255,0.1); object-fit: cover; width: 100%; height: 300px;">
+                <img src="assets/images/filosofi3.jpg" alt="Pelayanan Sepenuh Hati" class="img-fluid shadow-lg" style="border-radius: 50px 10px 50px 10px; border: 2px solid rgba(255,255,255,0.1); object-fit: cover; width: 100%; height: 300px;">
             </div>
             <div class="col-md-7 ps-md-5">
                 <h3 class="fw-bold mb-3" style="color: #FFD700;">3. Pelayanan Sepenuh Hati</h3>
@@ -196,25 +232,36 @@ require_once 'includes/header.php';
                 <div class="p-5 text-white rounded-4 shadow-lg h-100 border-top border-danger border-4 glass-card">
                     <div class="mb-3"><i class="fa-solid fa-location-dot fs-1 text-danger"></i></div>
                     <h3 class="fw-bold text-warning mb-3 h4">Lokasi Kami</h3>
-                    <p class="text-light opacity-75 mb-0">Jl. Ayam Brongot No. 1<br>Semarang, Jawa Tengah</p>
+                     <p class="mb-0"><a href="https://maps.app.goo.gl/yZiiLaGTeUJ3g9gP8" class="text-white text-decoration-none fs-5 btn-hover-glow d-inline-block">Jl. Pete Sel. No.18, Sekaran<br> Kec. Gn. Pati, Kota Semarang, Jawa Tengah 50229</a></p>
                 </div>
             </div>
             <div class="col-md-4" data-aos="flip-up" data-aos-delay="400">
                 <div class="p-5 text-white rounded-4 shadow-lg h-100 border-top border-danger border-4 glass-card">
                     <div class="mb-3"><i class="fa-brands fa-whatsapp fs-1 text-success"></i></div>
                     <h3 class="fw-bold text-warning mb-3 h4">Reservasi & Pesan</h3>
-                    <p class="mb-0"><a href="https://wa.me/6288802732001" class="text-white fw-bold text-decoration-none fs-5 btn-hover-glow d-inline-block">+62 888-0273-2001</a></p>
+                    <p class="mb-0"><a href="https://wa.me/6288802732001" class="text-white text-decoration-none fs-5 btn-hover-glow d-inline-block">+62 888-0273-2001</a></p>
                 </div>
             </div>
             <div class="col-md-4" data-aos="flip-up" data-aos-delay="600">
                 <div class="p-5 text-white rounded-4 shadow-lg h-100 border-top border-danger border-4 glass-card">
                     <div class="mb-3"><i class="fa-regular fa-clock fs-1 text-info"></i></div>
                     <h3 class="fw-bold text-warning mb-3 h4">Jam Operasional</h3>
-                    <p class="text-light opacity-75 mb-0">Senin - Minggu<br>10:00 - 22:00 WIB</p>
+                    <p class="text-light opacity-75 mb-0">Senin - Minggu<br>10:00 - 21:00 WIB</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- SCRIPT UNTUK PRELOADER (Dijalankan saat halaman selesai dimuat) -->
+<script>
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        // Jeda sekitar 0.8 detik agar animasi loading sempat terlihat dengan baik
+        setTimeout(function() {
+            preloader.classList.add('preloader-hidden');
+        }, 800); 
+    });
+</script>
 
 <?php require_once 'includes/footer.php'; ?>
