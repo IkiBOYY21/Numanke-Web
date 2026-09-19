@@ -1,25 +1,37 @@
 <!-- dapur-admin/manage_menu.php -->
 <?php
 session_start();
-// Kunci keamanan: Pastikan hanya admin yang bisa mengakses
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: ../index.php");
+    header("Location: masuk.php");
     exit();
 }
 require_once '../includes/db.php';
 
 $pesan = '';
 
-// 1. Logika untuk MENAMBAH Menu Baru
+// 1. Logika untuk MENAMBAH Menu Baru dengan Upload Gambar & Kategori Lengkap
 if (isset($_POST['tambah_menu'])) {
-    $nama  = $conn->real_escape_string($_POST['name']);
-    $desc  = $conn->real_escape_string($_POST['description']);
+    $nama = $conn->real_escape_string($_POST['name']);
+    $kategori = $conn->real_escape_string($_POST['kategori']); 
+    $desc = $conn->real_escape_string($_POST['description']);
     $harga = $conn->real_escape_string($_POST['price']);
-    $image = $conn->real_escape_string($_POST['image_url']);
+    
+    $image_name = "default.png";
 
-    $query_insert = "INSERT INTO menu (name, description, price, image_url) VALUES ('$nama', '$desc', '$harga', '$image')";
+    if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] == 0) {
+        $target_dir = "../assets/images/menu/";
+        if (!is_dir($target_dir)) { mkdir($target_dir, 0777, true); }
+        
+        $file_extension = pathinfo($_FILES['image_file']['name'], PATHINFO_EXTENSION);
+        $image_name = time() . "_" . preg_replace("/[^a-zA-Z0-9]/", "", $nama) . "." . $file_extension;
+        $target_file = $target_dir . $image_name;
+        
+        move_uploaded_file($_FILES['image_file']['tmp_name'], $target_file);
+    }
+
+    $query_insert = "INSERT INTO menu (name, kategori, description, price, image_url) VALUES ('$nama', '$kategori', '$desc', '$harga', '$image_name')";
     if ($conn->query($query_insert)) {
-        $pesan = "<div class='alert alert-success'>Berhasil menambahkan menu baru!</div>";
+        $pesan = "<div class='alert alert-success'>Berhasil menambahkan menu ke segmen $kategori!</div>";
     } else {
         $pesan = "<div class='alert alert-danger'>Gagal menambah menu: " . $conn->error . "</div>";
     }
@@ -28,16 +40,31 @@ if (isset($_POST['tambah_menu'])) {
 // 2. Logika untuk MENGHAPUS Menu
 if (isset($_GET['hapus'])) {
     $id_hapus = $conn->real_escape_string($_GET['hapus']);
+    $query_get_img = "SELECT image_url FROM menu WHERE id = '$id_hapus'";
+    $res_img = $conn->query($query_get_img);
+    if($res_img->num_rows > 0) {
+        $img_row = $res_img->fetch_assoc();
+        $file_path = "../assets/images/menu/" . $img_row['image_url'];
+        if(file_exists($file_path) && $img_row['image_url'] != 'default.png') {
+            unlink($file_path);
+        }
+    }
+
     $query_delete = "DELETE FROM menu WHERE id = '$id_hapus'";
     if ($conn->query($query_delete)) {
-        header("Location: manage_menu.php"); // Refresh halaman setelah menghapus
+        header("Location: manage_menu.php");
         exit();
     }
 }
 
-// 3. Mengambil daftar menu dari database
-$query_tampil = "SELECT * FROM menu ORDER BY id DESC";
-$result = $conn->query($query_tampil);
+// Daftar Kategori Lengkap Sesuai Struktur Web Utama
+$daftar_kategori = [
+    'Menu Geprek' => 'Menu Geprek',
+    'Menu Dewata' => 'Menu Dewata',
+    'Menu Brongot' => 'Menu Brongot',
+    'Menu Mix / Kombinasi' => 'Menu Mix / Kombinasi',
+    'Minuman & Tambahan' => 'Minuman & Tambahan'
+];
 ?>
 
 <!DOCTYPE html>
@@ -49,36 +76,28 @@ $result = $conn->query($query_tampil);
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #f4f4f9; display: flex; }
-        
-        /* Sidebar */
-        .sidebar { width: 250px; background-color: #333; color: white; min-height: 100vh; padding: 20px; }
+        .sidebar { width: 250px; background-color: #333; color: white; min-height: 100vh; padding: 20px; position: fixed; }
         .sidebar h2 { color: #ffb300; margin-bottom: 30px; text-align: center; }
         .sidebar a { display: block; color: white; text-decoration: none; padding: 10px; margin-bottom: 10px; border-radius: 5px; transition: 0.3s; }
         .sidebar a:hover, .sidebar a.active { background-color: #d32f2f; }
         .sidebar .logout { background-color: #d32f2f; margin-top: 50px; text-align: center; }
-        
-        /* Main Content */
-        .main-content { flex: 1; padding: 30px; }
+        .main-content { margin-left: 250px; flex: 1; padding: 30px; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        
-        /* Form Tambah Menu */
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; }
-        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; color:#333; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         .btn-add { background-color: #2ecc71; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 600; }
         .btn-add:hover { background-color: #27ae60; }
-        
-        /* Notifikasi */
         .alert { padding: 10px; border-radius: 4px; margin-bottom: 15px; font-weight: 600; }
         .alert-success { background-color: #d4edda; color: #155724; }
         .alert-danger { background-color: #f8d7da; color: #721c24; }
-
-        /* Tabel Menu */
-        table { width: 100%; border-collapse: collapse; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
         th { background-color: #f8f9fa; }
         .btn-delete { background-color: #e74c3c; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 14px; transition: 0.3s; }
         .btn-delete:hover { background-color: #c0392b; }
+        .img-preview { width: 50px; height: 50px; object-fit: cover; border-radius: 5px; }
+        .category-title { background: #333; color: #FFD700; padding: 10px 15px; border-radius: 5px; margin-top: 25px; margin-bottom: 10px; font-size: 16px; }
     </style>
 </head>
 <body>
@@ -93,75 +112,95 @@ $result = $conn->query($query_tampil);
 
 <div class="main-content">
     <h1>Katalog Menu Makanan</h1>
-    <p style="color: #666; margin-bottom: 20px;">Tambahkan atau hapus menu hidangan restoran Anda dari sini.</p>
+    <p style="color: #666; margin-bottom: 20px;">Tambah menu baru berdasarkan kategori lengkap dan lihat daftar menu per segmen.</p>
 
     <?php echo $pesan; ?>
 
-    <!-- Bagian 1: Form Tambah Menu -->
+    <!-- Form Tambah Menu -->
     <div class="card">
         <h3>Tambah Menu Baru</h3>
-        <form method="POST" action="">
-            <div class="form-group">
-                <label>Nama Menu</label>
-                <input type="text" name="name" placeholder="Contoh: Ayam Bakar Madu" required>
+        <form method="POST" action="" enctype="multipart/form-data">
+            <div style="display: flex; gap: 20px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Nama Menu</label>
+                    <input type="text" name="name" placeholder="Contoh: Nasi Ayam Geprek Moza" required>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>Segmen / Kategori</label>
+                    <select name="kategori" required>
+                        <?php foreach($daftar_kategori as $kat): ?>
+                            <option value="<?php echo $kat; ?>"><?php echo $kat; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
+
             <div class="form-group">
                 <label>Deskripsi Singkat</label>
-                <textarea name="description" rows="3" placeholder="Contoh: Ayam bakar dengan baluran madu murni..." required></textarea>
+                <textarea name="description" rows="2" placeholder="Deskripsi makanan..."></textarea>
             </div>
+            
             <div style="display: flex; gap: 20px;">
                 <div class="form-group" style="flex: 1;">
                     <label>Harga (Rp)</label>
-                    <input type="number" name="price" placeholder="Contoh: 25000" required>
+                    <input type="number" name="price" placeholder="Contoh: 15000" required>
                 </div>
                 <div class="form-group" style="flex: 1;">
-                    <label>Nama File Gambar</label>
-                    <input type="text" name="image_url" placeholder="Contoh: ayam_madu.jpg">
+                    <label>Upload Foto Menu</label>
+                    <input type="file" name="image_file" accept="image/*">
                 </div>
             </div>
+
             <button type="submit" name="tambah_menu" class="btn-add">+ Simpan Menu</button>
         </form>
     </div>
 
-    <!-- Bagian 2: Tabel Daftar Menu -->
+    <!-- Daftar Menu Dikelompokkan per Kategori -->
     <div class="card">
-        <h3>Daftar Menu Saat Ini</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nama Menu</th>
-                    <th>Harga</th>
-                    <th>File Gambar</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if($result->num_rows > 0): ?>
-                    <?php while($row = $result->fetch_assoc()): ?>
+        <h3>Daftar Seluruh Menu Berdasarkan Kategori</h3>
+        
+        <?php foreach($daftar_kategori as $kat): ?>
+            <div class="category-title">📂 <?php echo $kat; ?></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 70px;">Gambar</th>
+                        <th>Nama Menu</th>
+                        <th>Deskripsi</th>
+                        <th style="width: 130px;">Harga</th>
+                        <th style="width: 90px;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    $query_kat = "SELECT * FROM menu WHERE kategori = '$kat' ORDER BY id DESC";
+                    $res_kat = $conn->query($query_kat);
+                    
+                    if($res_kat && $res_kat->num_rows > 0):
+                        while($row = $res_kat->fetch_assoc()):
+                    ?>
                         <tr>
-                            <td><strong>#<?php echo $row['id']; ?></strong></td>
                             <td>
-                                <strong><?php echo htmlspecialchars($row['name']); ?></strong><br>
-                                <span style="font-size: 12px; color: #666;"><?php echo htmlspecialchars($row['description']); ?></span>
+                                <img src="../assets/images/menu/<?php echo !empty($row['image_url']) ? $row['image_url'] : 'default.png'; ?>" class="img-preview" alt="Foto">
                             </td>
+                            <td><strong><?php echo htmlspecialchars($row['name']); ?></strong></td>
+                            <td><small style="color:#666;"><?php echo htmlspecialchars($row['description']); ?></small></td>
                             <td>Rp <?php echo number_format($row['price'], 0, ',', '.'); ?></td>
-                            <td><?php echo htmlspecialchars($row['image_url']); ?></td>
                             <td>
-                                <!-- Tombol Hapus dengan konfirmasi JavaScript -->
-                                <a href="manage_menu.php?hapus=<?php echo $row['id']; ?>" class="btn-delete" onclick="return confirm('Yakin ingin menghapus menu ini?');">Hapus</a>
+                                <a href="?hapus=<?php echo $row['id']; ?>" class="btn-delete" onclick="return confirm('Hapus menu ini?');">Hapus</a>
                             </td>
                         </tr>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="5" style="text-align: center; padding: 20px;">Belum ada menu di dalam database.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                    <?php 
+                        endwhile;
+                    else:
+                    ?>
+                        <tr><td colspan="5" style="text-align:center; color:#999; padding:10px;">Belum ada menu dalam kategori ini.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        <?php endforeach; ?>
+
     </div>
 </div>
-
 </body>
 </html>
