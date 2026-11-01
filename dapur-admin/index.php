@@ -7,16 +7,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 }   
 require_once '../includes/db.php';   
 
-// =========================================================
-// 1. PENGATURAN FILTER TANGGAL
-// =========================================================
-// Jika admin memilih tanggal, gunakan itu. Jika tidak, default tampilkan 7 hari terakhir.
 $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-d', strtotime('-7 days'));
 $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
 
-// =========================================================
-// 2. MENGAMBIL STATISTIK ANGKA (Omset & Total Pesanan)
-// =========================================================
 $query_stats = "SELECT SUM(total_price) as total_omset, COUNT(id) as total_trx 
                 FROM orders 
                 WHERE status IN ('Selesai', 'completed') 
@@ -27,9 +20,6 @@ $stats = $res_stats->fetch_assoc();
 $total_omset = $stats['total_omset'] ? $stats['total_omset'] : 0;
 $total_trx = $stats['total_trx'] ? $stats['total_trx'] : 0;
 
-// =========================================================
-// 3. MENGAMBIL DATA UNTUK GRAFIK OMSET (Bar Chart)
-// =========================================================
 $query_chart_omset = "SELECT DATE(order_date) as tgl, SUM(total_price) as harian 
                       FROM orders 
                       WHERE status IN ('Selesai', 'completed') 
@@ -46,18 +36,12 @@ if ($res_chart && $res_chart->num_rows > 0) {
         $data_omset[] = $row['harian'];
     }
 } else {
-    // Jika tidak ada pesanan di tanggal tsb, tampilkan grafik kosong
-    $label_omset = ['Belum ada transaksi'];
-    $data_omset = [0];
+    $label_omset = ['Belum ada transaksi']; $data_omset = [0];
 }
 
-// =========================================================
-// 4. MENGAMBIL DATA UNTUK GRAFIK MENU TERLARIS (Doughnut)
-// =========================================================
 $label_menu = [];
 $data_menu = [];
 try {
-    // Mencoba mengambil data item yang paling banyak dipesan dari tabel order_items
     $query_menu = "SELECT menu_name, SUM(quantity) as qty 
                    FROM order_items oi 
                    JOIN orders o ON oi.order_id = o.id 
@@ -68,14 +52,12 @@ try {
     $res_menu = $conn->query($query_menu);
     if ($res_menu && $res_menu->num_rows > 0) {
         while($r = $res_menu->fetch_assoc()) {
-            $label_menu[] = $r['menu_name'];
-            $data_menu[] = $r['qty'];
+            $label_menu[] = $r['menu_name']; $data_menu[] = $r['qty'];
         }
     } else {
         $label_menu = ['Belum ada transaksi']; $data_menu = [1];
     }
 } catch (Exception $e) {
-    // Abaikan jika tabel order_items belum sempurna, beri nilai default
     $label_menu = ['Data Belum Tersedia']; $data_menu = [1];
 }
 ?>   
@@ -87,7 +69,13 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     <title>Dashboard Admin - Numanke</title>   
     <link rel="stylesheet" href="../assets/css/admin.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>   
+    <!-- CSS Animasi AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <style>
+        .anim-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .anim-lift:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 10; }
+    </style>  
 </head>   
 <body>   
   
@@ -100,11 +88,11 @@ try {
 </div>   
   
 <div class="main-content">   
-    <h1>Selamat Datang, <?php echo htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>!</h1>   
-    <p>Pantau performa penjualan harian dan akses website Anda di sini.</p>   
+    <h1 data-aos="fade-right">Selamat Datang, <?php echo htmlspecialchars($_SESSION['username'] ?? 'Admin'); ?>!</h1>   
+    <p data-aos="fade-right" data-aos-delay="100">Pantau performa penjualan harian dan akses website Anda di sini.</p>   
 
     <!-- FITUR FILTER TANGGAL -->
-    <div class="card" style="padding: 20px 25px; margin-bottom: 25px; background: #fff; border-left: 5px solid #3498db;">
+    <div class="card anim-lift" data-aos="fade-up" data-aos-delay="150" style="padding: 20px 25px; margin-bottom: 25px; background: #fff; border-left: 5px solid #3498db;">
         <form method="GET" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
             <div>
                 <label style="display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 5px; color: #6c757d;">📅 Dari Tanggal</label>
@@ -121,17 +109,17 @@ try {
         </form>
     </div>
   
-    <!-- STATISTIK ANGKA (DINAMIS DARI DATABASE) -->
+    <!-- STATISTIK ANGKA -->
     <div class="stat-card-container">   
-        <div class="stat-card green">   
+        <div class="stat-card green anim-lift" data-aos="zoom-in" data-aos-delay="200">   
             <h4>Total Pendapatan (Selesai)</h4>   
             <h2>Rp <?php echo number_format($total_omset, 0, ',', '.'); ?></h2>   
         </div>   
-        <div class="stat-card blue">   
+        <div class="stat-card blue anim-lift" data-aos="zoom-in" data-aos-delay="300">   
             <h4>Total Transaksi Sukses</h4>   
             <h2><?php echo number_format($total_trx, 0, ',', '.'); ?> Pesanan</h2>   
         </div>   
-        <div class="stat-card purple">   
+        <div class="stat-card purple anim-lift" data-aos="zoom-in" data-aos-delay="400">   
             <h4>Rentang Waktu</h4>   
             <h2 style="font-size: 1.2rem; margin-top: 20px;"><?php echo date('d M', strtotime($start_date)) . " - " . date('d M Y', strtotime($end_date)); ?></h2>   
         </div>   
@@ -139,12 +127,12 @@ try {
   
     <!-- KOTAK GRAFIK -->
     <div class="chart-grid">  
-        <div class="card">   
+        <div class="card anim-lift" data-aos="fade-up" data-aos-delay="500">   
             <h3>Grafik Omset Harian (Rp)</h3>   
             <canvas id="omsetChart"></canvas>   
         </div>   
         
-        <div class="card">   
+        <div class="card anim-lift" data-aos="fade-up" data-aos-delay="600">   
             <h3>5 Menu Paling Laris</h3>   
             <div style="height: 250px; display: flex; justify-content: center;">  
                 <canvas id="menuChart"></canvas>   
@@ -154,16 +142,13 @@ try {
 </div>   
   
 <script>  
-    // Mengambil Array PHP ke dalam JavaScript
     const labelOmset = <?php echo json_encode($label_omset); ?>;
     const dataOmset = <?php echo json_encode($data_omset); ?>;
-    
     const labelMenu = <?php echo json_encode($label_menu); ?>;
     const dataMenu = <?php echo json_encode($data_menu); ?>;
     
-    // Konfigurasi Chart 1 (Bar Chart Pendapatan)
     new Chart(document.getElementById('omsetChart'), {  
-        type: 'line',  // Diubah ke line chart agar lebih enak dilihat trendnya
+        type: 'line', 
         data: { 
             labels: labelOmset, 
             datasets: [{ 
@@ -176,15 +161,9 @@ try {
                 borderWidth: 2
             }] 
         },  
-        options: { 
-            responsive: true,
-            scales: {
-                y: { beginAtZero: true }
-            }
-        }  
+        options: { responsive: true, scales: { y: { beginAtZero: true } } }  
     });  
     
-    // Konfigurasi Chart 2 (Doughnut Chart Menu Laris)
     new Chart(document.getElementById('menuChart'), {  
         type: 'doughnut',  
         data: { 
@@ -198,5 +177,8 @@ try {
         options: { responsive: true, maintainAspectRatio: false }  
     });  
 </script>   
+<!-- Script Animasi AOS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({ duration: 800, once: true });</script>
 </body>   
 </html>

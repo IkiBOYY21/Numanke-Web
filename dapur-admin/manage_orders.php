@@ -7,23 +7,15 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 }  
 require_once '../includes/db.php';  
   
-// LOGIKA MENGOSONGKAN SEMUA PESANAN
 if (isset($_POST['kosongkan_pesanan'])) {  
-    // Nonaktifkan pengecekan foreign key sementara
     $conn->query("SET FOREIGN_KEY_CHECKS = 0"); 
-    
-    // Kosongkan tabel anak dan tabel induk
     $conn->query("TRUNCATE TABLE order_items"); 
     $conn->query("TRUNCATE TABLE orders");
-    
-    // Aktifkan kembali pengecekan foreign key
     $conn->query("SET FOREIGN_KEY_CHECKS = 1"); 
-    
     header("Location: manage_orders.php");  
     exit();  
 }  
   
-// LOGIKA UPDATE STATUS PESANAN
 if (isset($_POST['update_status'])) {  
     $order_id = $conn->real_escape_string($_POST['order_id']);  
     $new_status = $conn->real_escape_string($_POST['status']);  
@@ -43,24 +35,12 @@ $result = $conn->query($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Kelola Pesanan - Admin Numanke</title>  
     <link rel="stylesheet" href="../assets/css/admin.css"> 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .anim-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .anim-lift:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 10; }
+    </style>
 </head>  
-
-<script>
-    // Memperbarui tabel pesanan setiap 10 detik secara otomatis (tanpa refresh halaman)
-    setInterval(function() {
-        fetch('manage_orders.php')
-        .then(response => response.text())
-        .then(html => {
-            let parser = new DOMParser();
-            let doc = parser.parseFromString(html, 'text/html');
-            // Mengambil tabel dari halaman baru dan menimpanya ke halaman saat ini
-            let newTableBody = doc.querySelector('table tbody').innerHTML;
-            document.querySelector('table tbody').innerHTML = newTableBody;
-        })
-        .catch(error => console.log('Gagal mengambil data terbaru:', error));
-    }, 10000); // 10000 milidetik = 10 detik (bisa Anda ubah sesuai kebutuhan)
-</script>
-
 <body>  
   
 <div class="sidebar">  
@@ -72,17 +52,17 @@ $result = $conn->query($query);
 </div>  
   
 <div class="main-content">  
-    <div class="header-flex">  
+    <div class="header-flex" data-aos="fade-down">  
         <div>  
             <h1>Kelola Pesanan Masuk</h1>  
             <p style="margin-bottom: 0;">Ubah status pesanan atau kosongkan data.</p>  
         </div>  
         <form method="POST" onsubmit="return confirm('Yakin ingin menghapus SEMUA data pesanan secara permanen?');" style="margin:0;">  
-            <button type="submit" name="kosongkan_pesanan" class="btn-danger">🗑️ Kosongkan Semua Pesanan</button>  
+            <button type="submit" name="kosongkan_pesanan" class="btn-danger anim-lift">🗑️ Kosongkan Semua Pesanan</button>  
         </form>  
     </div>  
   
-    <div class="card">  
+    <div class="card anim-lift" data-aos="fade-up" data-aos-delay="200">  
         <table>  
             <thead>  
                 <tr>  
@@ -106,7 +86,7 @@ $result = $conn->query($query);
                             <td class="text-price">Rp <?php echo number_format($row['total_price'], 0, ',', '.'); ?></td>  
                             <td>  
                                 <?php  
-                                $badge_class = 'badge-orange'; // completed
+                                $badge_class = 'badge-orange';
                                 if($row['status'] == 'Menunggu') $badge_class = 'badge-blue';  
                                 if($row['status'] == 'Diproses') $badge_class = 'badge-green';  
                                 if($row['status'] == 'Dibatalkan') $badge_class = 'badge-red';  
@@ -134,5 +114,23 @@ $result = $conn->query($query);
         </table>  
     </div>  
 </div>  
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+    
+    // Auto refresh tabel pesanan
+    setInterval(function() {
+        fetch('manage_orders.php')
+        .then(response => response.text())
+        .then(html => {
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(html, 'text/html');
+            let newTableBody = doc.querySelector('table tbody').innerHTML;
+            document.querySelector('table tbody').innerHTML = newTableBody;
+        })
+        .catch(error => console.log('Gagal mengambil data terbaru:', error));
+    }, 10000); 
+</script>
 </body>  
-</html>
+</html> 

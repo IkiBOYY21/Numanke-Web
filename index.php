@@ -12,160 +12,134 @@ require_once 'includes/header.php';
 <style>
     /* --- PRELOADER STYLES --- */
     #preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
         background-color: #0f0f0f;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: flex; justify-content: center; align-items: center;
         z-index: 999999;
         transition: opacity 0.6s ease, visibility 0.6s ease;
     }
-
     .loading-logo {
-        width: 150px;
-        aspect-ratio: 1/1;
-        object-fit: cover;
+        width: 150px; aspect-ratio: 1/1; object-fit: cover;
         border-radius: 50%;
         animation: pulseLogo 1.5s infinite ease-in-out;
         border: 4px solid rgba(255, 215, 0, 0.5);
     }
-
     @keyframes pulseLogo {
         0% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
         50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 30px rgba(220, 53, 69, 0.6); }
         100% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
     }
-
-    .preloader-hidden {
-        opacity: 0;
-        visibility: hidden;
-    }
+    .preloader-hidden { opacity: 0; visibility: hidden; }
 
     /* Background Kayu Gelap */
     body {
         background-image: linear-gradient(rgba(15, 15, 15, 0.88), rgba(15, 15, 15, 0.88)), url('assets/images/image_68b9f7.jpg');
-        background-size: cover;
-        background-attachment: fixed;
-        background-position: center;
-        color: #ffffff;
-        font-family: 'Poppins', sans-serif;
+        background-size: cover; background-attachment: fixed; background-position: center;
+        color: #ffffff; font-family: 'Poppins', sans-serif;
     }
 
-    /* Efek Kaca Buram Modern (Glassmorphism) */
+    /* Glassmorphism & Animasi Card */
     .glass-card {
         background: rgba(30, 30, 30, 0.5) !important;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    
-    .glass-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 40px 0 rgba(220, 53, 69, 0.3);
-    }
-
-    /* Animasi halus pada tombol */
-    .btn-hover-glow {
-        transition: all 0.3s ease;
-    }
-    .btn-hover-glow:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px rgba(220, 53, 69, 0.6);
-    }
-    
+    .glass-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px 0 rgba(220, 53, 69, 0.3); }
+    .btn-hover-glow { transition: all 0.3s ease; }
+    .btn-hover-glow:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(220, 53, 69, 0.6); }
     section { background-color: transparent !important; }
 
-    /* --- CAROUSEL HERO STYLES --- */
-    .hero-carousel-container {
-        width: 100%;
-        max-width: 450px;
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-        overflow: hidden;
-        margin: 0 auto;
-        border: 8px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease, border-color 0.5s ease;
-        position: relative;
-        z-index: 10; /* Z-index tinggi agar pasti bisa diklik */
+    /* --- HERO ARC MENU STYLES --- */
+    .hero-arc-section {
+        min-height: 100vh; display: flex; align-items: center;
+        padding-top: 80px; overflow: hidden;
+    }
+    .hero-arc-container {
+        position: relative; width: 100%; max-width: 500px;
+        aspect-ratio: 1/1; margin: 0 auto;
+    }
+    .hero-arc-dashed {
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 100%;
+        border: 2px dashed rgba(255, 215, 0, 0.4); border-radius: 50%;
+        pointer-events: none; z-index: 1;
+    }
+    
+    /* Titik Menu Lengkung */
+    .hero-arc-item { position: absolute; z-index: 10; }
+    .hero-arc-dot {
+        position: absolute; width: 14px; height: 14px;
+        background: #1a1a1a; border: 2px solid #888; border-radius: 50%;
+        transform: translate(-50%, -50%); cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .hero-arc-item.active .hero-arc-dot, .hero-arc-dot:hover {
+        background: #FFD700; border-color: #FFD700;
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+    
+    /* Teks Menu Lengkung */
+    .hero-arc-text {
+        position: absolute; top: 0; left: 0; white-space: nowrap;
+        color: rgba(255, 255, 255, 0.6); font-size: 0.75rem;
+        font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+        cursor: pointer; transition: all 0.3s ease;
+    }
+    .hero-arc-item.active .hero-arc-text, .hero-arc-text:hover {
+        color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     }
 
-    .hero-carousel-container:hover {
-        transform: scale(1.03); 
-        box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
-        border-color: rgba(255, 215, 0, 0.6);
+    /* Gambar Produk Rotasi */
+    .hero-arc-image-wrapper {
+        position: absolute; top: 15%; left: 15%;
+        width: 70%; height: 70%; border-radius: 50%;
+        z-index: 5; overflow: hidden; pointer-events: none;
     }
-
-    .hero-carousel-container .carousel,
-    .hero-carousel-container .carousel-inner,
-    .hero-carousel-container .carousel-item {
-        height: 100%;
-        width: 100%;
+    .hero-arc-image {
+        width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+        transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease;
+        transform: translateY(0) rotate(0deg); opacity: 1;
     }
-
-    /* MEMBUAT TRANSISI GAMBAR SANGAT SMOOTH */
-    .hero-carousel-container .carousel-fade .carousel-item {
-        transition: opacity 1.2s ease-in-out !important;
+    .hero-arc-image.hide {
+        transform: translateY(100%) rotate(-45deg); opacity: 0;
     }
-
-    .hero-carousel-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    
+    /* Tombol Order Overlay */
+    .hero-arc-order-btn {
+        position: absolute; bottom: 20%; left: 50%;
+        transform: translateX(-50%); z-index: 20;
+        background: rgba(15, 15, 15, 0.85); backdrop-filter: blur(5px);
+        color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.5);
+        padding: 10px 25px; border-radius: 50px; font-size: 0.85rem;
+        font-weight: 700; letter-spacing: 1px; transition: all 0.3s ease;
+        text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
-
-    /* Memperhalus Tombol Panah (Manual Slide) */
-    .hero-carousel-container .carousel-control-prev,
-    .hero-carousel-container .carousel-control-next {
-        z-index: 20 !important; 
-        width: 25%;
-        opacity: 0.6;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-        cursor: pointer;
+    .hero-arc-order-btn:hover {
+        background: #FFD700; color: #000; box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
     }
-    .hero-carousel-container:hover .carousel-control-prev,
-    .hero-carousel-container:hover .carousel-control-next {
-        opacity: 0.9;
-    }
-    .hero-carousel-container .carousel-control-prev:hover { transform: translateX(-3px); }
-    .hero-carousel-container .carousel-control-next:hover { transform: translateX(3px); }
 
     /* --- STYLE TOMBOL WHATSAPP KONTAK --- */
     .wa-contact-btn {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-        display: block;
+        background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease; display: block;
     }
     .wa-contact-btn:hover {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(46, 204, 113, 0.5);
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        background: rgba(255, 255, 255, 0.1); border-color: rgba(46, 204, 113, 0.5);
+        transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
-    .wa-contact-btn:hover .icon-circle {
-        transform: scale(1.1);
-    }
+    .wa-contact-btn:hover .icon-circle { transform: scale(1.1); }
     .icon-circle {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.1rem;
-        transition: transform 0.3s ease;
+        width: 42px; height: 42px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.1rem; transition: transform 0.3s ease;
     }
 </style>
 
-<!-- 1. SECTION HOME (HERO) -->
-<section id="home" class="py-5 mt-3">
+<!-- 1. SECTION HOME (HERO ARC MENU) -->
+<section id="home" class="hero-arc-section mt-3">
     <div class="container min-vh-75 d-flex align-items-center py-4">
         <div class="row align-items-center w-100 flex-column-reverse flex-lg-row">
             <!-- Teks -->
@@ -178,43 +152,20 @@ require_once 'includes/header.php';
                 </div>
             </div>
             
-            <!-- Gambar Hero (Slideshow Lingkaran) -->
-            <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-delay="200">
-                <div class="position-relative d-inline-block w-100 d-flex justify-content-center">
+            <!-- Interaktif Arc Menu Kanan -->
+            <div class="col-lg-6 position-relative d-flex justify-content-center" data-aos="zoom-in" data-aos-delay="200">
+                <div class="position-absolute top-50 start-50 translate-middle rounded-circle" style="width: 100%; max-width: 450px; aspect-ratio: 1/1; background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(0,0,0,0) 70%); filter: blur(20px); pointer-events: none; z-index: 0;"></div>
+                
+                <div id="heroArcContainer" class="hero-arc-container">
+                    <div class="hero-arc-dashed"></div>
+                    <div id="heroArcItems"></div>
                     
-                    <!-- Tambahkan pointer-events: none; agar glow tidak menghalangi klik -->
-                    <div class="position-absolute top-50 start-50 translate-middle rounded-circle" style="width: 100%; max-width: 450px; aspect-ratio: 1/1; background: radial-gradient(circle, rgba(255,215,0,0.4) 0%, rgba(0,0,0,0) 70%); filter: blur(20px); z-index: 1; pointer-events: none;"></div>
-                    
-                    <div class="hero-carousel-container">
-                        
-                        <!-- Menggunakan data-bs-ride="carousel" sebagai pemicu asli bawaan Bootstrap -->
-                        <div id="heroHomeCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="2500" data-bs-touch="true">
-                            <div class="carousel-inner h-100">
-                                <div class="carousel-item active h-100">
-                                    <img src="assets/images/fotoslide1.png" alt="Suasana Depan Restoran Numanke">
-                                </div>
-                                <div class="carousel-item h-100">
-                                    <img src="assets/images/fotoslide2.jpg" alt="Suasana Malam Resto">
-                                </div>
-                                <div class="carousel-item h-100">
-                                    <img src="assets/images/fotoslide3.jpg" alt="Eksterior Resto Malam">
-                                </div>
-                            </div>
-                            
-                            <!-- Panah Kiri Manual -->
-                            <button class="carousel-control-prev" type="button" data-bs-target="#heroHomeCarousel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.8)); transform: scale(1.2);"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            
-                            <!-- Panah Kanan Manual -->
-                            <button class="carousel-control-next" type="button" data-bs-target="#heroHomeCarousel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true" style="filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.8)); transform: scale(1.2);"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        
+                    <div class="hero-arc-image-wrapper">
+                        <!-- Default Image -->
+                        <img src="assets/images/foto depan numanke.png" id="heroArcMainImage" class="hero-arc-image" alt="Menu Terpilih">
                     </div>
+                    
+                    <a href="order.php" class="hero-arc-order-btn">PESAN SEKARANG</a>
                 </div>
             </div>
         </div>
@@ -316,29 +267,57 @@ require_once 'includes/header.php';
 
 <!-- 4. SECTION CONTACT -->
 <section id="contact" class="py-5">
-    <div class="container py-5 text-center">
-        <div data-aos="fade-up">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="display-5 fw-bold text-white mb-3">Kunjungi & Nikmati</h2>
-            <p class="lead text-light mx-auto mb-5 p-3 rounded-4 glass-card" style="max-width: 600px;" data-aos="delay-100">
+            <p class="lead text-light mx-auto mb-5 p-3 rounded-4 glass-card" style="max-width: 600px;">
                 Pintu kami selalu terbuka untuk Anda. Butuh reservasi tempat atau pemesanan dalam jumlah besar? Staf kami siap membantu Anda.
             </p>
         </div>
         
-        <div class="row g-4 justify-content-center align-items-stretch">
-            <div class="col-lg-4 col-md-6" data-aos="flip-up" data-aos-delay="200">
-                <div class="p-4 text-white rounded-4 shadow-lg h-100 border-top border-danger border-4 glass-card d-flex flex-column align-items-center justify-content-center">
-                    <div class="mb-3"><i class="fa-solid fa-location-dot fs-1 text-danger"></i></div>
-                    <h3 class="fw-bold text-warning mb-3 h4">Lokasi Kami</h3>
-                    <p class="mb-0 mt-auto"><a href="https://maps.app.goo.gl/yZiiLaGTeUJ3g9gP8" class="text-white text-decoration-none fs-6 btn-hover-glow d-inline-block" target="_blank">Jl. Pete Sel. No.18, Sekaran<br> Kec. Gn. Pati, Kota Semarang, Jawa Tengah 50229</a></p>
+        <!-- Layout Baru: Peta di Kiri, Kontak di Kanan -->
+        <div class="row g-4">
+            
+            <!-- KOLOM KIRI: LOKASI & GOOGLE MAPS -->
+            <div class="col-lg-7" data-aos="fade-right" data-aos-delay="200">
+                <div class="p-4 text-white rounded-4 shadow-lg h-100 border-top border-danger border-4 glass-card d-flex flex-column text-start">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fa-solid fa-location-dot fs-2 text-danger me-3"></i>
+                        <h3 class="fw-bold text-warning mb-0 h4">Lokasi Kami</h3>
+                    </div>
+                    
+                    <p class="mb-4 text-light opacity-75">
+                        <a href="https://maps.app.goo.gl/yZiiLaGTeUJ3g9gP8" class="text-white text-decoration-none btn-hover-glow d-inline-block" target="_blank">
+                            Jl. Pete Sel. No.18, Sekaran, Kec. Gn. Pati, Kota Semarang, Jawa Tengah 50229
+                        </a>
+                    </p>
+                    
+                    <!-- Google Maps Embed iframe -->
+                    <div class="w-100 flex-grow-1 rounded-4 overflow-hidden shadow" style="min-height: 350px; border: 1px solid rgba(255,255,255,0.1);">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=Jl.%20Pete%20Sel.%20No.18,%20Sekaran,%20Semarang&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
                 </div>
             </div>
             
-            <div class="col-lg-4 col-md-6" data-aos="flip-up" data-aos-delay="400">
-                <div class="p-4 text-white rounded-4 shadow-lg h-100 border-top border-success border-4 glass-card d-flex flex-column align-items-center justify-content-center">
-                    <div class="mb-2"><i class="fa-brands fa-whatsapp fs-1 text-success"></i></div>
-                    <h3 class="fw-bold text-warning mb-4 h4">Hubungi Kami</h3>
+            <!-- KOLOM KANAN: HUBUNGI KAMI & JAM OPERASIONAL -->
+            <div class="col-lg-5 d-flex flex-column gap-4">
+                
+                <!-- Card: Hubungi Kami -->
+                <div class="p-4 text-white rounded-4 shadow-lg border-top border-success border-4 glass-card text-start" data-aos="fade-left" data-aos-delay="400">
+                    <div class="d-flex align-items-center mb-4">
+                        <i class="fa-brands fa-whatsapp fs-2 text-success me-3"></i>
+                        <h3 class="fw-bold text-warning mb-0 h4">Hubungi Kami</h3>
+                    </div>
                     
-                    <div class="d-flex flex-column gap-3 w-100 mt-auto">
+                    <div class="d-flex flex-column gap-3 w-100">
                         <a href="https://wa.me/62882006236802" target="_blank" class="wa-contact-btn text-decoration-none p-3 rounded-4 w-100">
                             <div class="d-flex align-items-center gap-3">
                                 <div class="icon-circle bg-success text-white shadow-sm flex-shrink-0">
@@ -350,7 +329,7 @@ require_once 'includes/header.php';
                                 </div>
                             </div>
                         </a>
-
+                        
                         <a href="https://wa.me/6288802732001" target="_blank" class="wa-contact-btn text-decoration-none p-3 rounded-4 w-100">
                             <div class="d-flex align-items-center gap-3">
                                 <div class="icon-circle bg-info text-white shadow-sm flex-shrink-0">
@@ -364,21 +343,90 @@ require_once 'includes/header.php';
                         </a>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6" data-aos="flip-up" data-aos-delay="600">
-                <div class="p-4 text-white rounded-4 shadow-lg h-100 border-top border-info border-4 glass-card d-flex flex-column align-items-center justify-content-center">
-                    <div class="mb-3"><i class="fa-regular fa-clock fs-1 text-info"></i></div>
-                    <h3 class="fw-bold text-warning mb-3 h4">Jam Operasional</h3>
-                    <p class="text-light opacity-75 mb-0 mt-auto fs-5">Senin - Minggu<br>10:00 - 21:00 WIB</p>
+                
+                <!-- Card: Jam Operasional -->
+                <div class="p-4 text-white rounded-4 shadow-lg border-top border-info border-4 glass-card text-start flex-grow-1 d-flex flex-column justify-content-center" data-aos="fade-left" data-aos-delay="600">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fa-regular fa-clock fs-2 text-info me-3"></i>
+                        <h3 class="fw-bold text-warning mb-0 h4">Jam Operasional</h3>
+                    </div>
+                    <p class="text-light opacity-75 mb-0 fs-5 ps-5">Senin - Minggu<br>10:00 - 21:00 WIB</p>
                 </div>
+                
             </div>
         </div>
     </div>
 </section>
 
-<!-- SCRIPT UNTUK PRELOADER -->
+<!-- SCRIPT UNTUK HERO ARC MENU & PRELOADER -->
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const heroMenus = [
+            { name: 'Geprek Keju', img: 'assets/images/image_68b9f7.jpg' },
+            { name: 'Brongot Dewata', img: 'assets/images/image_fc0d3a.jpg' },
+            { name: 'Ayam Brongot Ori', img: 'assets/images/foto depan numanke.png' }, 
+            { name: 'Brongot Freeze', img: 'assets/images/image_68b9f7.jpg' },
+            { name: 'Es Teh Kampul', img: 'assets/images/image_fc0d3a.jpg' }
+        ];
+
+        const container = document.getElementById('heroArcContainer');
+        const itemsBox = document.getElementById('heroArcItems');
+        const mainImg = document.getElementById('heroArcMainImage');
+
+        function renderHeroArc() {
+            itemsBox.innerHTML = ''; 
+            const w = container.offsetWidth;
+            const radius = w / 2;
+            const cx = radius;
+            const cy = radius;
+            
+            const startAngle = 195; 
+            const endAngle = 345;
+            const angleStep = (endAngle - startAngle) / (heroMenus.length - 1);
+
+            heroMenus.forEach((menu, index) => {
+                const angle = startAngle + (index * angleStep);
+                const rad = angle * (Math.PI / 180);
+                
+                const x = cx + radius * Math.cos(rad);
+                const y = cy + radius * Math.sin(rad);
+
+                const div = document.createElement('div');
+                div.className = 'hero-arc-item' + (index === 2 ? ' active' : ''); 
+                div.style.left = x + 'px';
+                div.style.top = y + 'px';
+                
+                const textRotation = angle + 90;
+                const textOffset = -30; 
+                
+                div.innerHTML = `
+                    <div class="hero-arc-dot"></div>
+                    <div class="hero-arc-text" style="transform: translate(-50%, -50%) rotate(${textRotation}deg) translateY(${textOffset}px);">
+                        ${menu.name}
+                    </div>
+                `;
+                
+                div.addEventListener('click', () => {
+                    if (div.classList.contains('active')) return;
+                    
+                    document.querySelectorAll('.hero-arc-item').forEach(el => el.classList.remove('active'));
+                    div.classList.add('active');
+                    
+                    mainImg.classList.add('hide');
+                    setTimeout(() => {
+                        mainImg.src = menu.img;
+                        mainImg.classList.remove('hide');
+                    }, 400); 
+                });
+
+                itemsBox.appendChild(div);
+            });
+        }
+
+        renderHeroArc();
+        window.addEventListener('resize', renderHeroArc);
+    });
+
     window.addEventListener('load', function() {
         const preloader = document.getElementById('preloader');
         setTimeout(function() {
