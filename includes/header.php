@@ -9,86 +9,110 @@
 </style>
 
 <style>
-        /* Animasi Logo saat website dibuka */
-        
-        @keyframes logoPopIn {
-            0% { opacity: 0; transform: scale(0.3) translateY(-30px) rotate(-15deg); }
-            70% { transform: scale(1.1) rotate(5deg); }
-            100% { opacity: 1; transform: scale(1) translateY(0) rotate(0); }
-        }
-        
-        .logo-animasi {
-            animation: logoPopIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    @keyframes logoPopIn {
+        0% { opacity: 0; transform: scale(0.3) translateY(-30px) rotate(-15deg); }
+        70% { transform: scale(1.1) rotate(5deg); }
+        100% { opacity: 1; transform: scale(1) translateY(0) rotate(0); }
+    }
+    
+    .logo-animasi {
+        animation: logoPopIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
-    
-
-    /* Gaya Navbar Merah Tua & Emas */
     .navbar-custom {
-        background-color: #990000; 
-        padding: 0; 
+        background: linear-gradient(135deg, #CC0000 0%, #990000 100%);
+        padding: 0;
         font-family: 'Poppins', sans-serif;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     }
     
     .navbar-brand-custom {
-        color: #FFD700 !important; 
+        color: #FFFFFF !important;
         font-size: 2rem;
         font-weight: 800;
+        transition: all 0.3s ease;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .navbar-brand-custom:hover {
+        transform: scale(1.05);
     }
     
     .nav-link-custom {
-        color: #FFD700 !important; 
-        text-transform: uppercase; 
+        color: #FFFFFF !important;
+        text-transform: uppercase;
         font-size: 0.9rem;
         font-weight: 600;
         padding: 25px 15px !important;
-        transition: 0.3s;
-        opacity: 0.8; 
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        opacity: 0.85;
+        position: relative;
+    }
+    
+    .nav-link-custom::after {
+        content: '';
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: #FFD700;
+        transform: translateX(-50%);
+        transition: width 0.4s ease;
+    }
+    
+    .nav-link-custom:hover::after,
+    .nav-link-custom.active::after {
+        width: 80%;
     }
     
     .nav-link-custom:hover, .nav-link-custom.active {
-        color: #ffffff !important;
-        opacity: 1; 
-        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        color: #FFD700 !important;
+        opacity: 1;
+        transform: translateY(-2px);
     }
     
     .btn-navbar-custom {
-        background-color: #FFD700; 
-        color: #990000 !important; 
-        border-radius: 0; 
+        background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+        color: #CC0000 !important;
+        border-radius: 50px;
         font-weight: 700;
         text-transform: uppercase;
-        padding: 25px 30px;
+        padding: 12px 28px;
         border: none;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
     }
     
     .btn-navbar-custom:hover {
-        background-color: #ffffff; 
-        color: #990000 !important;
-        box-shadow: inset 0 -4px 0 rgba(0,0,0,0.1);
+        background: linear-gradient(135deg, #FFFFFF 0%, #FFE75C 100%);
+        color: #CC0000 !important;
+        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        transform: translateY(-3px);
     }
 
-    /* Ikon Keranjang Navbar */
     .nav-cart-btn {
         background-color: transparent;
-        border: 2px solid #FFD700;
-        color: #FFD700;
+        border: 2px solid #FFFFFF;
+        color: #FFFFFF;
         padding: 8px 15px;
         border-radius: 8px;
-        transition: 0.3s;
+        transition: all 0.4s ease;
     }
+    
     .nav-cart-btn:hover {
-        background-color: #FFD700;
-        color: #990000;
+        background-color: #FFFFFF;
+        color: #CC0000;
+        transform: scale(1.1);
     }
 
     @media (max-width: 991px) {
         .nav-link-custom { padding: 10px 15px !important; }
         .btn-navbar-custom { padding: 15px; margin-bottom: 10px; }
-        .navbar-toggler { border-color: rgba(255, 215, 0, 0.5); }
-        .navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 215, 0, 1%29' stroke-linecap='round' stroke-miterlimit='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
+        .navbar-toggler { border-color: rgba(255, 255, 255, 0.5); }
+        .navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
     }
 </style>
 

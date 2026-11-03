@@ -170,207 +170,342 @@ function renderMenuCard($item, $delay = 100) {
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <style>
- /* --- PRELOADER STYLES --- */
- #preloader {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background-color: #0f0f0f; display: flex; justify-content: center; align-items: center;
-    z-index: 999999; transition: opacity 0.6s ease, visibility 0.6s ease;
- }
- .loading-logo {
-    width: 150px; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%;
-    animation: pulseLogo 1.5s infinite ease-in-out; border: 4px solid rgba(255, 215, 0, 0.5);
- }
- @keyframes pulseLogo {
-    0% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
-    50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 30px rgba(220, 53, 69, 0.6); }
-    100% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
- }
- .preloader-hidden { opacity: 0; visibility: hidden; }
+   /* --- PRELOADER STYLES --- */
+   #preloader {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 100%);
+      display: flex; justify-content: center; align-items: center;
+      z-index: 999999; transition: opacity 0.6s ease, visibility 0.6s ease;
+   }
+   .loading-logo {
+      width: 150px; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%;
+      animation: pulseLogo 1.5s infinite ease-in-out; border: 4px solid rgba(204, 0, 0, 0.3);
+      box-shadow: 0 0 20px rgba(204, 0, 0, 0.2);
+   }
+   @keyframes pulseLogo {
+      0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 10px rgba(204, 0, 0, 0.2); }
+      50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 30px rgba(204, 0, 0, 0.4); }
+      100% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 10px rgba(204, 0, 0, 0.2); }
+   }
+   .preloader-hidden { opacity: 0; visibility: hidden; }
 
- body {
-    background-image: linear-gradient(rgba(15, 15, 15, 0.92), rgba(15, 15, 15, 0.92)), url('assets/images/image_68b9f7.jpg');
-    background-size: cover; background-attachment: fixed; background-position: center;
-    color: #ffffff; font-family: 'Poppins', sans-serif;
- }
- 
- /* --- KELAS ANIMASI HOVER (Anim-Lift) --- */
- .anim-lift { transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease; }
- .anim-lift:hover { 
-    transform: translateY(-8px); 
-    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.15) !important; 
-    border-color: rgba(255, 215, 0, 0.5) !important;
-    z-index: 10;
- }
- .menu-card:hover .menu-img-wrapper img { transform: scale(1.1); }
- 
- .anim-btn-tambah { transition: all 0.3s ease; }
- .anim-btn-tambah:hover { transform: scale(1.05); }
+  body {
+     background: linear-gradient(135deg, #FFFFFF 0%, #FFF8F5 100%);
+     background-attachment: fixed;
+     color: #333333; 
+     font-family: 'Poppins', sans-serif;
+     position: relative;
+  }
 
- .menu-card {
-    background: rgba(30, 30, 30, 0.6) !important; backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 215, 0, 0.2) !important; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
- }
+  body::before {
+     content: '';
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-image: 
+         radial-gradient(circle at 10% 20%, rgba(204, 0, 0, 0.03) 0%, transparent 50%),
+         radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+     pointer-events: none;
+     z-index: 1;
+  }
 
- .nav-pills .nav-link {
-    color: #ffffff; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px; padding: 10px 24px; margin: 5px; font-weight: 600; transition: all 0.3s ease;
- }
- .nav-pills .nav-link.active, .nav-pills .nav-link:hover {
-    background-color: #990000; color: #FFD700; border-color: #FFD700; box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
-    transform: translateY(-2px);
- }
- .menu-img-wrapper {
-    height: 200px; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; 
-    border-bottom: 1px solid rgba(255,255,255,0.1); overflow: hidden;
- }
- .modal-content.glass-modal {
-    background: rgba(20, 20, 20, 0.95) !important; backdrop-filter: blur(15px); border: 1px solid #FFD700; color: white;
- }
- .form-floating .form-control { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; }
- .form-floating .form-control:focus { background-color: rgba(255, 255, 255, 0.1); border-color: #FFD700; color: #fff; box-shadow: 0 0 10px rgba(255,215,0,0.3); }
- .form-floating label { color: rgba(255, 255, 255, 0.6); }
- .btn-check:checked + .btn-outline-warning { background-color: #FFD700; color: #990000; border-color: #FFD700; font-weight: bold; }
- .btn-outline-warning { border-color: rgba(255, 215, 0, 0.5); color: #FFD700; }
- .btn-outline-warning:hover { background-color: rgba(255, 215, 0, 0.1); }
+  * {
+     position: relative;
+     z-index: 2;
+  }
+  
+  /* --- KELAS ANIMASI HOVER (Anim-Lift) --- */
+  .anim-lift { 
+     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease, border-color 0.5s ease; 
+  }
+  .anim-lift:hover { 
+     transform: translateY(-8px); 
+     box-shadow: 0 15px 35px rgba(204, 0, 0, 0.2) !important; 
+     border-color: rgba(204, 0, 0, 0.4) !important;
+     z-index: 10;
+  }
+  .menu-card:hover .menu-img-wrapper img { transform: scale(1.1); }
+  
+  .anim-btn-tambah { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .anim-btn-tambah:hover { transform: scale(1.08); }
 
- /* --- ANIMASI TOMBOL KERANJANG MENGAMBANG BERDETAK --- */
- @keyframes pulseCartGlow {
-    0% { transform: scale(1); box-shadow: 0 0 15px rgba(153, 0, 0, 0.5); }
-    50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
-    100% { transform: scale(1); box-shadow: 0 0 15px rgba(153, 0, 0, 0.5); }
- }
- .cart-pulse-active {
-    animation: pulseCartGlow 2s infinite ease-in-out;
- }
+  .menu-card {
+     background: linear-gradient(135deg, #FFFFFF 0%, #FFFBF9 100%) !important; 
+     border: 2px solid rgba(204, 0, 0, 0.2) !important; 
+     box-shadow: 0 8px 25px rgba(204, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .anim-lift:hover { 
+     transform: translateY(-8px); 
+     box-shadow: 0 20px 50px rgba(204, 0, 0, 0.15) !important; 
+     border-color: rgba(204, 0, 0, 0.35) !important;
+     z-index: 10;
+  }
+
+  .nav-pills .nav-link {
+     color: #333333; 
+     background: linear-gradient(135deg, rgba(204, 0, 0, 0.06), rgba(204, 0, 0, 0.03)); 
+     border: 2px solid rgba(204, 0, 0, 0.2);
+     border-radius: 50px; 
+     padding: 10px 20px; 
+     margin: 5px 3px; 
+     font-weight: 600; 
+     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+     font-size: 0.9rem;
+     box-shadow: 0 2px 8px rgba(204, 0, 0, 0.08);
+  }
+  .nav-pills .nav-link.active, .nav-pills .nav-link:hover {
+     background: linear-gradient(135deg, #CC0000 0%, #990000 100%); 
+     color: #FFFFFF; 
+     border-color: #CC0000; 
+     box-shadow: 0 8px 20px rgba(204, 0, 0, 0.35);
+     transform: translateY(-2px);
+  }
+  .menu-img-wrapper {
+     height: 200px; 
+     background: linear-gradient(135deg, rgba(204, 0, 0, 0.12), rgba(255, 215, 0, 0.06)); 
+     display: flex; 
+     align-items: center; 
+     justify-content: center; 
+     border-bottom: 2px solid rgba(204, 0, 0, 0.15); 
+     overflow: hidden;
+  }
+  .modal-content.glass-modal {
+     background: linear-gradient(135deg, #FFFFFF 0%, #FFFBF9 100%) !important; 
+     border: 2px solid rgba(204, 0, 0, 0.2); 
+     color: #333333;
+     box-shadow: 0 10px 40px rgba(204, 0, 0, 0.15);
+  }
+  .form-floating .form-control { 
+     background: linear-gradient(135deg, #F9F9F9 0%, #FFFFFF 100%); 
+     border: 2px solid rgba(204, 0, 0, 0.15); 
+     color: #333333;
+     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  .form-floating .form-control:focus { 
+     background: linear-gradient(135deg, #FFFFFF 0%, #FFFBF9 100%); 
+     border-color: #CC0000; 
+     color: #333333; 
+     box-shadow: 0 0 15px rgba(204, 0, 0, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.05); 
+  }
+  .form-floating label { color: rgba(51, 51, 51, 0.7); }
+  .btn-check:checked + .btn-outline-warning { 
+     background: linear-gradient(135deg, #CC0000 0%, #990000 100%); 
+     color: #FFFFFF; 
+     border-color: #CC0000; 
+     font-weight: bold;
+     box-shadow: 0 4px 12px rgba(204, 0, 0, 0.3);
+  }
+  .btn-outline-warning { 
+     border: 2px solid rgba(204, 0, 0, 0.3); 
+     color: #CC0000;
+     font-weight: 600;
+  }
+  .btn-outline-warning:hover { 
+     background: rgba(204, 0, 0, 0.08); 
+     color: #CC0000;
+     border-color: rgba(204, 0, 0, 0.5);
+  }
+
+  /* --- ANIMASI TOMBOL KERANJANG --- */
+  @keyframes pulseCartGlow {
+     0% { transform: scale(1); box-shadow: 0 0 15px rgba(204, 0, 0, 0.5); }
+     50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(204, 0, 0, 0.8); }
+     100% { transform: scale(1); box-shadow: 0 0 15px rgba(204, 0, 0, 0.5); }
+  }
+  .cart-pulse-active {
+     animation: pulseCartGlow 2s infinite ease-in-out;
+  }
+
+  /* Responsive untuk Mobile & Tablet */
+  @media (max-width: 768px) {
+     .nav-pills {
+        flex-wrap: wrap;
+        gap: 8px;
+     }
+     .nav-pills .nav-link {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+        margin: 3px;
+     }
+     .display-4 {
+        font-size: 1.8rem;
+     }
+     .menu-card {
+        margin-bottom: 10px;
+     }
+     .modal-dialog {
+        margin: 0.5rem;
+     }
+     .modal-body .row {
+        gap: 1rem !important;
+     }
+     .modal-body .col-md-6 {
+        min-width: 100% !important;
+     }
+     .modal-body .border-end {
+        border-end: none !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding-bottom: 1.5rem !important;
+     }
+  }
+
+  @media (max-width: 480px) {
+     .display-4 {
+        font-size: 1.5rem;
+     }
+     .lead {
+        font-size: 0.95rem;
+     }
+     .input-group-lg {
+        margin-bottom: 1rem;
+     }
+     .input-group-text {
+        padding: 0.5rem 1rem !important;
+     }
+     .nav-pills .nav-link {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        margin: 2px;
+     }
+     .menu-img-wrapper {
+        height: 150px;
+     }
+     .col-md-6, .col-md-4, .col-lg-4 {
+        min-width: 100%;
+     }
+  }
 </style>
 
 <section class="py-5 mt-5">
- <div class="container">
- <div class="text-center mb-5" data-aos="fade-down">
- <h1 class="display-4 fw-bold" style="color: #FFD700; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">Menu Numanke</h1>
- <p class="lead text-light opacity-75">Jelajahi berbagai pilihan menu spesial dari dapur kami.</p>
+  <div class="container-fluid px-3 px-md-4">
+  <div class="text-center mb-5" data-aos="fade-down">
+  <h1 class="display-4 fw-bold" style="color: #FFD700; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">Menu Numanke</h1>
+  <p class="lead text-light opacity-75">Jelajahi berbagai pilihan menu spesial dari dapur kami.</p>
 
- <!-- SEARCH BAR (DIPERCANTIK & DI-ANIMASI) -->
- <div class="row justify-content-center mt-4">
- <div class="col-md-8 col-lg-6">
- <div class="input-group input-group-lg shadow-lg anim-lift" style="border-radius: 50px; overflow: hidden; border: 1px solid rgba(255, 215, 0, 0.4);">
- <span class="input-group-text border-0 text-warning" style="background: rgba(15, 15, 15, 0.9) !important;">
- <i class="fa-solid fa-search"></i>
- </span>
- <input type="text" id="searchInput" class="form-control border-0 text-white shadow-none" placeholder="Cari menu favoritmu..." style="background: rgba(15, 15, 15, 0.9) !important;" onkeyup="cariMenu()">
- <button class="btn btn-warning fw-bold text-dark px-4" type="button" onclick="cariMenu()">Cari</button>
- </div>
- <div id="searchResultText" class="text-warning mt-2 small fw-semibold" style="display: none;"></div>
- </div>
- </div>
- 
- </div>
+  <!-- SEARCH BAR -->
+  <div class="row justify-content-center mt-4">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+  <div class="input-group input-group-lg shadow-lg anim-lift" style="border-radius: 50px; overflow: hidden; border: 2px solid rgba(204, 0, 0, 0.4);">
+  <span class="input-group-text border-0" style="background: rgba(30, 30, 30, 0.9) !important; color: #CC0000;">
+  <i class="fa-solid fa-search"></i>
+  </span>
+  <input type="text" id="searchInput" class="form-control border-0 text-white shadow-none" placeholder="Cari menu favoritmu..." style="background: rgba(30, 30, 30, 0.9) !important;" onkeyup="cariMenu()">
+  <button class="btn border-0 fw-bold text-white px-4" type="button" onclick="cariMenu()" style="background-color: #CC0000;">Cari</button>
+  </div>
+  <div id="searchResultText" class="text-warning mt-2 small fw-semibold" style="display: none;"></div>
+  </div>
+  </div>
+  
+  </div>
 
- <ul class="nav nav-pills justify-content-center mb-5" id="menu-tab" role="tablist" data-aos="zoom-in" data-aos-delay="100">
- <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#geprek" type="button">Geprek Series</button></li>
- <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#dewata" type="button">Dewata Series</button></li>
- <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#brongot" type="button">Brongot Series</button></li>
- <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#rongot" type="button">Rongot Series</button></li>
- <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#frozen" type="button">Frozen Series</button></li>
- <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#drink" type="button">Drink</button></li>
- </ul>
+  <ul class="nav nav-pills justify-content-center mb-5 flex-wrap" id="menu-tab" role="tablist" data-aos="zoom-in" data-aos-delay="100">
+  <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#geprek" type="button">Geprek</button></li>
+  <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#dewata" type="button">Dewata</button></li>
+  <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#brongot" type="button">Brongot</button></li>
+  <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#rongot" type="button">Rongot</button></li>
+  <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#frozen" type="button">Frozen</button></li>
+  <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#drink" type="button">Minuman</button></li>
+  </ul>
 
- <div class="tab-content" id="menu-tabContent">
- <div class="tab-pane fade show active" id="geprek"><div class="row g-4"><?php $d=100; foreach($menu_geprek as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
- <div class="tab-pane fade" id="dewata"><div class="row g-4"><?php $d=100; foreach($menu_dewata as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
- <div class="tab-pane fade" id="brongot"><div class="row g-4"><?php $d=100; foreach($menu_brongot as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
- <div class="tab-pane fade" id="rongot"><div class="row g-4"><?php $d=100; foreach($menu_rongot as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
- <div class="tab-pane fade" id="frozen"><div class="row g-4"><?php $d=100; foreach($menu_frozen as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
- <div class="tab-pane fade" id="drink"><div class="row g-4"><?php $d=100; foreach($menu_drink as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
- </div> 
+  <div class="tab-content" id="menu-tabContent">
+  <div class="tab-pane fade show active" id="geprek"><div class="row g-4"><?php $d=100; foreach($menu_geprek as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
+  <div class="tab-pane fade" id="dewata"><div class="row g-4"><?php $d=100; foreach($menu_dewata as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
+  <div class="tab-pane fade" id="brongot"><div class="row g-4"><?php $d=100; foreach($menu_brongot as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
+  <div class="tab-pane fade" id="rongot"><div class="row g-4"><?php $d=100; foreach($menu_rongot as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
+  <div class="tab-pane fade" id="frozen"><div class="row g-4"><?php $d=100; foreach($menu_frozen as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
+  <div class="tab-pane fade" id="drink"><div class="row g-4"><?php $d=100; foreach($menu_drink as $item) { renderMenuCard($item, $d); $d=($d>=400)?100:$d+100; } ?></div></div>
+  </div> 
 </div>
 </section>
 
 <!-- MODAL POP-UP CHECKOUT -->
 <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
- <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
- <div class="modal-content glass-modal">
- <div class="modal-header border-secondary">
- <h5 class="modal-title text-warning fw-bold"><i class="fa-solid fa-receipt me-2"></i> Keranjang Pesanan</h5>
- <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
- </div>
- <div class="modal-body">
- <div class="row g-4">
- <!-- Daftar Pesanan (Kiri) -->
- <div class="col-md-6 border-end border-secondary">
- <h6 class="text-white opacity-75 mb-3">Rincian Item:</h6>
- <div id="keranjangList" class="mb-3"></div>
- <div id="ringkasanTotal"></div> 
- </div>
- 
- <!-- Form Data Diri (Kanan) -->
- <div class="col-md-6">
- <form id="formCheckoutWa" action="proses_wa.php" method="POST">
- <input type="hidden" name="cart_data" id="cartDataInput">
- <input type="hidden" name="jarak" id="jarakInput" value="0">
- <input type="hidden" name="link_gps" id="linkGpsInput" value="">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg modal-fullscreen-sm-down">
+  <div class="modal-content glass-modal">
+  <div class="modal-header border-secondary" style="border-bottom-color: rgba(204, 0, 0, 0.3) !important;">
+  <h5 class="modal-title fw-bold" style="color: #FFD700;"><i class="fa-solid fa-receipt me-2"></i> Keranjang Pesanan</h5>
+  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+  </div>
+  <div class="modal-body">
+  <div class="row g-4">
+  <!-- Daftar Pesanan (Kiri) -->
+  <div class="col-md-6 border-end border-secondary">
+  <h6 class="text-white opacity-75 mb-3"><i class="fa-solid fa-list me-2"></i>Rincian Item:</h6>
+  <div id="keranjangList" class="mb-3"></div>
+  <div id="ringkasanTotal"></div> 
+  </div>
+  
+  <!-- Form Data Diri (Kanan) -->
+  <div class="col-md-6">
+  <form id="formCheckoutWa" action="proses_wa.php" method="POST">
+  <input type="hidden" name="cart_data" id="cartDataInput">
+  <input type="hidden" name="jarak" id="jarakInput" value="0">
+  <input type="hidden" name="link_gps" id="linkGpsInput" value="">
 
- <h6 class="text-white opacity-75 mb-3">Informasi Pelanggan:</h6>
- <div class="form-floating mb-3">
- <input type="text" class="form-control rounded-3" name="nama" id="nama" placeholder="Nama Lengkap" required>
- <label for="nama">Nama Lengkap</label>
- </div>
- <div class="form-floating mb-4">
- <input type="tel" class="form-control rounded-3" name="nomorWa" id="nomorWa" placeholder="0812xxxxxx" required>
- <label for="nomorWa">Nomor WhatsApp</label>
- </div>
+  <h6 class="text-white opacity-75 mb-3"><i class="fa-solid fa-user me-2"></i>Data Pelanggan:</h6>
+  <div class="form-floating mb-3">
+  <input type="text" class="form-control rounded-3" name="nama" id="nama" placeholder="Nama Lengkap" required>
+  <label for="nama">Nama Lengkap</label>
+  </div>
+  <div class="form-floating mb-4">
+  <input type="tel" class="form-control rounded-3" name="nomorWa" id="nomorWa" placeholder="0812xxxxxx" required>
+  <label for="nomorWa">Nomor WhatsApp</label>
+  </div>
 
- <h6 class="text-white opacity-75 mb-2">Tipe Pesanan:</h6>
- <div class="row g-2 mb-3">
- <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="dineIn" value="Makan di Tempat" checked onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="dineIn"><i class="fa-solid fa-store me-2"></i> Makan Ditempat</label></div>
- <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="takeaway" value="Ambil Sendiri" onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="takeaway"><i class="fa-solid fa-bag-shopping me-2"></i> Bungkus (Ambil)</label></div>
- <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="delivery" value="Diantar" onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="delivery"><i class="fa-solid fa-motorcycle me-2"></i> Bungkus (Diantar)</label></div>
- </div>
+  <h6 class="text-white opacity-75 mb-2"><i class="fa-solid fa-tag me-2"></i>Tipe Pesanan:</h6>
+  <div class="row g-2 mb-3">
+  <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="dineIn" value="Makan di Tempat" checked onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="dineIn"><i class="fa-solid fa-store me-2"></i> Makan Ditempat</label></div>
+  <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="takeaway" value="Ambil Sendiri" onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="takeaway"><i class="fa-solid fa-bag-shopping me-2"></i> Bungkus (Ambil)</label></div>
+  <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="delivery" value="Diantar" onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="delivery"><i class="fa-solid fa-motorcycle me-2"></i> Bungkus (Diantar)</label></div>
+  </div>
 
- <!-- Bagian Pengisian Alamat Canggih -->
- <div class="alamat-box p-3 border border-secondary rounded-3 mb-4" id="boxAlamat" style="display: none; background: rgba(0,0,0,0.3);">
- <div class="mb-3 pb-2 border-bottom border-secondary">
- <small class="text-white-50"><i class="fa-solid fa-shop me-1"></i> Dikirim dari:<br>Jl. Pete Sel. No.18, Sekaran, Kec. Gn. Pati, Kota Semarang, Jawa Tengah 50229</small>
- </div>
+  <!-- Bagian Pengisian Alamat -->
+  <div class="alamat-box p-3 border border-secondary rounded-3 mb-4" id="boxAlamat" style="display: none; background: rgba(204, 0, 0, 0.08);">
+  <div class="mb-3 pb-2 border-bottom border-secondary">
+  <small class="text-white-50"><i class="fa-solid fa-shop me-1"></i> Dikirim dari:<br>Jl. Pete Sel. No.18, Sekaran, Kec. Gn. Pati, Kota Semarang, Jawa Tengah 50229</small>
+  </div>
+  
+  <div class="d-flex justify-content-between align-items-center mb-2">
+  <h6 class="text-warning small mb-0"><i class="fa-solid fa-map me-1"></i>Metode Alamat:</h6>
+  <button type="button" class="btn btn-sm fw-bold px-3 anim-btn-tambah" onclick="pilihGPS()" id="btnGPS" style="background-color: #CC0000; color: white; border: 1px solid #CC0000;"><i class="fa-solid fa-location-crosshairs"></i> GPS</button>
+  </div>
 
- <div class="d-flex justify-content-between align-items-center mb-2">
- <h6 class="text-warning small mb-0">Metode Alamat Pengiriman:</h6>
- <button type="button" class="btn btn-sm btn-info fw-bold px-3 anim-btn-tambah" onclick="pilihGPS()" id="btnGPS"><i class="fa-solid fa-location-crosshairs"></i> Gunakan GPS</button>
- </div>
+  <div class="form-floating mb-2">
+  <textarea class="form-control rounded-3" name="alamat" id="alamat" placeholder="Ketik alamat atau gunakan GPS..." style="height: 90px"></textarea>
+  <label for="alamat">Ketik Detail Alamat / Patokan</label>
+  </div>
 
- <div class="form-floating mb-2">
- <textarea class="form-control rounded-3" name="alamat" id="alamat" placeholder="Ketik alamat atau gunakan GPS..." style="height: 90px"></textarea>
- <label for="alamat">Ketik Detail Alamat / Patokan</label>
- </div>
+  <div id="infoOngkir" class="text-white small mb-3 text-center p-2 rounded" style="display:none; background: rgba(204, 0, 0, 0.1); border: 1px solid rgba(204, 0, 0, 0.3);"></div>
 
- <div id="infoOngkir" class="text-info small mb-3 text-center p-2 rounded bg-dark border border-info" style="display:none;"></div>
+  <div class="d-flex gap-2 mt-3">
+  <button type="button" class="btn w-100 fw-bold text-white anim-btn-tambah" onclick="setujuiLokasi()" id="btnSetuju" style="background-color: #CC0000; border: 1px solid #CC0000;"><i class="fa-solid fa-check"></i> Cek Jarak</button>
+  <button type="button" class="btn btn-outline-secondary w-100 fw-bold anim-btn-tambah" onclick="resetLokasi()" id="btnReset" style="display: none;"><i class="fa-solid fa-rotate-left"></i> Ganti</button>
+  </div>
+  </div>
 
- <div class="d-flex gap-2 mt-3">
- <button type="button" class="btn btn-success w-100 fw-bold" onclick="setujuiLokasi()" id="btnSetuju"><i class="fa-solid fa-check"></i> Cek Jarak & Setujui</button>
- <button type="button" class="btn btn-danger w-100 fw-bold" onclick="resetLokasi()" id="btnReset" style="display: none;"><i class="fa-solid fa-rotate-left"></i> Ganti Alamat</button>
- </div>
- </div>
-
- <h6 class="text-white opacity-75 mb-2">Metode Pembayaran:</h6>
- <div class="row g-2">
- <div class="col-6"><input type="radio" class="btn-check" name="metodeBayar" id="cash" value="Cash" checked><label class="btn btn-outline-warning w-100 rounded-3 anim-btn-tambah" for="cash">Tunai (Cash)</label></div>
- <div class="col-6"><input type="radio" class="btn-check" name="metodeBayar" id="qris" value="QRIS"><label class="btn btn-outline-warning w-100 rounded-3 anim-btn-tambah" for="qris">QRIS</label></div>
- </div>
- </form> 
- </div>
- </div>
- </div>
- <div class="modal-footer border-secondary">
- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
- <button type="button" class="btn btn-warning fw-bold text-danger anim-btn-tambah" onclick="kirimKeWa()" id="btnBayarModal">Kirim ke WhatsApp <i class="fa-brands fa-whatsapp ms-1"></i></button>
- </div>
- </div>
- </div>
+  <h6 class="text-white opacity-75 mb-2"><i class="fa-solid fa-credit-card me-2"></i>Pembayaran:</h6>
+  <div class="row g-2">
+  <div class="col-6"><input type="radio" class="btn-check" name="metodeBayar" id="cash" value="Cash" checked><label class="btn btn-outline-warning w-100 rounded-3 anim-btn-tambah" for="cash"><i class="fa-solid fa-money-bill"></i> Tunai</label></div>
+  <div class="col-6"><input type="radio" class="btn-check" name="metodeBayar" id="qris" value="QRIS"><label class="btn btn-outline-warning w-100 rounded-3 anim-btn-tambah" for="qris"><i class="fa-solid fa-qrcode"></i> QRIS</label></div>
+  </div>
+  </form> 
+  </div>
+  </div>
+  </div>
+  <div class="modal-footer border-secondary" style="border-top-color: rgba(204, 0, 0, 0.3) !important;">
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+  <button type="button" class="btn fw-bold text-white anim-btn-tambah" onclick="kirimKeWa()" id="btnBayarModal" style="background-color: #CC0000; border: 1px solid #CC0000;">Kirim ke WhatsApp <i class="fa-brands fa-whatsapp ms-1"></i></button>
+  </div>
+  </div>
+  </div>
 </div>
 
 <!-- TOMBOL KERANJANG MENGAMBANG -->
-<button class="btn position-fixed bottom-0 end-0 m-4 p-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#checkoutModal" style="z-index: 1000; display: none; background-color: #990000; border: 2px solid #FFD700; transition: all 0.3s ease;" id="btnKeranjangFloating">
- <i class="fa-solid fa-basket-shopping text-warning me-2 fs-5"></i> 
+<button class="btn position-fixed bottom-0 end-0 m-4 p-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#checkoutModal" style="z-index: 1000; display: none; background-color: #CC0000; border: 2px solid #FFD700; transition: all 0.4s ease;" id="btnKeranjangFloating">
+  <i class="fa-solid fa-basket-shopping text-warning me-2 fs-5"></i> 
 <span class="fw-bold text-white fs-6">Pesanan (<span id="cartCountFloat" class="text-warning">0</span>)</span>
 </button>
 

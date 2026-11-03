@@ -1,6 +1,8 @@
 <!-- includes/footer.php -->
-    <footer>
-        <p>&copy; <?php echo date("Y"); ?> Numanke - Spesial Ayam Brongot. All Rights Reserved.</p>
+    <footer style="background: linear-gradient(135deg, #CC0000 0%, #990000 100%); color: white; text-align: center; padding: 30px 20px; margin-top: 60px; border-top: 3px solid #FFD700;">
+        <p style="margin: 0; font-weight: 500; font-size: 1rem;">
+            <i class="fa-solid fa-utensils me-2"></i>&copy; <?php echo date("Y"); ?> Numanke - Spesial Ayam Brongot. All Rights Reserved.
+        </p>
     </footer>
 
     <!-- Script Wajib Bootstrap untuk Carousel & Modal -->
