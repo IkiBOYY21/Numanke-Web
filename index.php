@@ -29,13 +29,25 @@ require_once 'includes/header.php';
   }
   .preloader-hidden { opacity: 0; visibility: hidden; }
 
+    @keyframes softPulse {
+        0%, 100% { filter: brightness(1) saturate(0.95); }
+        50% { filter: brightness(1.02) saturate(1.05); }
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
     body {
-        background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F5 50%, #FFFAF9 100%);
+        background: linear-gradient(135deg, #FFFFFF 0%, #FFF9F0 50%, #FFFBF7 100%);
         background-attachment: fixed;
         color: #333333;
         font-family: 'Poppins', sans-serif;
         overflow-x: hidden;
         position: relative;
+        animation: softPulse 15s ease-in-out infinite;
     }
 
     body::before {
@@ -46,15 +58,8 @@ require_once 'includes/header.php';
         width: 100%;
         height: 100%;
         background-image: 
-            radial-gradient(circle at 10% 20%, rgba(204, 0, 0, 0.03) 0%, transparent 50%),
-            radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
-            repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(204, 0, 0, 0.01) 2px,
-                rgba(204, 0, 0, 0.01) 4px
-            );
+            radial-gradient(circle at 10% 20%, rgba(204, 0, 0, 0.02) 0%, transparent 50%),
+            radial-gradient(circle at 90% 80%, rgba(255, 179, 0, 0.02) 0%, transparent 50%);
         pointer-events: none;
         z-index: 1;
     }
@@ -85,11 +90,16 @@ require_once 'includes/header.php';
         }
     }
 
+    @keyframes slideGradient {
+        0% { width: 0; }
+        100% { width: 100%; }
+    }
+
     .glass-card {
-        background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F5 50%, #FFFAF9 100%);
-        border: 2px solid rgba(204, 0, 0, 0.25);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 245, 0.92) 100%);
+        border: 2px solid rgba(255, 179, 0, 0.25);
         border-radius: 20px;
-        box-shadow: 0 8px 30px rgba(204, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        box-shadow: 0 12px 35px rgba(204, 0, 0, 0.12), 0 0 25px rgba(255, 179, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
         transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         position: relative;
         overflow: hidden;
@@ -97,8 +107,8 @@ require_once 'includes/header.php';
 
     .glass-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 20px 50px rgba(204, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        border-color: rgba(204, 0, 0, 0.4);
+        box-shadow: 0 20px 55px rgba(204, 0, 0, 0.18), 0 0 35px rgba(255, 179, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        border-color: rgba(255, 179, 0, 0.4);
     }
 
     .btn-hover-glow {
@@ -137,64 +147,8 @@ require_once 'includes/header.php';
         z-index: 2;
     }
 
-    /* --- HERO SECTION STYLES --- */
-    .hero-arc-section {
-        min-height: 70vh;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 30px 15px 30px 15px;
-        overflow: hidden;
-        position: relative;
-        background: linear-gradient(135deg, rgba(204, 0, 0, 0.7) 0%, rgba(153, 0, 0, 0.7) 100%), 
-                    url('assets/images/foto\ depan\ numanke.png') center/cover no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-    }
-
-    .hero-arc-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.4) 100%);
-        z-index: 0;
-    }
-
-    .hero-arc-container {
-        position: absolute;
-        top: 50%;
-        right: 5%;
-        width: 100%;
-        max-width: 450px;
-        aspect-ratio: 1/1;
-        margin: 0;
-        transform: translateY(-50%);
-        display: none;
-    }
-
-    .hero-arc-dashed,
-    .hero-arc-item,
-    .hero-arc-image-wrapper,
-    .hero-arc-order-btn {
-        display: none;
-    }
-
-    @media (max-width: 992px) {
-        .hero-arc-section {
-            min-height: auto;
-            padding: 40px 12px 30px 12px;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .hero-arc-section {
-            padding: 35px 12px 25px 12px;
-        }
-    }
+    /* --- HERO SECTION STYLES (LAMA) - DIHAPUS, DIGANTI TAILWIND --- */
+    /* Semua styling untuk hero sekarang menggunakan Tailwind CSS */
 
     .wa-contact-btn {
         background: rgba(255, 255, 255, 0.05);
@@ -235,23 +189,50 @@ require_once 'includes/header.php';
 
     .showcase-card {
         transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: 2px solid rgba(204, 0, 0, 0.2) !important;
-        background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F5 50%, #FFFAF9 100%) !important;
-        box-shadow: 0 8px 25px rgba(204, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+        border: 2px solid rgba(204, 0, 0, 0.15) !important;
+        background: linear-gradient(135deg, #FFFFFF 0%, #FFFAF8 100%) !important;
+        box-shadow: 0 10px 35px rgba(204, 0, 0, 0.12), 0 0 20px rgba(255, 179, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .showcase-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #CC0000 0%, #FFB300 100%);
+        z-index: 1;
     }
 
     .showcase-card:hover {
         transform: translateY(-15px);
-        box-shadow: 0 30px 60px rgba(204, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
-        border-color: rgba(204, 0, 0, 0.35) !important;
+        box-shadow: 0 25px 60px rgba(204, 0, 0, 0.2), 0 0 30px rgba(255, 179, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+        border-color: rgba(255, 179, 0, 0.3) !important;
+    }
+
+    .showcase-card:hover::before {
+        animation: slideGradient 0.6s ease;
     }
 
     .showcase-image {
         position: relative;
         transition: all 0.6s ease;
         overflow: hidden;
-        background: linear-gradient(135deg, rgba(204, 0, 0, 0.12), rgba(255, 215, 0, 0.06)) !important;
-        border-bottom: 2px solid rgba(204, 0, 0, 0.15);
+        background: linear-gradient(135deg, rgba(204, 0, 0, 0.08), rgba(255, 179, 0, 0.05)) !important;
+        border-bottom: 3px solid rgba(255, 179, 0, 0.3);
+    }
+
+    .showcase-image::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 179, 0, 0.5), transparent);
     }
 
     @keyframes fadeInUp {
@@ -281,76 +262,157 @@ require_once 'includes/header.php';
         transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         position: relative;
         overflow: hidden;
-        background: linear-gradient(135deg, #FFFFFF 0%, #FFFBF9 100%) !important;
-        border: 2px solid rgba(204, 0, 0, 0.2) !important;
-        box-shadow: 0 8px 25px rgba(204, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        background: linear-gradient(135deg, #CC0000 0%, #B71C1C 100%) !important;
+        border: 2px solid rgba(255, 179, 0, 0.4) !important;
+        box-shadow: 0 12px 40px rgba(204, 0, 0, 0.35), 0 0 30px rgba(255, 179, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .filosofi-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: 
+            radial-gradient(circle at 20% 50%, rgba(255, 179, 0, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
     }
 
     .filosofi-card:hover {
-        transform: translateY(-8px);
-        background: linear-gradient(135deg, #FFFFFF 0%, #FFFBF9 100%) !important;
-        border-color: rgba(204, 0, 0, 0.35) !important;
-        box-shadow: 0 20px 50px rgba(204, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        transform: translateY(-12px);
+        background: linear-gradient(135deg, #E53935 0%, #C62828 100%) !important;
+        border-color: rgba(255, 179, 0, 0.6) !important;
+        box-shadow: 0 20px 60px rgba(204, 0, 0, 0.5), 0 0 40px rgba(255, 179, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .filosofi-card h3 {
+        color: #FFFFFF !important;
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .filosofi-card p {
+        color: rgba(255, 255, 255, 0.95) !important;
+        position: relative;
+        z-index: 1;
     }
 
     .filosofi-img {
         transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: 2px solid rgba(204, 0, 0, 0.15) !important;
+        border: 2px solid rgba(255, 179, 0, 0.3) !important;
     }
 
     .filosofi-card:hover .filosofi-img {
         transform: scale(1.05);
-        filter: brightness(1.05) drop-shadow(0 0 15px rgba(204, 0, 0, 0.15));
-        border-color: rgba(204, 0, 0, 0.25) !important;
+        filter: brightness(1.05) drop-shadow(0 0 15px rgba(255, 179, 0, 0.15));
+        border-color: rgba(255, 179, 0, 0.4) !important;
     }
 </style>
 
-<!-- 1. SECTION HOME (HERO BANNER) -->
-<section id="home" class="hero-arc-section">
-    <div class="container-fluid px-2 px-sm-3" style="position: relative; z-index: 10;">
-        <div class="row align-items-center g-2 g-md-3">
-            <!-- Text Content dengan Card -->
-            <div class="col-lg-5 col-xl-4" data-aos="fade-right">
-                <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 18px; padding: 28px 24px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
-                    <h1 class="fw-bold mb-2" style="color: #333333; line-height: 1.05; font-size: clamp(1.4rem, 3.8vw, 2.2rem);">
-                        Sensasi Pedas<br><span style="color: #CC0000; font-weight: 900;">Ayam Brongot</span><br>Juara!
-                    </h1>
+<!-- 1. SECTION HOME (HERO BANNER) - MODERN & ATTRACTIVE -->
+<section id="home" class="py-5" style="background: linear-gradient(135deg, rgba(204, 0, 0, 0.85) 0%, rgba(139, 0, 0, 0.85) 100%), url('assets/images/bg-headingweb.png') center/cover no-repeat; background-attachment: fixed; min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+    
+    <!-- Overlay Gradient -->
+    <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.3) 100%); z-index: 0;"></div>
+    
+    <!-- Content Container -->
+    <div class="container position-relative" style="z-index: 10; max-width: 1200px;">
+        <div class="row align-items-center g-4">
+            
+            <!-- LEFT COLUMN - TEXT & CTA -->
+            <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                
+                <!-- MAIN HEADING -->
+                <div class="mb-4">
+                    <h1 class="display-3 fw-black text-white mb-2" style="line-height: 1.1; text-shadow: 0 6px 20px rgba(0,0,0,0.5); animation: slideInLeft 0.8s ease-out; font-size: clamp(2.5rem, 8vw, 4rem);">Sensasi</h1>
+                    <h1 class="fw-black mb-3" style="background: linear-gradient(to right, #FFB300, #FFCC00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; text-shadow: 0 6px 20px rgba(0,0,0,0.3); animation: slideInLeft 0.8s ease-out 0.2s both; font-size: clamp(2.5rem, 8vw, 4rem);">Pedas Legendaris</h1>
                     
-                    <p class="mb-3" style="color: #666666; font-size: clamp(0.8rem, 1.6vw, 0.95rem); line-height: 1.5;">
-                        Nikmati perpaduan bumbu rempah rahasia Nusantara yang dibakar sempurna hingga meresap ke tulang.    
+                    <p class="lead text-white-80 mb-4" style="font-size: 1.1rem; opacity: 0.9; max-width: 500px; animation: fadeIn 0.8s ease-out 0.4s both;">
+                        Potongan ayam segar yang dimarinasi 12 jam, dibakar perlahan dengan bumbu rempah rahasia Nusantara. Perpaduan sempurna yang meresap hingga ke tulang.
                     </p>
+                </div>
+                
+                <!-- CTA BUTTONS -->
+                <div class="d-flex gap-3 flex-wrap" style="animation: fadeIn 0.8s ease-out 0.6s both;">
+                    <!-- Circular CTA Button -->
+                    <a href="order.php" class="btn rounded-circle d-flex align-items-center justify-content-center" style="width: 140px; height: 140px; background: linear-gradient(135deg, #FFB300 0%, #FFC700 100%); color: #CC0000; border: none; box-shadow: 0 10px 40px rgba(255, 179, 0, 0.4); font-weight: 900; font-size: 1.1rem; position: relative; overflow: hidden; transition: all 0.4s ease; text-decoration: none;" onmouseover="this.style.transform='scale(1.15)'; this.style.boxShadow='0 20px 60px rgba(255, 179, 0, 0.6)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 40px rgba(255, 179, 0, 0.4)'">
+                        <div style="text-align: center;">
+                            <i class="fa-solid fa-utensils d-block mb-2" style="font-size: 1.8rem;"></i>
+                            <small style="font-weight: 700;">PESAN</small>
+                        </div>
+                    </a>
                     
-                    <div class="d-flex gap-1 gap-sm-2 flex-column flex-sm-row">
-                        <a href="order.php" class="btn fw-bold btn-hover-glow" style="background: linear-gradient(135deg, #CC0000 0%, #990000 100%); color: white; border: none; box-shadow: 0 8px 20px rgba(204, 0, 0, 0.3); padding: 9px 18px; font-size: clamp(0.8rem, 1.6vw, 0.9rem); flex: 1; border-radius: 12px;">
-                            <i class="fa-solid fa-utensils me-1"></i>Pesan
-                        </a>
-                        <a href="#showcase" class="btn fw-bold btn-hover-glow" style="background: white; border: 2px solid #CC0000; color: #CC0000; box-shadow: 0 8px 20px rgba(204, 0, 0, 0.15); padding: 9px 18px; font-size: clamp(0.8rem, 1.6vw, 0.9rem); flex: 1; border-radius: 12px;">
-                            <i class="fa-solid fa-fire me-1"></i>Menu
-                        </a>
+                    <!-- Secondary Button - Updated to Contact -->
+                    <a href="#contact" class="btn btn-lg" style="background: transparent; border: 2px solid #FFFFFF; color: #FFFFFF; font-weight: 700; padding: 18px 35px; border-radius: 15px; transition: all 0.3s ease; text-decoration: none;" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-3px)'" onmouseout="this.style.background='transparent'; this.style.transform='translateY(0)'">
+                        <i class="fa-solid fa-phone me-2"></i>Hubungi Kami
+                    </a>
+                </div>
+                
+                <!-- STATS -->
+                <div class="d-flex gap-4 mt-5 flex-wrap" style="animation: fadeIn 0.8s ease-out 0.8s both;">
+                    <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 15px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='translateY(-5px)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)'">
+                        <div class="text-warning fw-black" style="font-size: 1.8rem;">500+</div>
+                        <small class="text-white-80">Pelanggan</small>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 15px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='translateY(-5px)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)'">
+                        <div class="text-warning fw-black" style="font-size: 1.8rem;">20+</div>
+                        <small class="text-white-80">Menu</small>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 15px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='translateY(-5px)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)'">
+                        <div class="text-warning fw-black" style="font-size: 1.8rem;">⭐4.9</div>
+                        <small class="text-white-80">Rating</small>
                     </div>
                 </div>
             </div>
             
-            <!-- Decorative Elements -->
-            <div class="col-lg-7 col-xl-8 position-relative d-none d-lg-flex justify-content-end align-items-center" style="z-index: 5; padding-right: 0;">
-                <div style="position: relative; width: 100%; max-width: 380px; aspect-ratio: 1/1;">
-                    <!-- Floating badge -->
-                    <div style="position: absolute; top: 5px; right: 5px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 14px 20px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); text-align: center; animation: floatAnimation 3s ease-in-out infinite;">
-                        <div style="font-size: 1.8rem; margin-bottom: 6px;">🌶️</div>
-                        <div style="color: #CC0000; font-weight: 700; font-size: 0.9rem;">Best Seller</div>
-                        <div style="color: #666666; font-size: 0.75rem; margin-top: 3px;">Favorit</div>
+            <!-- RIGHT COLUMN - PRODUCT IMAGE & BADGES (Desktop Only) -->
+            <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center position-relative" style="min-height: 500px;">
+                
+                <!-- Product Image (Floating) -->
+                <div class="position-relative" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="assets/images/bg-headingweb.png" alt="Ayam Brongot" style="max-width: 85%; height: auto; filter: drop-shadow(0 20px 60px rgba(0,0,0,0.3)); animation: float 3s ease-in-out infinite; border-radius: 20px;">
+                </div>
+                
+                <!-- Top Badge -->
+                <div class="position-absolute" style="top: 50px; right: 50px; background: rgba(255,255,255,0.95); padding: 20px 25px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); backdrop-filter: blur(10px); animation: float 3s ease-in-out infinite; z-index: 20;" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="text-center">
+                        <div style="font-size: 2.5rem; font-weight: 900; color: #CC0000;">★</div>
+                        <small class="d-block fw-bold" style="color: #CC0000;">BEST</small>
+                        <small style="color: #666;">SELLER</small>
                     </div>
-                    
-                    <!-- Bottom badge -->
-                    <div style="position: absolute; bottom: 15px; left: 5px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 14px 20px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); animation: floatAnimation 4s ease-in-out infinite 0.5s;">
-                        <div style="font-size: 0.85rem; color: #CC0000; font-weight: 700; margin-bottom: 5px;">🔥 Spesial</div>
-                        <div style="font-size: 1.6rem; color: #333333; font-weight: 900;">-20%</div>
-                        <div style="color: #666666; font-size: 0.75rem; margin-top: 3px;">Menu</div>
+                </div>
+                
+                <!-- Bottom Badge -->
+                <div class="position-absolute" style="bottom: 80px; left: 50px; background: rgba(255,255,255,0.95); padding: 20px 25px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); backdrop-filter: blur(10px); animation: float 4s ease-in-out infinite 0.5s; z-index: 20;" data-aos="zoom-in" data-aos-delay="700">
+                    <div class="text-center">
+                        <div style="font-size: 2rem; font-weight: 900; color: #CC0000;">-20%</div>
+                        <small style="color: #CC0000; font-weight: 700;">PROMO</small>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Animations -->
+    <style>
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        .text-white-80 { color: rgba(255,255,255,0.8); }
+    </style>
 </section>
 
 <!-- 2. SECTION SHOWCASE (MENU ANDALAN) -->

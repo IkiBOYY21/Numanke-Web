@@ -189,13 +189,19 @@ function renderMenuCard($item, $delay = 100) {
    }
    .preloader-hidden { opacity: 0; visibility: hidden; }
 
-  body {
-     background: linear-gradient(135deg, #FFFFFF 0%, #FFF8F5 100%);
-     background-attachment: fixed;
-     color: #333333; 
-     font-family: 'Poppins', sans-serif;
-     position: relative;
-  }
+   @keyframes softPulse {
+       0%, 100% { filter: brightness(1) saturate(0.95); }
+       50% { filter: brightness(1.02) saturate(1.05); }
+   }
+
+   body {
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFF9F0 50%, #FFFBF7 100%);
+      background-attachment: fixed;
+      color: #333333; 
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      animation: softPulse 15s ease-in-out infinite;
+   }
 
   body::before {
      content: '';
@@ -231,11 +237,30 @@ function renderMenuCard($item, $delay = 100) {
   .anim-btn-tambah { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
   .anim-btn-tambah:hover { transform: scale(1.08); }
 
-  .menu-card {
-     background: linear-gradient(135deg, #FFFFFF 0%, #FFFBF9 100%) !important; 
-     border: 2px solid rgba(204, 0, 0, 0.2) !important; 
-     box-shadow: 0 8px 25px rgba(204, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  }
+   .menu-card {
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFFAF8 100%) !important; 
+      border: 2px solid rgba(204, 0, 0, 0.15) !important; 
+      box-shadow: 0 8px 25px rgba(204, 0, 0, 0.12), 0 0 20px rgba(255, 179, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      color: #333333 !important;
+   }
+
+   .menu-card .menu-title-text {
+      color: #CC0000 !important;
+      font-weight: 700;
+   }
+
+   .menu-card .text-light {
+      color: #666666 !important;
+   }
+
+   .menu-card .text-white {
+      color: #333333 !important;
+      font-weight: 600;
+   }
+
+   .menu-card .text-white-50 {
+      color: rgba(51, 51, 51, 0.5) !important;
+   }
 
   .anim-lift:hover { 
      transform: translateY(-8px); 
@@ -278,19 +303,19 @@ function renderMenuCard($item, $delay = 100) {
      color: #333333;
      box-shadow: 0 10px 40px rgba(204, 0, 0, 0.15);
   }
-  .form-floating .form-control { 
-     background: linear-gradient(135deg, #F9F9F9 0%, #FFFFFF 100%); 
-     border: 2px solid rgba(204, 0, 0, 0.15); 
-     color: #333333;
-     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-  }
-  .form-floating .form-control:focus { 
-     background: linear-gradient(135deg, #FFFFFF 0%, #FFFBF9 100%); 
-     border-color: #CC0000; 
-     color: #333333; 
-     box-shadow: 0 0 15px rgba(204, 0, 0, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.05); 
-  }
-  .form-floating label { color: rgba(51, 51, 51, 0.7); }
+   .form-floating .form-control { 
+      background: linear-gradient(135deg, #F9F9F9 0%, #FFFFFF 100%); 
+      border: 2px solid rgba(204, 0, 0, 0.2); 
+      color: #333333 !important;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+   }
+   .form-floating .form-control:focus { 
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFFAF8 100%); 
+      border-color: #CC0000; 
+      color: #333333 !important; 
+      box-shadow: 0 0 15px rgba(204, 0, 0, 0.25), inset 0 1px 3px rgba(0, 0, 0, 0.05); 
+   }
+   .form-floating label { color: #666666 !important; font-weight: 600; }
   .btn-check:checked + .btn-outline-warning { 
      background: linear-gradient(135deg, #CC0000 0%, #990000 100%); 
      color: #FFFFFF; 
@@ -381,23 +406,23 @@ function renderMenuCard($item, $delay = 100) {
 
 <section class="py-5 mt-5">
   <div class="container-fluid px-3 px-md-4">
-  <div class="text-center mb-5" data-aos="fade-down">
-  <h1 class="display-4 fw-bold" style="color: #FFD700; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">Menu Numanke</h1>
-  <p class="lead text-light opacity-75">Jelajahi berbagai pilihan menu spesial dari dapur kami.</p>
+   <div class="text-center mb-5" data-aos="fade-down">
+   <h1 class="display-4 fw-bold" style="color: #CC0000; text-shadow: 2px 2px 10px rgba(255,255,255,0.5);">Menu Numanke</h1>
+   <p class="lead text-dark fw-semibold" style="opacity: 0.85;">Jelajahi berbagai pilihan menu spesial dari dapur kami.</p>
 
-  <!-- SEARCH BAR -->
-  <div class="row justify-content-center mt-4">
-  <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-  <div class="input-group input-group-lg shadow-lg anim-lift" style="border-radius: 50px; overflow: hidden; border: 2px solid rgba(204, 0, 0, 0.4);">
-  <span class="input-group-text border-0" style="background: rgba(30, 30, 30, 0.9) !important; color: #CC0000;">
-  <i class="fa-solid fa-search"></i>
-  </span>
-  <input type="text" id="searchInput" class="form-control border-0 text-white shadow-none" placeholder="Cari menu favoritmu..." style="background: rgba(30, 30, 30, 0.9) !important;" onkeyup="cariMenu()">
-  <button class="btn border-0 fw-bold text-white px-4" type="button" onclick="cariMenu()" style="background-color: #CC0000;">Cari</button>
-  </div>
-  <div id="searchResultText" class="text-warning mt-2 small fw-semibold" style="display: none;"></div>
-  </div>
-  </div>
+   <!-- SEARCH BAR -->
+   <div class="row justify-content-center mt-4">
+   <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+   <div class="input-group input-group-lg shadow-lg anim-lift" style="border-radius: 50px; overflow: hidden; border: 3px solid #CC0000;">
+   <span class="input-group-text border-0" style="background: #1a1a1a !important; color: #FFB300;">
+   <i class="fa-solid fa-search"></i>
+   </span>
+   <input type="text" id="searchInput" class="form-control border-0 text-dark shadow-none" placeholder="Cari menu favoritmu..." style="background: #FFFFFF !important; color: #333333 !important;" onkeyup="cariMenu()">
+   <button class="btn border-0 fw-bold text-white px-4" type="button" onclick="cariMenu()" style="background: linear-gradient(135deg, #CC0000 0%, #990000 100%); border: none;">Cari</button>
+   </div>
+   <div id="searchResultText" class="text-danger mt-2 small fw-semibold" style="display: none;"></div>
+   </div>
+   </div>
   
   </div>
 
@@ -425,27 +450,27 @@ function renderMenuCard($item, $delay = 100) {
 <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg modal-fullscreen-sm-down">
   <div class="modal-content glass-modal">
-  <div class="modal-header border-secondary" style="border-bottom-color: rgba(204, 0, 0, 0.3) !important;">
-  <h5 class="modal-title fw-bold" style="color: #FFD700;"><i class="fa-solid fa-receipt me-2"></i> Keranjang Pesanan</h5>
-  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-  </div>
-  <div class="modal-body">
-  <div class="row g-4">
-  <!-- Daftar Pesanan (Kiri) -->
-  <div class="col-md-6 border-end border-secondary">
-  <h6 class="text-white opacity-75 mb-3"><i class="fa-solid fa-list me-2"></i>Rincian Item:</h6>
-  <div id="keranjangList" class="mb-3"></div>
-  <div id="ringkasanTotal"></div> 
-  </div>
-  
-  <!-- Form Data Diri (Kanan) -->
-  <div class="col-md-6">
-  <form id="formCheckoutWa" action="proses_wa.php" method="POST">
-  <input type="hidden" name="cart_data" id="cartDataInput">
-  <input type="hidden" name="jarak" id="jarakInput" value="0">
-  <input type="hidden" name="link_gps" id="linkGpsInput" value="">
+   <div class="modal-header border-secondary" style="border-bottom-color: rgba(204, 0, 0, 0.3) !important;">
+   <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-receipt me-2" style="color: #CC0000;"></i> Keranjang Pesanan</h5>
+   <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+   </div>
+   <div class="modal-body">
+   <div class="row g-4">
+   <!-- Daftar Pesanan (Kiri) -->
+   <div class="col-md-6 border-end border-secondary">
+   <h6 class="text-dark fw-bold mb-3"><i class="fa-solid fa-list me-2" style="color: #CC0000;"></i>Rincian Item:</h6>
+   <div id="keranjangList" class="mb-3"></div>
+   <div id="ringkasanTotal"></div> 
+   </div>
+   
+   <!-- Form Data Diri (Kanan) -->
+   <div class="col-md-6">
+   <form id="formCheckoutWa" action="proses_wa.php" method="POST">
+   <input type="hidden" name="cart_data" id="cartDataInput">
+   <input type="hidden" name="jarak" id="jarakInput" value="0">
+   <input type="hidden" name="link_gps" id="linkGpsInput" value="">
 
-  <h6 class="text-white opacity-75 mb-3"><i class="fa-solid fa-user me-2"></i>Data Pelanggan:</h6>
+   <h6 class="text-dark fw-bold mb-3"><i class="fa-solid fa-user me-2" style="color: #CC0000;"></i>Data Pelanggan:</h6>
   <div class="form-floating mb-3">
   <input type="text" class="form-control rounded-3" name="nama" id="nama" placeholder="Nama Lengkap" required>
   <label for="nama">Nama Lengkap</label>
@@ -455,38 +480,38 @@ function renderMenuCard($item, $delay = 100) {
   <label for="nomorWa">Nomor WhatsApp</label>
   </div>
 
-  <h6 class="text-white opacity-75 mb-2"><i class="fa-solid fa-tag me-2"></i>Tipe Pesanan:</h6>
-  <div class="row g-2 mb-3">
-  <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="dineIn" value="Makan di Tempat" checked onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="dineIn"><i class="fa-solid fa-store me-2"></i> Makan Ditempat</label></div>
-  <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="takeaway" value="Ambil Sendiri" onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="takeaway"><i class="fa-solid fa-bag-shopping me-2"></i> Bungkus (Ambil)</label></div>
-  <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="delivery" value="Diantar" onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="delivery"><i class="fa-solid fa-motorcycle me-2"></i> Bungkus (Diantar)</label></div>
-  </div>
+   <h6 class="text-dark fw-bold mb-2"><i class="fa-solid fa-tag me-2" style="color: #CC0000;"></i>Tipe Pesanan:</h6>
+   <div class="row g-2 mb-3">
+   <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="dineIn" value="Makan di Tempat" checked onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="dineIn"><i class="fa-solid fa-store me-2"></i> Makan Ditempat</label></div>
+   <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="takeaway" value="Ambil Sendiri" onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="takeaway"><i class="fa-solid fa-bag-shopping me-2"></i> Bungkus (Ambil)</label></div>
+   <div class="col-12"><input type="radio" class="btn-check" name="tipePesanan" id="delivery" value="Diantar" onchange="toggleAlamat()"><label class="btn btn-outline-warning w-100 rounded-3 text-start anim-btn-tambah" for="delivery"><i class="fa-solid fa-motorcycle me-2"></i> Bungkus (Diantar)</label></div>
+   </div>
 
-  <!-- Bagian Pengisian Alamat -->
-  <div class="alamat-box p-3 border border-secondary rounded-3 mb-4" id="boxAlamat" style="display: none; background: rgba(204, 0, 0, 0.08);">
-  <div class="mb-3 pb-2 border-bottom border-secondary">
-  <small class="text-white-50"><i class="fa-solid fa-shop me-1"></i> Dikirim dari:<br>Jl. Pete Sel. No.18, Sekaran, Kec. Gn. Pati, Kota Semarang, Jawa Tengah 50229</small>
-  </div>
-  
-  <div class="d-flex justify-content-between align-items-center mb-2">
-  <h6 class="text-warning small mb-0"><i class="fa-solid fa-map me-1"></i>Metode Alamat:</h6>
-  <button type="button" class="btn btn-sm fw-bold px-3 anim-btn-tambah" onclick="pilihGPS()" id="btnGPS" style="background-color: #CC0000; color: white; border: 1px solid #CC0000;"><i class="fa-solid fa-location-crosshairs"></i> GPS</button>
-  </div>
+   <!-- Bagian Pengisian Alamat -->
+   <div class="alamat-box p-3 border border-secondary rounded-3 mb-4" id="boxAlamat" style="display: none; background: rgba(204, 0, 0, 0.08);">
+   <div class="mb-3 pb-2 border-bottom border-secondary">
+   <small class="text-dark fw-semibold"><i class="fa-solid fa-shop me-1" style="color: #CC0000;"></i> Dikirim dari:<br>Jl. Pete Sel. No.18, Sekaran, Kec. Gn. Pati, Kota Semarang, Jawa Tengah 50229</small>
+   </div>
+   
+   <div class="d-flex justify-content-between align-items-center mb-2">
+   <h6 class="text-dark small mb-0 fw-bold"><i class="fa-solid fa-map me-1" style="color: #CC0000;"></i>Metode Alamat:</h6>
+   <button type="button" class="btn btn-sm fw-bold px-3 anim-btn-tambah" onclick="pilihGPS()" id="btnGPS" style="background-color: #CC0000; color: white; border: 1px solid #CC0000;"><i class="fa-solid fa-location-crosshairs"></i> GPS</button>
+   </div>
 
-  <div class="form-floating mb-2">
-  <textarea class="form-control rounded-3" name="alamat" id="alamat" placeholder="Ketik alamat atau gunakan GPS..." style="height: 90px"></textarea>
-  <label for="alamat">Ketik Detail Alamat / Patokan</label>
-  </div>
+   <div class="form-floating mb-2">
+   <textarea class="form-control rounded-3" name="alamat" id="alamat" placeholder="Ketik alamat atau gunakan GPS..." style="height: 90px; color: #333333 !important;"></textarea>
+   <label for="alamat" style="color: #666666;">Ketik Detail Alamat / Patokan</label>
+   </div>
 
-  <div id="infoOngkir" class="text-white small mb-3 text-center p-2 rounded" style="display:none; background: rgba(204, 0, 0, 0.1); border: 1px solid rgba(204, 0, 0, 0.3);"></div>
+   <div id="infoOngkir" class="text-dark small mb-3 text-center p-2 rounded fw-semibold" style="display:none; background: rgba(204, 0, 0, 0.1); border: 1px solid rgba(204, 0, 0, 0.3);"></div>
 
-  <div class="d-flex gap-2 mt-3">
-  <button type="button" class="btn w-100 fw-bold text-white anim-btn-tambah" onclick="setujuiLokasi()" id="btnSetuju" style="background-color: #CC0000; border: 1px solid #CC0000;"><i class="fa-solid fa-check"></i> Cek Jarak</button>
-  <button type="button" class="btn btn-outline-secondary w-100 fw-bold anim-btn-tambah" onclick="resetLokasi()" id="btnReset" style="display: none;"><i class="fa-solid fa-rotate-left"></i> Ganti</button>
-  </div>
-  </div>
+   <div class="d-flex gap-2 mt-3">
+   <button type="button" class="btn w-100 fw-bold text-white anim-btn-tambah" onclick="setujuiLokasi()" id="btnSetuju" style="background-color: #CC0000; border: 1px solid #CC0000;"><i class="fa-solid fa-check"></i> Cek Jarak</button>
+   <button type="button" class="btn btn-outline-secondary w-100 fw-bold anim-btn-tambah" onclick="resetLokasi()" id="btnReset" style="display: none;"><i class="fa-solid fa-rotate-left"></i> Ganti</button>
+   </div>
+   </div>
 
-  <h6 class="text-white opacity-75 mb-2"><i class="fa-solid fa-credit-card me-2"></i>Pembayaran:</h6>
+   <h6 class="text-dark fw-bold mb-2"><i class="fa-solid fa-credit-card me-2" style="color: #CC0000;"></i>Pembayaran:</h6>
   <div class="row g-2">
   <div class="col-6"><input type="radio" class="btn-check" name="metodeBayar" id="cash" value="Cash" checked><label class="btn btn-outline-warning w-100 rounded-3 anim-btn-tambah" for="cash"><i class="fa-solid fa-money-bill"></i> Tunai</label></div>
   <div class="col-6"><input type="radio" class="btn-check" name="metodeBayar" id="qris" value="QRIS"><label class="btn btn-outline-warning w-100 rounded-3 anim-btn-tambah" for="qris"><i class="fa-solid fa-qrcode"></i> QRIS</label></div>
