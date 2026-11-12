@@ -1,0 +1,77 @@
+{
+  "settings": {
+    "announcement_bar": "🔥 Buka Setiap Hari: 10.00 - 21.00 WIB • Menerima Pesanan Partai / Katering Kampus UNNES & Sekitarnya!",
+    "hero_pill": "Cita Rasa Otentik Sejak 2024",
+    "hero_title_line1": "Sensasi Pedas Legendaris",
+    "hero_title_highlight": "Ayam Brongot",
+    "hero_title_line2": "Nusantara.",
+    "hero_subtitle": "Potongan ayam pilihan dimarinasi 12 jam dengan rempah rahasia Nusantara, dibakar perlahan di atas arang batok alami, menghasilkan kelembutan daging berkaramel gurih yang meresap hingga ke tulang.",
+    "hero_stat_1_val": "12 Jam",
+    "hero_stat_1_lbl": "Marinasi Rempah",
+    "hero_stat_2_val": "100% Arang",
+    "hero_stat_2_lbl": "Batok Kelapa",
+    "hero_stat_3_val": "4.9 / 5.0",
+    "hero_stat_3_lbl": "1.500+ Ulasan",
+    "wa_order": "62882006236802",
+    "wa_order_display": "+62 882-0062-36802",
+    "wa_partner": "6288802732001",
+    "wa_partner_display": "+62 888-0273-2001",
+    "address_short": "Jl. Pete Sel. No.18, Sekaran, Semarang",
+    "address_full": "Jl. Pete Sel. No.18, Sekaran, Kec. Gunungpati, Kota Semarang, Jawa Tengah 50229",
+    "open_hours": "10:00 – 21:00 WIB",
+    "open_start": "10:00",
+    "open_end": "21:00",
+    "resto_status_mode": "auto",
+    "open_days": "Senin – Minggu (Setiap Hari Tanpa Libur)",
+    "marquee_items": [
+      "Ayam Brongot Original",
+      "Sambal Ulek Dadakan",
+      "Nasi Ayam Geprek Keju",
+      "Marinasi 12 Jam Meresap",
+      "Rongot Freeze Coklat",
+      "Es Teh Kampul Segar",
+      "Bakar Arang Tradisional"
+    ]
+  },
+  "stories": [
+    {
+      "id": "story_1",
+      "title": "Awal Mula Resep Rahasia Ayam Brongot",
+      "subtitle": "Kisah dari Balik Dapur",
+      "category": "Cerita Dapur",
+      "badge": "Otentik 2024",
+      "date": "10 November 2026",
+      "image": "assets/images/filosofi1.JPG",
+      "summary": "Numanke bermula dari keinginan menghadirkan hidangan ayam bakar dengan karakter bumbu karamel pekat yang meresap hingga ke tulang.",
+      "content": "Numanke bermula dari keinginan menghadirkan hidangan ayam bakar dengan karakter rasa yang pekat dan mendalam. Kata 'Brongot' merepresentasikan teknik pembakaran di atas arang batok kelapa membara yang menghasilkan aroma smokey karamel yang khas. Setiap potong ayam segar kami marinasi selama 12 jam dengan bumbu rempah rahasia. Saat dibakar, bumbunya mengunci sari rasa daging ayam, menghasilkan tekstur yang lembut, juicy di dalam, dan renyah berkaramel gurih di luar.",
+      "order": 1,
+      "status": "aktif"
+    },
+    {
+      "id": "story_2",
+      "title": "Mengapa Kami Bertahan Memakai Arang Batok Kelapa",
+      "subtitle": "Dedikasi Autentisitas",
+      "category": "Tradisi Kuliner",
+      "badge": "100% Alami",
+      "date": "08 November 2026",
+      "image": "assets/images/filosofi2.JPG",
+      "summary": "Di tengah serbuan panggangan gas dan listrik, Dapur Numanke tetap setia menggunakan bara arang batok kelapa tradisional.",
+      "content": "Di era serba cepat, arang batok kelapa tetap tak tergantikan. Panasnya stabil, tidak meninggalkan jelaga bau minyak, dan memberi aroma harum kayu alami yang menyatu ke dalam serat daging ayam. Asap tipis yang mengepul dari pembakaran arang memberikan karamelisasi sempurna pada saus bumbu brongot yang tidak bisa ditiru oleh pemanggang modern.",
+      "order": 2,
+      "status": "aktif"
+    },
+    {
+      "id": "story_3",
+      "title": "Kebersamaan (Srawung): Rumah Kedua Mahasiswa UNNES",
+      "subtitle": "Komunitas & Silaturahmi",
+      "category": "Kebersamaan",
+      "badge": "Komunitas",
+      "date": "05 November 2026",
+      "image": "assets/images/filosofi3.JPG",
+      "summary": "Meja-meja panjang di resto Numanke menjadi saksi tawa mahasiswa, diskusi tugas, dan kehangatan temu kangen.",
+      "content": "Bagi kami, Numanke bukan sekadar tempat mengisi perut, melainkan ruang hangat untuk saling berjumpa, bertukar tawa, dan mempererat silaturahmi. Setiap hidangan dirancang dengan porsi mantap dan harga bersahabat agar dapat dinikmati bersama keluarga maupun sahabat tercinta.",
+      "order": 3,
+      "status": "aktif"
+    }
+  ]
+}

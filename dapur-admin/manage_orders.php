@@ -34,7 +34,8 @@ $result = $conn->query($query);
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Kelola Pesanan - Admin Numanke</title>  
-    <link rel="stylesheet" href="../assets/css/admin.css"> 
+    <link rel="stylesheet" href="../assets/css/admin.css?v=<?php echo time(); ?>"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         .anim-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
@@ -44,11 +45,33 @@ $result = $conn->query($query);
 <body>  
   
 <div class="sidebar">  
-    <h2>Dapur Numanke</h2>  
-    <a href="index.php">📊 Dashboard</a>  
-    <a href="manage_orders.php" class="active">🛒 Kelola Pesanan</a>  
-    <a href="manage_menu.php">🍲 Kelola Menu</a>  
-    <a href="keluar.php" class="logout">🚪 Keluar</a>  
+    <a href="index.php" class="sidebar-brand">
+        <img src="../assets/images/logo numanke.png" alt="Numanke" style="width: 42px; height: 42px; max-width: 42px; max-height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--admin-gold); flex-shrink: 0;">
+        <div class="sidebar-brand-text">
+            <h2>Numanke<span>.</span></h2>
+            <small>Dapur Admin</small>
+        </div>
+    </a>
+
+    <div class="sidebar-nav">
+        <span class="nav-category">Navigasi Utama</span>
+        <a href="index.php"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+        <a href="manage_stories.php"><i class="fa-solid fa-newspaper"></i> Cerita & Berita</a>
+        <a href="manage_settings.php"><i class="fa-solid fa-sliders"></i> Pengaturan Web</a>
+        
+        <span class="nav-category">Pesanan & Menu</span>
+        <a href="manage_orders.php" class="active"><i class="fa-solid fa-cart-shopping"></i> Kelola Pesanan</a>
+        <a href="manage_menu.php"><i class="fa-solid fa-bowl-food"></i> Kelola Menu</a>
+    </div>
+
+    <div class="sidebar-bottom">
+        <a href="../index.php" target="_blank" class="btn-view-site">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Website
+        </a>
+        <a href="keluar.php" class="logout-link">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
+        </a>
+    </div>
 </div>  
   
 <div class="main-content">  

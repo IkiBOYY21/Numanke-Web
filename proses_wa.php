@@ -93,6 +93,8 @@ foreach($semua_kategori as $kategori) {
             // Nama di-mapping persis sama seperti format di keranjang JS
             $harga_asli_server[$item['nama'] . ' (' . $labelS . ')'] = $hargaS;
             $harga_asli_server[$item['nama'] . ' (' . $labelD . ')'] = $hargaD;
+            $harga_asli_server[$item['nama'] . ' (Single)'] = $hargaS;
+            $harga_asli_server[$item['nama'] . ' (Double)'] = $hargaD;
         } else {
             $hargaAngka = (int)preg_replace('/[^0-9]/', '', $item['harga']) * 1000;
             $harga_asli_server[$item['nama']] = $hargaAngka;
@@ -186,25 +188,96 @@ $link_whatsapp = "https://wa.me/{$nomorAdmin}?text=" . urlencode($teks_wa);
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Memproses Pesanan...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memproses Pesanan... - Numanke</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #1a1a1a; color: #FFD700; font-family: 'Poppins', sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; }
-        .spinner { border: 5px solid rgba(255, 215, 0, 0.3); border-top: 5px solid #FFD700; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 20px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: #ffffff; 
+            color: #18181b; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            text-align: center;
+            padding: 2rem;
+        }
+        .redirect-box {
+            background: #ffffff;
+            border: 1px solid #e4e4e7;
+            border-radius: 24px;
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.08);
+            padding: 3rem 2.25rem;
+            max-width: 440px;
+            width: 100%;
+        }
+        .logo-bounce {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 2px solid #c92a2a;
+            box-shadow: 0 8px 20px rgba(201, 42, 42, 0.25);
+            animation: pulse 1.4s infinite ease-in-out;
+            margin-bottom: 1.5rem;
+            object-fit: cover;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.96); }
+            50% { transform: scale(1.05); }
+        }
+        h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #c92a2a;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            font-size: 0.95rem;
+            color: #52525b;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+        .spinner-bar {
+            width: 100%;
+            height: 6px;
+            background: #f4f4f6;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 1.75rem;
+        }
+        .spinner-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #c92a2a 0%, #f59f00 100%);
+            animation: loadProgress 1.4s ease forwards;
+        }
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
     </style>
 </head>
 <body>
-    <div class="spinner"></div>
-    <h2>Mengamankan Pesanan Anda...</h2>
-    <p>Anda akan dialihkan ke WhatsApp dalam beberapa detik.</p>
+    <div class="redirect-box">
+        <img src="assets/images/logo numanke.png" alt="Numanke Logo" class="logo-bounce" onerror="this.style.display='none'">
+        <h2>Mengamankan Pesanan...</h2>
+        <p>Pesanan Anda sedang dirangkum dan Anda akan segera dialihkan ke WhatsApp resmi Numanke.</p>
+        <div class="spinner-bar">
+            <div class="spinner-fill"></div>
+        </div>
+    </div>
     
     <script>
-        // Hapus isi keranjang di perangkat pelanggan agar bersih
         localStorage.removeItem('numanke_cart');
-        // Alihkan (Redirect) ke link WhatsApp yang sudah aman dari PHP
         setTimeout(function() {
             window.location.href = "<?php echo $link_whatsapp; ?>";
-        }, 1500);
+        }, 1400);
     </script>
 </body>
 </html>
