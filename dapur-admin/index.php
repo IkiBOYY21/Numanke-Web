@@ -60,7 +60,9 @@ if (isset($conn) && !$conn->connect_error) {
             $label_menu = [];
             $data_menu = [];
             while($r = $res_menu->fetch_assoc()) {
-                $label_menu[] = $r['menu_name'];
+                $clean_label = preg_replace('/(\[.*?\]|\(.*?\))/', '', $r['menu_name']);
+                $clean_label = trim($clean_label) ?: $r['menu_name'];
+                $label_menu[] = $clean_label;
                 $data_menu[] = (int)$r['qty'];
             }
         }

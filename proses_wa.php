@@ -4,103 +4,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die("Akses ditolak. Harap pesan melalui halaman menu.");
 }
 
-// 1. DATABASE MENU SEMENTARA
-// (Salin ulang menu di sini agar PHP tahu harga asli. Ke depannya lebih baik dipisah ke file terpisah, misal: includes/data_menu.php)
-$menu_geprek = [
- ['nama' => 'Nasi Ayam Geprek Ori', 'single' => '13 K', 'double' => '18 K'],
- ['nama' => 'Nasi Ayam Geprek Keju', 'single' => '15 K', 'double' => '20 K'],
- ['nama' => 'Nasi Ayam Geprek Moza', 'single' => '17 K', 'double' => '22 K'],
- ['nama' => 'Nasi Jamur Geprek Ori', 'single' => '10 K', 'double' => '14 K'],
- ['nama' => 'Nasi Jamur Geprek Keju', 'single' => '12 K', 'double' => '16 K'],
- ['nama' => 'Nasi Jamur Geprek Moza', 'single' => '14 K', 'double' => '18 K'],
- ['nama' => 'Nasi Telur Geprek Ori', 'single' => '11 K', 'double' => '16 K'],
- ['nama' => 'Nasi Telur Geprek Keju', 'single' => '13 K', 'double' => '18 K'],
- ['nama' => 'Nasi Telur Geprek Moza', 'single' => '15 K', 'double' => '20 K'],
- ['nama' => 'Nasi Ayam+Jamur Geprek Ori', 'single' => '13 K', 'double' => '18 K'],
- ['nama' => 'Nasi Ayam+Jamur Geprek Keju', 'single' => '15 K', 'double' => '20 K'],
- ['nama' => 'Nasi Ayam+Jamur Geprek Moza', 'single' => '17 K', 'double' => '22 K'],
-];
-$menu_dewata = [
- ['nama' => 'Nasi Ayam Geprek Dewata Ori', 'single' => '15 K', 'double' => '19 K'],
- ['nama' => 'Nasi Ayam Geprek Dewata Keju', 'single' => '17 K', 'double' => '21 K'],
- ['nama' => 'Nasi Ayam Geprek Dewata Moza', 'single' => '19 K', 'double' => '23 K'],
- ['nama' => 'Nasi Jamur Geprek Dewata Ori', 'single' => '12 K', 'double' => '16 K'],
- ['nama' => 'Nasi Jamur Geprek Dewata Keju', 'single' => '14 K', 'double' => '18 K'],
- ['nama' => 'Nasi Jamur Geprek Dewata Moza', 'single' => '16 K', 'double' => '20 K'],
- ['nama' => 'Nasi Ayam Brongot Dewata Ori', 'single' => '17 K', 'double' => '23 K'],
- ['nama' => 'Nasi Ayam Brongot Dewata Keju', 'single' => '19 K', 'double' => '24 K'],
- ['nama' => 'Nasi Ayam Brongot Dewata Moza', 'single' => '21 K', 'double' => '26 K'],
- ['nama' => 'Nasi Jamur Brongot Dewata Ori', 'single' => '14 K', 'double' => '18 K'],
- ['nama' => 'Nasi Jamur Brongot Dewata Keju', 'single' => '16 K', 'double' => '20 K'],
- ['nama' => 'Nasi Jamur Brongot Dewata Moza', 'single' => '18 K', 'double' => '22 K'],
- ['nama' => 'Nasi Mix Geprek Dewata Ori', 'single' => '14 K', 'double' => '19 K'],
- ['nama' => 'Nasi Mix Geprek Dewata Keju', 'single' => '15 K', 'double' => '20 K'],
- ['nama' => 'Nasi Mix Geprek Dewata Moza', 'single' => '17 K', 'double' => '23 K'],
- ['nama' => 'Nasi Mix Brongot Dewata Ori', 'single' => '16 K', 'double' => '21 K'],
- ['nama' => 'Nasi Mix Brongot Dewata Keju', 'single' => '18 K', 'double' => '23 K'],
- ['nama' => 'Nasi Mix Brongot Dewata Moza', 'single' => '20 K', 'double' => '25 K'],
-];
-$menu_brongot = [
- ['nama' => 'Nasi Ayam Brongot Ori', 'single' => '15 K', 'double' => '20 K'],
- ['nama' => 'Nasi Ayam Brongot Keju', 'single' => '17 K', 'double' => '22 K'],
- ['nama' => 'Nasi Ayam Brongot Moza', 'single' => '19 K', 'double' => '24 K'],
- ['nama' => 'Nasi Jamur Brongot Ori', 'single' => '12 K', 'double' => '17 K'],
- ['nama' => 'Nasi Jamur Brongot Keju', 'single' => '14 K', 'double' => '19 K'],
- ['nama' => 'Nasi Jamur Brongot Moza', 'single' => '16 K', 'double' => '21 K'],
- ['nama' => 'Nasi Telur Brongot Ori', 'single' => '11 K', 'double' => '17 K'],
- ['nama' => 'Nasi Telur Brongot Keju', 'single' => '13 K', 'double' => '19 K'],
- ['nama' => 'Nasi Telur Brongot Moza', 'single' => '15 K', 'double' => '21 K'],
- ['nama' => 'Nasi Ayam+Jamur Brongot Ori', 'single' => '15 K', 'double' => '20 K'],
- ['nama' => 'Nasi Ayam+Jamur Brongot Keju', 'single' => '17 K', 'double' => '22 K'],
- ['nama' => 'Nasi Ayam+Jamur Brongot Moza', 'single' => '19 K', 'double' => '24 K'],
-];
-$menu_rongot = [
- ['nama' => 'Rongot Freeze Coklat', 'harga' => '11 K'],
- ['nama' => 'Rongot Freeze Keju', 'harga' => '12 K'],
- ['nama' => 'Rongot Freeze Coklat Keju', 'harga' => '14 K'],
- ['nama' => 'Rongot Freeze Coklat Keju Moza', 'harga' => '20 K'],
- ['nama' => 'Rongot Freeze Chocomalt', 'harga' => '13 K'],
- ['nama' => 'Rongot Freeze Chocomalt Keju', 'harga' => '16 K'],
- ['nama' => 'Rongot Freeze Chocomalt Moza', 'harga' => '18 K'],
- ['nama' => 'Rongot Freeze Chocomalt Keju Moza', 'harga' => '21 K'],
- ['nama' => 'Rongot Coklat', 'harga' => '8 K'],
- ['nama' => 'Rongot Keju', 'harga' => '9 K'],
- ['nama' => 'Rongot Coklat Keju', 'harga' => '11 K'],
- ['nama' => 'Rongot Coklat Keju Moza', 'harga' => '16 K'],
-];
-$menu_frozen = [
- ['nama' => 'Ayam Brongot Frozen', 'single' => '29 K', 'single_label' => '1/4 Kg', 'double' => '49 K', 'double_label' => '1/2 Kg'],
- ['nama' => 'Jamur Brongot Frozen', 'single' => '24 K', 'single_label' => '1/4 Kg', 'double' => '42 K', 'double_label' => '1/2 Kg'],
- ['nama' => 'Bakso Brongot Frozen', 'single' => '27 K', 'single_label' => '15 Pcs', 'double' => '37 K', 'double_label' => '25 Pcs'],
- ['nama' => 'Sambal Numan (Bawang/Dewata)', 'harga' => '33 K'],
-];
-$menu_drink = [
- ['nama' => 'Lyche Float', 'harga' => '12 K'], ['nama' => 'Strawberry Float', 'harga' => '12 K'], ['nama' => 'Mango Float', 'harga' => '12 K'], ['nama' => 'Lemon Float', 'harga' => '13 K'], ['nama' => 'Choco Float', 'harga' => '13 K'], ['nama' => 'Teh Tarik Float', 'harga' => '13 K'], ['nama' => 'Choco Malt Float', 'harga' => '13 K'], ['nama' => 'Cappucino Float', 'harga' => '14 K'], ['nama' => 'Lyche Squash', 'harga' => '9 K'], ['nama' => 'Strawberry Squash', 'harga' => '9 K'], ['nama' => 'Mango Squash', 'harga' => '9 K'], ['nama' => 'Lemon Squash', 'harga' => '9 K'], ['nama' => 'Es Teh', 'harga' => '4 K'], ['nama' => 'Strawberry Tea', 'harga' => '7 K'], ['nama' => 'Lychee Tea', 'harga' => '7 K'], ['nama' => 'Lemon Tea', 'harga' => '7 K'], ['nama' => 'Mango Tea', 'harga' => '7 K'], ['nama' => 'Es Coklat', 'harga' => '7 K'], ['nama' => 'Es Teh Tarik', 'harga' => '7 K'], ['nama' => 'Es Choco Malt', 'harga' => '7 K'], ['nama' => 'Es Cappucino', 'harga' => '8 K'], ['nama' => 'Es Batu', 'harga' => '1 K'], ['nama' => 'Air Es / Biasa / Hangat', 'harga' => '2 K'], ['nama' => 'Air Mineral Botol', 'harga' => '5 K'], ['nama' => 'Es Mango', 'harga' => '5 K'], ['nama' => 'Es Lemon', 'harga' => '5 K'], ['nama' => 'Es Strawberry', 'harga' => '5 K'], ['nama' => 'Es Lychee', 'harga' => '5 K'],
-];
-
-// 2. MENGGABUNGKAN MENU & MENGKONVERSI HARGA ASLI MENJADI DICTIONARY UNTUK PENCOCOKAN
-$semua_kategori = [$menu_geprek, $menu_dewata, $menu_brongot, $menu_rongot, $menu_frozen, $menu_drink];
-$harga_asli_server = [];
-
-foreach($semua_kategori as $kategori) {
-    foreach($kategori as $item) {
-        if (isset($item['single'])) {
-            $hargaS = (int)preg_replace('/[^0-9]/', '', $item['single']) * 1000;
-            $hargaD = (int)preg_replace('/[^0-9]/', '', $item['double']) * 1000;
-            $labelS = isset($item['single_label']) ? $item['single_label'] : 'Single (1 Lauk)';
-            $labelD = isset($item['double_label']) ? $item['double_label'] : 'Double (2 Lauk)';
-            
-            // Nama di-mapping persis sama seperti format di keranjang JS
-            $harga_asli_server[$item['nama'] . ' (' . $labelS . ')'] = $hargaS;
-            $harga_asli_server[$item['nama'] . ' (' . $labelD . ')'] = $hargaD;
-            $harga_asli_server[$item['nama'] . ' (Single)'] = $hargaS;
-            $harga_asli_server[$item['nama'] . ' (Double)'] = $hargaD;
-        } else {
-            $hargaAngka = (int)preg_replace('/[^0-9]/', '', $item['harga']) * 1000;
-            $harga_asli_server[$item['nama']] = $hargaAngka;
-        }
-    }
-}
+// 1. AMBIL HARGA ASLI RESMI DARI DATABASE & KATALOG TERPUSAT
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/menu_manager.php';
+$harga_asli_server = get_server_price_map();
 
 // 3. TANGKAP DATA DARI FORM
 $nama = htmlspecialchars($_POST['nama'] ?? '');
@@ -112,25 +19,76 @@ $link_gps = htmlspecialchars($_POST['link_gps'] ?? '');
 $jarak = floatval($_POST['jarak'] ?? 0);
 $cart_data = json_decode($_POST['cart_data'], true);
 
-// 4. HITUNG ULANG SUBTOTAL (BERDASARKAN HARGA SERVER, BUKAN DATA DARI BROWSER)
+// 4. HITUNG ULANG SUBTOTAL (BERDASARKAN HARGA SERVER RESMI, BUKAN DARI CLIENT)
 $subtotal = 0;
 $rincian_pesanan = "";
+$saved_items = [];
 
 if (is_array($cart_data)) {
     foreach ($cart_data as $item) {
-        $nama_item = $item['nama']; // Contoh: "Nasi Ayam Geprek Ori (Single (1 Lauk))"
-        $qty = (int)$item['qty'];
+        $nama_raw = trim($item['nama'] ?? '');
+        $qty = max(1, (int)($item['qty'] ?? 1));
         
-        // Verifikasi keaslian barang
-        if (array_key_exists($nama_item, $harga_asli_server)) {
-            $harga_real = $harga_asli_server[$nama_item];
+        // Ambil catatan jika ada
+        $catatan = trim($item['catatan'] ?? '');
+        
+        // Ekstrak level pedas jika ada di data item atau di dalam teks nama
+        $level = isset($item['level']) ? (int)$item['level'] : 0;
+        if (preg_match('/\[Level\s*(\d+)\]/i', $nama_raw, $mLvl)) {
+            $level = (int)$mLvl[1];
+        }
+        
+        // Bersihkan nama item untuk pencocokan harga asli di server map
+        $lookup_name = trim(preg_replace('/\s*\[Level\s*\d+\]/i', '', $nama_raw));
+        $lookup_name = trim(preg_replace('/\s*\[Catatan:.*?\]/i', '', $lookup_name));
+        $display_name = $lookup_name;
+
+        // Verifikasi keaslian barang dari server price map
+        $harga_real = 0;
+        $valid = false;
+
+        if (array_key_exists($lookup_name, $harga_asli_server)) {
+            $harga_real = $harga_asli_server[$lookup_name];
+            $valid = true;
+        } elseif (isset($item['base_nama']) && array_key_exists($item['base_nama'], $harga_asli_server)) {
+            $harga_real = $harga_asli_server[$item['base_nama']];
+            $valid = true;
+        } else {
+            // Coba tanpa tanda kurung tambahan
+            $plain_name = trim(preg_replace('/\s*\(.*?\)/', '', $lookup_name));
+            if (array_key_exists($plain_name, $harga_asli_server)) {
+                $harga_real = $harga_asli_server[$plain_name];
+                $valid = true;
+            }
+        }
+
+        if ($valid) {
             $total_harga_item = $harga_real * $qty;
             $subtotal += $total_harga_item;
             
-            $rincian_pesanan .= "- {$qty}x {$nama_item} (Rp " . number_format($total_harga_item, 0, ',', '.') . ")\n";
+            $item_line = "- {$qty}x {$display_name}";
+            $full_display = "{$display_name}";
+            if ($level > 0) {
+                $item_line .= " (Level Pedas: {$level})";
+                $full_display .= " [Level {$level}]";
+            }
+            if (!empty($catatan)) {
+                $item_line .= " [Catatan: {$catatan}]";
+                $full_display .= " [Catatan: {$catatan}]";
+            }
+            $item_line .= " (Rp " . number_format($total_harga_item, 0, ',', '.') . ")\n";
+            $rincian_pesanan .= $item_line;
+
+            $saved_items[] = [
+                'full_display' => $full_display,
+                'lookup_name' => $lookup_name,
+                'qty' => $qty,
+                'harga' => $harga_real,
+                'subtotal' => $total_harga_item
+            ];
         } else {
-            // Jika seseorang mengedit nama barang lewat Inspect Element
-            $rincian_pesanan .= "- {$qty}x {$nama_item} [NAMA ITEM DIMANIPULASI / TIDAK VALID]\n";
+            // Jika ada nama item yang tidak cocok sama sekali di katalog server
+            $rincian_pesanan .= "- {$qty}x {$nama_raw} [NAMA ITEM TIDAK VALID / DIMANIPULASI]\n";
         }
     }
 }
@@ -152,9 +110,58 @@ if ($tipePesanan === 'Diantar') {
 $kode_unik = rand(11, 99);
 $total_bayar = $subtotal + $ongkir + $kode_unik;
 
-// 7. SUSUN TEKS WHATSAPP
-$teks_wa = "Halo Admin Numanke! 🍗🔥\n\nSaya ingin memesan dengan rincian berikut:\n\n";
+// 7. SIMPAN PESANAN KE DATABASE (ORDERS & ORDER_ITEMS)
+$order_id_db = null;
+if (isset($conn) && !$conn->connect_error) {
+    try {
+        $c_name = $conn->real_escape_string($nama);
+        $c_phone = $conn->real_escape_string($nomorWa);
+        
+        $c_address_full = "[{$tipePesanan}]";
+        if ($tipePesanan === 'Diantar') {
+            $c_address_full .= " " . $alamat;
+            if ($jarak > 0) $c_address_full .= " (Jarak: " . number_format($jarak, 1) . " km, Ongkir: Rp " . number_format($ongkir, 0, ',', '.') . ")";
+            if (!empty($link_gps)) $c_address_full .= " | GPS: " . $link_gps;
+        }
+        $c_address_full .= " | Bayar: " . $metodeBayar;
+        if ($kode_unik > 0) $c_address_full .= " (Kode: " . $kode_unik . ")";
+        $c_address = $conn->real_escape_string($c_address_full);
+        
+        $sql_order = "INSERT INTO orders (customer_name, customer_phone, customer_address, total_price, status, order_date) 
+                      VALUES ('$c_name', '$c_phone', '$c_address', '$total_bayar', 'Menunggu', NOW())";
+        if ($conn->query($sql_order)) {
+            $order_id_db = $conn->insert_id;
+            
+            // Simpan setiap item ke tabel order_items
+            foreach ($saved_items as $s_item) {
+                $m_name_clean = $conn->real_escape_string($s_item['full_display']);
+                $m_qty = (int)$s_item['qty'];
+                $m_subtotal = (float)$s_item['subtotal'];
+                $m_lookup = $conn->real_escape_string($s_item['lookup_name']);
+                
+                // Cari ID menu di database jika ada
+                $menu_id_val = "NULL";
+                $res_m = $conn->query("SELECT id FROM menu WHERE name = '$m_lookup' OR name LIKE '$m_lookup%' LIMIT 1");
+                if ($res_m && $r_m = $res_m->fetch_assoc()) {
+                    $menu_id_val = (int)$r_m['id'];
+                }
+                
+                $conn->query("INSERT INTO order_items (order_id, menu_id, menu_name, quantity, subtotal) 
+                              VALUES ('$order_id_db', $menu_id_val, '$m_name_clean', '$m_qty', '$m_subtotal')");
+            }
+        }
+    } catch (Exception $e) {
+        // Fallback jika database sedang offline, tetap lanjut ke WhatsApp
+    }
+}
+
+// 8. SUSUN TEKS WHATSAPP
+$kode_ord_text = $order_id_db ? "#ORD-" . str_pad($order_id_db, 3, '0', STR_PAD_LEFT) : "";
+$teks_wa = "Halo Admin Numanke! 🍗🔥\n\nSaya ingin memesan " . ($kode_ord_text ? "({$kode_ord_text}) " : "") . "dengan rincian berikut:\n\n";
 $teks_wa .= "*DATA PEMESAN:*\n";
+if ($kode_ord_text) {
+    $teks_wa .= "- No. Pesanan: {$kode_ord_text}\n";
+}
 $teks_wa .= "- Nama: {$nama}\n";
 $teks_wa .= "- No. WA: {$nomorWa}\n";
 $teks_wa .= "- Tipe: {$tipePesanan}\n";

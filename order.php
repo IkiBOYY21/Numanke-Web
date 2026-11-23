@@ -1,167 +1,70 @@
 <?php 
 require_once 'includes/header.php'; 
+require_once 'includes/menu_manager.php'; 
 
 // =========================================================================
-// DATA MENU NUMANKE
+// DATA MENU NUMANKE (SINKRON LANGSUNG DENGAN DATABASE ADMIN)
 // =========================================================================
+$menu_catalog = get_menu_catalog();
 
-$menu_geprek = [
- ['nama' => 'Nasi Ayam Geprek Ori', 'single' => 'Rp. 13.000', 'double' => 'Rp. 18.000', 'img' => 'assets/images/menu/1794255715_NasiAyamGeprekKejuSingle.png', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Ayam Geprek Keju', 'single' => 'Rp. 15.000', 'double' => 'Rp. 20.000', 'img' => 'assets/images/menu/1794255367_NasiAyamGeprekKejuDouble.png', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Ayam Geprek Moza', 'single' => 'Rp. 17.000', 'double' => 'Rp. 22.000', 'img' => '', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Jamur Geprek Ori', 'single' => 'Rp. 10.000', 'double' => 'Rp. 14.000', 'img' => '', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Jamur Geprek Keju', 'single' => 'Rp. 12.000', 'double' => 'Rp. 16.000', 'img' => '', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Jamur Geprek Moza', 'single' => 'Rp. 14.000', 'double' => 'Rp. 18.000', 'img' => '', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Telur Geprek Ori', 'single' => 'Rp. 11.000', 'double' => 'Rp. 16.000', 'img' => '', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Telur Geprek Keju', 'single' => 'Rp. 13.000', 'double' => 'Rp. 18.000', 'img' => '', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Telur Geprek Moza', 'single' => 'Rp. 15.000', 'double' => 'Rp. 20.000', 'img' => '', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Ayam+Jamur Geprek Ori', 'single' => 'Rp. 13.000', 'double' => 'Rp. 18.000', 'img' => '', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Ayam+Jamur Geprek Keju', 'single' => 'Rp. 15.000', 'double' => 'Rp. 20.000', 'img' => '', 'icon' => 'fa-utensils'],
- ['nama' => 'Nasi Ayam+Jamur Geprek Moza', 'single' => 'Rp. 17.000', 'double' => 'Rp. 22.000', 'img' => '', 'icon' => 'fa-utensils'],
+// Konfigurasi metadata kategori (Ikon, label, subjudul)
+$category_meta = [
+    'Geprek Series' => ['slug' => 'geprek', 'icon' => 'fa-utensils text-danger', 'label' => 'Geprek Spesial', 'title' => 'Ayam & Jamur Geprek', 'sub' => 'Crispy gurih berpadu dengan ulekan cabai rawit pedas mantap.'],
+    'Brongot Series' => ['slug' => 'brongot', 'icon' => 'fa-fire text-danger', 'label' => 'Ayam Brongot', 'title' => 'Ayam Brongot Spesial', 'sub' => 'Dimarinasi 12 jam, dibakar arang dengan bumbu manis pedas gurih karamel.'],
+    'Dewata Series' => ['slug' => 'dewata', 'icon' => 'fa-leaf text-success', 'label' => 'Dewata Series', 'title' => 'Dewata Series', 'sub' => 'Khas rempah Bali wangi serai daun jeruk yang menggugah selera.'],
+    'Rongot Series' => ['slug' => 'rongot', 'icon' => 'fa-ice-cream text-warning', 'label' => 'Rongot Freeze', 'title' => 'Rongot Freeze & Snack', 'sub' => 'Roti panggang aneka topping manis lumer, penyejuk nikmat sehabis pedas.'],
+    'Frozen Series' => ['slug' => 'frozen', 'icon' => 'fa-snowflake text-info', 'label' => 'Frozen & Sambal', 'title' => 'Frozen Food & Sambal Botol', 'sub' => 'Siap masak praktis di rumah kapan saja Anda mau.'],
+    'Drink' => ['slug' => 'drink', 'icon' => 'fa-glass-water text-primary', 'label' => 'Minuman Segar', 'title' => 'Minuman Segar & Float', 'sub' => 'Aneka teh, squash jeruk, coklat, dan es float dingin melegakan.'],
 ];
 
-$menu_dewata = [
- ['nama' => 'Nasi Ayam Geprek Dewata Ori', 'single' => 'Rp. 15.000', 'double' => 'Rp. 19.000', 'img' => '', 'icon' => 'fa-leaf'],
- ['nama' => 'Nasi Ayam Geprek Dewata Keju', 'single' => 'Rp. 17.000', 'double' => 'Rp. 21.000', 'img' => '', 'icon' => 'fa-leaf'],
- ['nama' => 'Nasi Ayam Geprek Dewata Moza', 'single' => 'Rp. 19.000', 'double' => 'Rp. 23.000', 'img' => '', 'icon' => 'fa-leaf'],
- ['nama' => 'Nasi Jamur Geprek Dewata Ori', 'single' => 'Rp. 12.000', 'double' => 'Rp. 16.000', 'img' => '', 'icon' => 'fa-leaf'],
- ['nama' => 'Nasi Jamur Geprek Dewata Keju', 'single' => 'Rp. 14.000', 'double' => 'Rp. 18.000', 'img' => '', 'icon' => 'fa-leaf'],
- ['nama' => 'Nasi Jamur Geprek Dewata Moza', 'single' => 'Rp. 16.000', 'double' => 'Rp. 20.000', 'img' => '', 'icon' => 'fa-leaf'],
- ['nama' => 'Nasi Ayam Brongot Dewata Ori', 'single' => 'Rp. 17.000', 'double' => 'Rp. 23.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Ayam Brongot Dewata Keju', 'single' => 'Rp. 19.000', 'double' => 'Rp. 24.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Ayam Brongot Dewata Moza', 'single' => 'Rp. 21.000', 'double' => 'Rp. 26.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Jamur Brongot Dewata Ori', 'single' => 'Rp. 14.000', 'double' => 'Rp. 18.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Jamur Brongot Dewata Keju', 'single' => 'Rp. 16.000', 'double' => 'Rp. 20.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Jamur Brongot Dewata Moza', 'single' => 'Rp. 18.000', 'double' => 'Rp. 22.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Mix Geprek Dewata Ori', 'single' => 'Rp. 14.000', 'double' => 'Rp. 19.000', 'img' => '', 'icon' => 'fa-leaf'],
- ['nama' => 'Nasi Mix Geprek Dewata Keju', 'single' => 'Rp. 15.000', 'double' => 'Rp. 20.000', 'img' => '', 'icon' => 'fa-leaf'],
- ['nama' => 'Nasi Mix Geprek Dewata Moza', 'single' => 'Rp. 17.000', 'double' => 'Rp. 23.000', 'img' => '', 'icon' => 'fa-leaf'],
- ['nama' => 'Nasi Mix Brongot Dewata Ori', 'single' => 'Rp. 16.000', 'double' => 'Rp. 21.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Mix Brongot Dewata Keju', 'single' => 'Rp. 18.000', 'double' => 'Rp. 23.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Mix Brongot Dewata Moza', 'single' => 'Rp. 20.000', 'double' => 'Rp. 25.000', 'img' => '', 'icon' => 'fa-fire'],
-];
-
-$menu_brongot = [
- ['nama' => 'Nasi Ayam Brongot Ori', 'single' => 'Rp. 15.000', 'double' => 'Rp. 20.000', 'img' => 'assets/images/fotoslide1.png', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Ayam Brongot Keju', 'single' => 'Rp. 17.000', 'double' => 'Rp. 22.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Ayam Brongot Moza', 'single' => 'Rp. 19.000', 'double' => 'Rp. 24.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Jamur Brongot Ori', 'single' => 'Rp. 12.000', 'double' => 'Rp. 17.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Jamur Brongot Keju', 'single' => 'Rp. 14.000', 'double' => 'Rp. 19.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Jamur Brongot Moza', 'single' => 'Rp. 16.000', 'double' => 'Rp. 21.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Telur Brongot Ori', 'single' => 'Rp. 11.000', 'double' => 'Rp. 17.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Telur Brongot Keju', 'single' => 'Rp. 13.000', 'double' => 'Rp. 19.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Telur Brongot Moza', 'single' => 'Rp. 15.000', 'double' => 'Rp. 21.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Ayam+Jamur Brongot Ori', 'single' => 'Rp. 15.000', 'double' => 'Rp. 20.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Ayam+Jamur Brongot Keju', 'single' => 'Rp. 17.000', 'double' => 'Rp. 22.000', 'img' => '', 'icon' => 'fa-fire'],
- ['nama' => 'Nasi Ayam+Jamur Brongot Moza', 'single' => 'Rp. 19.000', 'double' => 'Rp. 24.000', 'img' => '', 'icon' => 'fa-fire'],
-];
-
-$menu_rongot = [
- ['nama' => 'Rongot Freeze Coklat', 'harga' => 'Rp. 11.000', 'img' => '', 'icon' => 'fa-ice-cream'],
- ['nama' => 'Rongot Freeze Keju', 'harga' => 'Rp. 12.000', 'img' => '', 'icon' => 'fa-ice-cream'],
- ['nama' => 'Rongot Freeze Coklat Keju', 'harga' => 'Rp. 14.000', 'img' => '', 'icon' => 'fa-ice-cream'],
- ['nama' => 'Rongot Freeze Coklat Keju Moza', 'harga' => 'Rp. 20.000', 'img' => '', 'icon' => 'fa-ice-cream'],
- ['nama' => 'Rongot Freeze Chocomalt', 'harga' => 'Rp. 13.000', 'img' => '', 'icon' => 'fa-ice-cream'],
- ['nama' => 'Rongot Freeze Chocomalt Keju', 'harga' => 'Rp. 16.000', 'img' => '', 'icon' => 'fa-ice-cream'],
- ['nama' => 'Rongot Freeze Chocomalt Moza', 'harga' => 'Rp. 18.000', 'img' => '', 'icon' => 'fa-ice-cream'],
- ['nama' => 'Rongot Freeze Chocomalt Keju Moza', 'harga' => 'Rp. 21.000', 'img' => '', 'icon' => 'fa-ice-cream'],
- ['nama' => 'Rongot Coklat', 'harga' => 'Rp. 8.000', 'img' => '', 'icon' => 'fa-bread-slice'],
- ['nama' => 'Rongot Keju', 'harga' => 'Rp. 9.000', 'img' => '', 'icon' => 'fa-bread-slice'],
- ['nama' => 'Rongot Coklat Keju', 'harga' => 'Rp. 11.000', 'img' => '', 'icon' => 'fa-bread-slice'],
- ['nama' => 'Rongot Coklat Keju Moza', 'harga' => 'Rp. 16.000', 'img' => '', 'icon' => 'fa-bread-slice'],
-];
-
-$menu_frozen = [
- ['nama' => 'Ayam Brongot Frozen', 'single' => 'Rp. 29.000', 'single_label' => '1/4 Kg', 'double' => 'Rp. 49.000', 'double_label' => '1/2 Kg', 'img' => '', 'icon' => 'fa-snowflake'],
- ['nama' => 'Jamur Brongot Frozen', 'single' => 'Rp. 24.000', 'single_label' => '1/4 Kg', 'double' => 'Rp. 42.000', 'double_label' => '1/2 Kg', 'img' => '', 'icon' => 'fa-snowflake'],
- ['nama' => 'Bakso Brongot Frozen', 'single' => 'Rp. 27.000', 'single_label' => '15 Pcs', 'double' => 'Rp. 37.000', 'double_label' => '25 Pcs', 'img' => '', 'icon' => 'fa-snowflake'],
- ['nama' => 'Sambal Numan (Bawang/Dewata)', 'harga' => 'Rp. 33.000', 'img' => '', 'icon' => 'fa-pepper-hot'],
-];
-
-$menu_drink = [
- ['nama' => 'Lyche Float', 'harga' => 'Rp. 12.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Strawberry Float', 'harga' => 'Rp. 12.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Mango Float', 'harga' => 'Rp. 12.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Lemon Float', 'harga' => 'Rp. 13.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Choco Float', 'harga' => 'Rp. 13.000', 'img' => '', 'icon' => 'fa-mug-hot'],
- ['nama' => 'Teh Tarik Float', 'harga' => 'Rp. 13.000', 'img' => '', 'icon' => 'fa-mug-hot'],
- ['nama' => 'Choco Malt Float', 'harga' => 'Rp. 13.000', 'img' => '', 'icon' => 'fa-mug-hot'],
- ['nama' => 'Cappucino Float', 'harga' => 'Rp. 14.000', 'img' => '', 'icon' => 'fa-mug-hot'],
- ['nama' => 'Lyche Squash', 'harga' => 'Rp. 9.000', 'img' => '', 'icon' => 'fa-martini-glass-citrus'],
- ['nama' => 'Strawberry Squash', 'harga' => 'Rp. 9.000', 'img' => '', 'icon' => 'fa-martini-glass-citrus'],
- ['nama' => 'Mango Squash', 'harga' => 'Rp. 9.000', 'img' => '', 'icon' => 'fa-martini-glass-citrus'],
- ['nama' => 'Lemon Squash', 'harga' => 'Rp. 9.000', 'img' => '', 'icon' => 'fa-martini-glass-citrus'],
- ['nama' => 'Es Teh', 'harga' => 'Rp. 4.000', 'img' => 'assets/images/fotoslide3.JPG', 'icon' => 'fa-glass-water'],
- ['nama' => 'Strawberry Tea', 'harga' => 'Rp. 7.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Lychee Tea', 'harga' => 'Rp. 7.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Lemon Tea', 'harga' => 'Rp. 7.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Mango Tea', 'harga' => 'Rp. 7.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Es Coklat', 'harga' => 'Rp. 7.000', 'img' => '', 'icon' => 'fa-mug-hot'],
- ['nama' => 'Es Teh Tarik', 'harga' => 'Rp. 7.000', 'img' => '', 'icon' => 'fa-mug-hot'],
- ['nama' => 'Es Choco Malt', 'harga' => 'Rp. 7.000', 'img' => '', 'icon' => 'fa-mug-hot'],
- ['nama' => 'Es Cappucino', 'harga' => 'Rp. 8.000', 'img' => '', 'icon' => 'fa-mug-hot'],
- ['nama' => 'Es Batu', 'harga' => 'Rp. 1.000', 'img' => '', 'icon' => 'fa-cubes'],
- ['nama' => 'Air Es / Biasa / Hangat', 'harga' => 'Rp. 2.000', 'img' => '', 'icon' => 'fa-droplet'],
- ['nama' => 'Air Mineral Botol', 'harga' => 'Rp. 5.000', 'img' => '', 'icon' => 'fa-bottle-water'],
- ['nama' => 'Es Mango', 'harga' => 'Rp. 5.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Es Lemon', 'harga' => 'Rp. 5.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Es Strawberry', 'harga' => 'Rp. 5.000', 'img' => '', 'icon' => 'fa-glass-water'],
- ['nama' => 'Es Lychee', 'harga' => 'Rp. 5.000', 'img' => '', 'icon' => 'fa-glass-water'],
-];
-
-// FUNGSI RENDER KARTU MENU – SIMPLE & ELEGANT
+// FUNGSI RENDER KARTU MENU – INTERAKTIF & CLICKABLE KE POP-UP
 function renderMenuCard($item, $delay = 50) {
-    $isSpicy = ($item['icon'] === 'fa-fire');
-    $isGeprek = ($item['icon'] === 'fa-utensils');
+    $itemJson = htmlspecialchars(json_encode($item, JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8');
+    $isSpicy = !empty($item['has_spicy']);
+    $namaMenu = htmlspecialchars($item['nama'], ENT_QUOTES, 'UTF-8');
 
     echo '<div class="col-6 col-md-4 col-lg-3 menu-item-card" data-aos="fade-up" data-aos-delay="'.$delay.'">';
-    echo '<div class="card-menu-elegant">';
+    echo '<div class="card-menu-elegant clickable-product-card" onclick="openProductModalFromCard(this)" data-product=\''.$itemJson.'\' title="Klik untuk pilih porsi, level pedas & pesan">';
     
     // Image box with fallback icon
     echo '<div class="card-menu-img-box">';
     if (!empty($item['img'])) {
-        echo '<img src="'.$item['img'].'" alt="'.$item['nama'].'" onerror="this.style.display=\'none\'">';
+        echo '<img src="'.$item['img'].'" alt="'.$namaMenu.'" onerror="this.src=\'assets/images/bg-headingweb.png\'">';
     }
-    echo '<i class="fa-solid '.$item['icon'].' position-absolute" style="font-size:2.2rem; color:var(--color-dark); opacity:0.1; z-index:0;"></i>';
+    echo '<i class="fa-solid '.$item['icon'].' position-absolute" style="font-size:2.2rem; color:var(--color-dark); opacity:0.08; z-index:0;"></i>';
+    echo '<span class="card-menu-click-hint"><i class="fa-solid fa-arrow-pointer"></i> Klik Detail</span>';
     echo '</div>';
 
     // Body content
-    echo '<div class="card-menu-body p-3">';
-    echo '<h4 class="card-menu-title mb-1" style="font-size: 0.95rem; line-height: 1.3; min-height: 2.5em;">'.$item['nama'].'</h4>';
+    echo '<div class="card-menu-body">';
+    echo '<h4 class="card-menu-title mb-1">'.$namaMenu.'</h4>';
     
     // Badge status
     if ($isSpicy) {
-        echo '<div class="mb-2"><span class="spice-level-indicator">🌶️ Pedas</span></div>';
-    } elseif ($isGeprek) {
-        echo '<div class="mb-2"><span class="spice-level-indicator" style="background:#f0fdf4; color:#166534; border-color:rgba(22,101,52,0.2);">🍗 Geprek</span></div>';
+        echo '<div class="mb-2"><span class="spice-level-indicator">🌶️ Level 1-5</span></div>';
     } else {
-        echo '<div class="mb-2" style="height: 22px;"></div>';
+        echo '<div class="mb-2"><span class="spice-level-indicator" style="background:#f0fdf4; color:#166534; border-color:rgba(22,101,52,0.2);">✨ Segar / Manis</span></div>';
     }
 
     echo '<div class="mt-auto d-flex flex-column gap-1">';
     
-    $namaMenu = htmlspecialchars($item['nama'], ENT_QUOTES, 'UTF-8');
-
-    if (isset($item['single'])) {
-        $hargaS = (int)preg_replace('/[^0-9]/', '', $item['single']);
-        $hargaD = (int)preg_replace('/[^0-9]/', '', $item['double']);
-        $labelS = isset($item['single_label']) ? $item['single_label'] : 'Single';
-        $labelD = isset($item['double_label']) ? $item['double_label'] : 'Double';
+    if (!empty($item['has_portions'])) {
+        $lblS = $item['single_label'] ?? 'Single';
+        $lblD = $item['double_label'] ?? 'Double';
 
         echo '<div class="portion-row">';
-        echo '<div><div class="portion-name">'.$labelS.'</div><div class="portion-cost">'.$item['single'].'</div></div>';
-        echo '<button class="btn-add-item" onclick="tambahKeranjang(event, \''.$namaMenu.' ('.$labelS.')\', '.$hargaS.')"><i class="fa-solid fa-plus"></i></button>';
+        echo '<div><div class="portion-name">'.$lblS.'</div><div class="portion-cost">'.$item['single'].'</div></div>';
+        echo '<button type="button" class="btn-add-item" onclick="event.stopPropagation(); openProductModalFromPortion(this, \'Single\')" title="Pilih Single & Level Pedas"><i class="fa-solid fa-plus"></i></button>';
         echo '</div>';
         
         echo '<div class="portion-row">';
-        echo '<div><div class="portion-name">'.$labelD.'</div><div class="portion-cost">'.$item['double'].'</div></div>';
-        echo '<button class="btn-add-item" onclick="tambahKeranjang(event, \''.$namaMenu.' ('.$labelD.')\', '.$hargaD.')"><i class="fa-solid fa-plus"></i></button>';
+        echo '<div><div class="portion-name">'.$lblD.'</div><div class="portion-cost">'.$item['double'].'</div></div>';
+        echo '<button type="button" class="btn-add-item" onclick="event.stopPropagation(); openProductModalFromPortion(this, \'Double\')" title="Pilih Double & Level Pedas"><i class="fa-solid fa-plus"></i></button>';
         echo '</div>';
     } else {
-        $hargaAngka = (int)preg_replace('/[^0-9]/', '', $item['harga']);
         echo '<div class="portion-row">';
         echo '<div><div class="portion-name">Harga Porsi</div><div class="portion-cost">'.$item['harga'].'</div></div>';
-        echo '<button class="btn-add-item" onclick="tambahKeranjang(event, \''.$namaMenu.'\', '.$hargaAngka.')"><i class="fa-solid fa-plus"></i></button>';
+        echo '<button type="button" class="btn-add-item" onclick="event.stopPropagation(); openProductModalFromCard(this.closest(\'.card-menu-elegant\'))" title="Detail & Pesan"><i class="fa-solid fa-plus"></i></button>';
         echo '</div>';
     }
     
@@ -181,7 +84,7 @@ function renderMenuCard($item, $delay = 50) {
                     Daftar Menu Numanke<span style="color: var(--color-gold);">.</span>
                 </h1>
                 <p style="color: rgba(255,255,255,0.85); font-size: 1.05rem; line-height: 1.6; max-width: 520px; margin-bottom: 0;">
-                    Pilih menu favorit Anda. Dibuat hangat dan segar saat pesanan diterima. Tersedia porsi Single & Double lauk.
+                    Pilih menu favorit Anda. Dibuat hangat dan segar saat pesanan diterima. Klik menu untuk memilih level pedas (1-5) dan porsi Single/Double.
                 </p>
             </div>
             
@@ -197,100 +100,178 @@ function renderMenuCard($item, $delay = 50) {
     </div>
 </section>
 
-<!-- ==================== CATEGORY FILTER TABS ==================== -->
+<!-- ==================== CATEGORY FILTER TABS (DYNAMIC DARI DATABASE) ==================== -->
 <section class="py-4 bg-white border-bottom sticky-top" style="top: 76px; z-index: 1020; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
     <div class="container">
         <div class="category-filter-bar nav flex-nowrap" id="menu-tab" role="tablist">
-            <button class="category-pill-btn active" data-bs-toggle="pill" data-bs-target="#geprek" type="button" role="tab">
-                <i class="fa-solid fa-utensils text-danger"></i> Geprek Spesial
-            </button>
-            <button class="category-pill-btn" data-bs-toggle="pill" data-bs-target="#brongot" type="button" role="tab">
-                <i class="fa-solid fa-fire text-danger"></i> Ayam Brongot
-            </button>
-            <button class="category-pill-btn" data-bs-toggle="pill" data-bs-target="#dewata" type="button" role="tab">
-                <i class="fa-solid fa-leaf text-success"></i> Dewata Series
-            </button>
-            <button class="category-pill-btn" data-bs-toggle="pill" data-bs-target="#rongot" type="button" role="tab">
-                <i class="fa-solid fa-ice-cream text-warning"></i> Rongot Freeze
-            </button>
-            <button class="category-pill-btn" data-bs-toggle="pill" data-bs-target="#frozen" type="button" role="tab">
-                <i class="fa-solid fa-snowflake text-info"></i> Frozen & Sambal
-            </button>
-            <button class="category-pill-btn" data-bs-toggle="pill" data-bs-target="#drink" type="button" role="tab">
-                <i class="fa-solid fa-glass-water text-primary"></i> Minuman Segar
-            </button>
+            <?php 
+            $tab_idx = 0;
+            foreach ($menu_catalog as $kat_name => $items_in_kat): 
+                if (empty($items_in_kat)) continue;
+                $slug = $category_meta[$kat_name]['slug'] ?? strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $kat_name));
+                $icon = $category_meta[$kat_name]['icon'] ?? 'fa-bowl-food text-danger';
+                $label = $category_meta[$kat_name]['label'] ?? $kat_name;
+                $active_class = ($tab_idx === 0) ? 'active' : '';
+            ?>
+                <button class="category-pill-btn <?php echo $active_class; ?>" data-bs-toggle="pill" data-bs-target="#<?php echo $slug; ?>" type="button" role="tab">
+                    <i class="fa-solid <?php echo $icon; ?>"></i> <?php echo htmlspecialchars($label); ?>
+                </button>
+            <?php 
+                $tab_idx++;
+            endforeach; 
+            ?>
         </div>
     </div>
 </section>
 
-<!-- ==================== MENU GRID ITEMS ==================== -->
+<!-- ==================== MENU GRID ITEMS (DYNAMIC DARI DATABASE) ==================== -->
 <section class="section-wrapper-bg">
     <div class="container">
         <div class="section-framed-card">
             <div class="tab-content" id="menu-tabContent">
-                <div class="tab-pane fade show active" id="geprek">
-                    <div class="mb-4">
-                        <h3 class="font-display fs-3 text-dark mb-1">Ayam & Jamur Geprek</h3>
-                        <p class="text-muted small">Crispy gurih berpadu dengan ulekan cabai rawit pedas mantap.</p>
+                <?php 
+                $pane_idx = 0;
+                foreach ($menu_catalog as $kat_name => $items_in_kat): 
+                    if (empty($items_in_kat)) continue;
+                    $slug = $category_meta[$kat_name]['slug'] ?? strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $kat_name));
+                    $title = $category_meta[$kat_name]['title'] ?? $kat_name;
+                    $sub = $category_meta[$kat_name]['sub'] ?? 'Koleksi menu lezat dari dapur kami.';
+                    $show_active = ($pane_idx === 0) ? 'show active' : '';
+                ?>
+                    <div class="tab-pane fade <?php echo $show_active; ?>" id="<?php echo $slug; ?>">
+                        <div class="mb-4">
+                            <h3 class="font-display fs-3 text-dark mb-1"><?php echo htmlspecialchars($title); ?></h3>
+                            <p class="text-muted small"><?php echo htmlspecialchars($sub); ?></p>
+                        </div>
+                        <div class="row g-3 g-md-4">
+                            <?php 
+                            $d = 50; 
+                            foreach($items_in_kat as $item) { 
+                                renderMenuCard($item, $d); 
+                                $d = ($d >= 200) ? 50 : $d + 50; 
+                            } 
+                            ?>
+                        </div>
                     </div>
-                    <div class="row g-3 g-md-4">
-                        <?php $d=50; foreach($menu_geprek as $item) { renderMenuCard($item, $d); $d=($d>=200)?50:$d+50; } ?>
-                    </div>
-                </div>
-                
-                <div class="tab-pane fade" id="brongot">
-                    <div class="mb-4">
-                        <h3 class="font-display fs-3 text-dark mb-1">Ayam Brongot Spesial</h3>
-                        <p class="text-muted small">Dimarinasi 12 jam, dibakar arang dengan bumbu manis pedas gurih karamel.</p>
-                    </div>
-                    <div class="row g-3 g-md-4">
-                        <?php $d=50; foreach($menu_brongot as $item) { renderMenuCard($item, $d); $d=($d>=200)?50:$d+50; } ?>
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="dewata">
-                    <div class="mb-4">
-                        <h3 class="font-display fs-3 text-dark mb-1">Dewata Series</h3>
-                        <p class="text-muted small">Khas rempah Bali wangi serai daun jeruk yang menggugah selera.</p>
-                    </div>
-                    <div class="row g-3 g-md-4">
-                        <?php $d=50; foreach($menu_dewata as $item) { renderMenuCard($item, $d); $d=($d>=200)?50:$d+50; } ?>
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="rongot">
-                    <div class="mb-4">
-                        <h3 class="font-display fs-3 text-dark mb-1">Rongot Freeze & Snack</h3>
-                        <p class="text-muted small">Roti panggang aneka topping manis lumer, penyejuk nikmat sehabis pedas.</p>
-                    </div>
-                    <div class="row g-3 g-md-4">
-                        <?php $d=50; foreach($menu_rongot as $item) { renderMenuCard($item, $d); $d=($d>=200)?50:$d+50; } ?>
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="frozen">
-                    <div class="mb-4">
-                        <h3 class="font-display fs-3 text-dark mb-1">Frozen Food & Sambal Botol</h3>
-                        <p class="text-muted small">Siap masak praktis di rumah kapan saja Anda mau.</p>
-                    </div>
-                    <div class="row g-3 g-md-4">
-                        <?php $d=50; foreach($menu_frozen as $item) { renderMenuCard($item, $d); $d=($d>=200)?50:$d+50; } ?>
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="drink">
-                    <div class="mb-4">
-                        <h3 class="font-display fs-3 text-dark mb-1">Minuman Segar & Float</h3>
-                        <p class="text-muted small">Aneka teh, squash jeruk, coklat, dan es float dingin melegakan.</p>
-                    </div>
-                    <div class="row g-3 g-md-4">
-                        <?php $d=50; foreach($menu_drink as $item) { renderMenuCard($item, $d); $d=($d>=200)?50:$d+50; } ?>
-                    </div>
-                </div>
+                <?php 
+                    $pane_idx++;
+                endforeach; 
+                ?>
             </div>
         </div>
     </div>
 </section>
+
+<!-- ==================== POP-UP MODAL DETAIL PRODUK (SMOOTH & INTERAKTIF) ==================== -->
+<div class="modal fade modal-product-detail" id="productDetailModal" tabindex="-1" aria-labelledby="modalProductTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content product-modal-content">
+            
+            <!-- Header Gambar & Tombol Tutup Glass -->
+            <div class="product-modal-image-wrap">
+                <img id="modalProductImg" src="assets/images/bg-headingweb.png" alt="Detail Produk">
+                <button type="button" class="btn-close-modal-glass" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="product-modal-badges">
+                    <span class="badge-cat-pill" id="modalProductCategory">Geprek Series</span>
+                    <span class="badge-spicy-pill" id="modalProductSpiceBadge"><i class="fa-solid fa-pepper-hot"></i> Level 1 - 5</span>
+                </div>
+            </div>
+
+            <!-- Body Modal -->
+            <div class="modal-body p-4">
+                
+                <!-- Judul & Tampilan Harga -->
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="product-modal-title" id="modalProductTitle">Nama Menu</h3>
+                    <div class="product-modal-price" id="modalProductDisplayPrice">Rp 0</div>
+                </div>
+
+                <!-- Deskripsi Produk -->
+                <p class="product-modal-desc mb-3" id="modalProductDesc">
+                    Deskripsi kelezatan menu makanan akan tampil di sini.
+                </p>
+
+                <!-- 1. Pilihan Porsi (Single / Double / Porsi) -->
+                <div class="product-option-section mb-3" id="modalPortionSection">
+                    <label class="product-option-label">
+                        <i class="fa-solid fa-bowl-rice text-danger"></i>
+                        <span>Pilih Porsi / Varian:</span>
+                    </label>
+                    <div class="portion-selector-grid" id="modalPortionGrid">
+                        <!-- Disuntikkan secara dinamis melalui JavaScript -->
+                    </div>
+                </div>
+
+                <!-- 2. Pilihan Level Pedas (Level 1 - 5) -->
+                <div class="product-option-section mb-3" id="modalSpiceSection">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <label class="product-option-label mb-0">
+                            <i class="fa-solid fa-pepper-hot text-danger"></i>
+                            <span>Pilih Level Pedas (1 - 5):</span>
+                        </label>
+                        <span class="badge-selected-level" id="modalLevelLabelText">Level 1 (Sedang)</span>
+                    </div>
+                    <div class="spice-levels-row">
+                        <button type="button" class="btn-level-pill active" data-level="1" onclick="selectSpicyLevel(1)">
+                            <span class="level-num">1</span>
+                            <span class="level-title">Sedang</span>
+                            <span class="level-chili">🌶️</span>
+                        </button>
+                        <button type="button" class="btn-level-pill" data-level="2" onclick="selectSpicyLevel(2)">
+                            <span class="level-num">2</span>
+                            <span class="level-title">Mantap</span>
+                            <span class="level-chili">🌶️🌶️</span>
+                        </button>
+                        <button type="button" class="btn-level-pill" data-level="3" onclick="selectSpicyLevel(3)">
+                            <span class="level-num">3</span>
+                            <span class="level-title">Pedas</span>
+                            <span class="level-chili">🌶️🌶️🌶️</span>
+                        </button>
+                        <button type="button" class="btn-level-pill" data-level="4" onclick="selectSpicyLevel(4)">
+                            <span class="level-num">4</span>
+                            <span class="level-title">Ekstra</span>
+                            <span class="level-chili">🌶️🌶️🌶️🌶️</span>
+                        </button>
+                        <button type="button" class="btn-level-pill" data-level="5" onclick="selectSpicyLevel(5)">
+                            <span class="level-num">5</span>
+                            <span class="level-title">Gahar</span>
+                            <span class="level-chili">🔥</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Catatan Khusus -->
+                <div class="product-option-section mb-3">
+                    <label class="product-option-label">
+                        <i class="fa-regular fa-comment-dots text-danger"></i>
+                        <span>Catatan Khusus (Opsional):</span>
+                    </label>
+                    <input type="text" id="modalProductNote" class="form-control product-note-input" placeholder="Contoh: sambal dipisah, tidak pakai lalapan, es sedikit...">
+                </div>
+
+                <!-- 4. Jumlah Pesanan (Quantity) & Subtotal -->
+                <div class="d-flex justify-content-between align-items-center py-2 px-3 bg-light rounded-4 mb-3 border">
+                    <span class="fw-bold text-dark small">Jumlah Pesanan:</span>
+                    <div class="d-flex align-items-center gap-3">
+                        <button type="button" class="btn-qty-round" onclick="changeModalQty(-1)"><i class="fa-solid fa-minus"></i></button>
+                        <span class="fw-bold fs-5 text-dark" id="modalProductQty" style="min-width: 24px; text-align: center;">1</span>
+                        <button type="button" class="btn-qty-round" onclick="changeModalQty(1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <!-- Tombol Tambah ke Keranjang -->
+                <button type="button" class="btn-numanke-primary w-100 py-3 rounded-pill fw-bold shadow-lg" onclick="tambahKeKeranjangDariModal(event)" id="modalBtnAddToCart">
+                    <i class="fa-solid fa-cart-plus me-2 fs-5"></i>
+                    <span>Tambah ke Keranjang • <b id="modalBtnSubtotal">Rp 0</b></span>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <!-- ==================== FLOATING CART PILL ==================== -->
 <button class="floating-cart-pill d-none" data-bs-toggle="modal" data-bs-target="#checkoutModal" id="btnKeranjangFloating">
@@ -417,7 +398,7 @@ function renderMenuCard($item, $delay = 50) {
     </div>
 </div>
 
-<!-- ==================== LOGIKA KERANJANG, GPS & WA ==================== -->
+<!-- ==================== LOGIKA KERANJANG, MODAL PRODUK, GPS & WA ==================== -->
 <script>
 let keranjang = JSON.parse(localStorage.getItem('numanke_cart')) || [];
 const RESTO_LAT = -7.05051; 
@@ -425,10 +406,380 @@ const RESTO_LNG = 110.39523;
 let ongkirFinal = 0; let ongkirTemp = 0; let jarakPelanggan = 0;
 let linkGps = ""; let isLokasiSetuju = false; let isGpsUsed = false;
 
+// State untuk Modal Produk Detail
+let currentProduct = null;
+let selectedPortion = 'Single';
+let selectedPrice = 0;
+let selectedLevel = 1;
+let modalQty = 1;
+let bsProductModal = null;
+
+const SPICY_TITLES = {
+    1: 'Level 1 (Sedang 🌶️)',
+    2: 'Level 2 (Mantap 🌶️🌶️)',
+    3: 'Level 3 (Pedas 🌶️🌶️🌶️)',
+    4: 'Level 4 (Ekstra 🌶️🌶️🌶️🌶️)',
+    5: 'Level 5 (Gahar 🔥)'
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     updateCartBadge();
-    document.getElementById('checkoutModal').addEventListener('show.bs.modal', renderModalCart);
+    const checkoutEl = document.getElementById('checkoutModal');
+    if (checkoutEl) {
+        checkoutEl.addEventListener('show.bs.modal', renderModalCart);
+    }
+    const prodModalEl = document.getElementById('productDetailModal');
+    if (prodModalEl) {
+        bsProductModal = new bootstrap.Modal(prodModalEl);
+    }
 });
+
+// ==================== BUKA POP-UP DETAIL PRODUK ====================
+function openProductModalFromCard(cardEl) {
+    if (!cardEl) return;
+    try {
+        const prodData = JSON.parse(cardEl.getAttribute('data-product'));
+        populateAndShowProductModal(prodData, 'Single');
+    } catch(err) {
+        console.error("Gagal membaca data produk", err);
+    }
+}
+
+function openProductModalFromPortion(btnEl, portionType) {
+    const cardEl = btnEl.closest('.card-menu-elegant');
+    if (!cardEl) return;
+    try {
+        const prodData = JSON.parse(cardEl.getAttribute('data-product'));
+        populateAndShowProductModal(prodData, portionType);
+    } catch(err) {
+        console.error("Gagal membaca data produk", err);
+    }
+}
+
+function populateAndShowProductModal(prod, preferredPortion) {
+    currentProduct = prod;
+    modalQty = 1;
+    document.getElementById('modalProductQty').innerText = '1';
+    document.getElementById('modalProductNote').value = '';
+
+    // Isi Info Dasar
+    document.getElementById('modalProductTitle').innerText = prod.nama;
+    document.getElementById('modalProductCategory').innerText = prod.kategori;
+    document.getElementById('modalProductDesc').innerText = prod.desc || 'Disajikan hangat dan lezat khas Dapur Numanke.';
+    
+    const imgEl = document.getElementById('modalProductImg');
+    imgEl.src = prod.img || 'assets/images/bg-headingweb.png';
+    imgEl.onerror = function() { this.src = 'assets/images/bg-headingweb.png'; };
+
+    // Format Pilihan Porsi
+    const portionGrid = document.getElementById('modalPortionGrid');
+    const portionSection = document.getElementById('modalPortionSection');
+    portionGrid.innerHTML = '';
+
+    if (prod.has_portions) {
+        portionSection.style.display = 'block';
+        selectedPortion = (preferredPortion === 'Double') ? 'Double' : 'Single';
+        selectedPrice = (selectedPortion === 'Double') ? prod.double_price : prod.single_price;
+
+        const lblS = prod.single_label || 'Single';
+        const lblD = prod.double_label || 'Double';
+
+        const cardSingle = document.createElement('div');
+        cardSingle.className = 'portion-choice-card ' + (selectedPortion === 'Single' ? 'active' : '');
+        cardSingle.onclick = () => selectPortion('Single', prod.single_price);
+        cardSingle.innerHTML = `
+            <span class="portion-choice-name">${lblS}</span>
+            <span class="portion-choice-price">Rp ${prod.single_price.toLocaleString('id-ID')}</span>
+        `;
+
+        const cardDouble = document.createElement('div');
+        cardDouble.className = 'portion-choice-card ' + (selectedPortion === 'Double' ? 'active' : '');
+        cardDouble.onclick = () => selectPortion('Double', prod.double_price);
+        cardDouble.innerHTML = `
+            <span class="portion-choice-name">${lblD}</span>
+            <span class="portion-choice-price">Rp ${prod.double_price.toLocaleString('id-ID')}</span>
+        `;
+
+        portionGrid.appendChild(cardSingle);
+        portionGrid.appendChild(cardDouble);
+    } else {
+        selectedPortion = 'Normal';
+        selectedPrice = prod.price || 10000;
+        portionSection.style.display = 'block';
+
+        const cardNormal = document.createElement('div');
+        cardNormal.className = 'portion-choice-card active';
+        cardNormal.style.gridColumn = '1 / -1';
+        cardNormal.innerHTML = `
+            <span class="portion-choice-name">Porsi Reguler</span>
+            <span class="portion-choice-price">Rp ${selectedPrice.toLocaleString('id-ID')}</span>
+        `;
+        portionGrid.appendChild(cardNormal);
+    }
+
+    // Format Level Kepedasan
+    const spiceSection = document.getElementById('modalSpiceSection');
+    const spiceBadge = document.getElementById('modalProductSpiceBadge');
+    if (prod.has_spicy) {
+        spiceSection.style.display = 'block';
+        spiceBadge.style.display = 'inline-block';
+        selectSpicyLevel(1);
+    } else {
+        spiceSection.style.display = 'none';
+        spiceBadge.style.display = 'none';
+        selectedLevel = 0;
+    }
+
+    updateModalSubtotal();
+
+    if (!bsProductModal) {
+        bsProductModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
+    }
+    bsProductModal.show();
+}
+
+function selectPortion(portionType, price) {
+    selectedPortion = portionType;
+    selectedPrice = price;
+
+    const cards = document.querySelectorAll('#modalPortionGrid .portion-choice-card');
+    cards.forEach((c, idx) => {
+        if ((portionType === 'Single' && idx === 0) || (portionType === 'Double' && idx === 1) || portionType === 'Normal') {
+            c.classList.add('active');
+        } else {
+            c.classList.remove('active');
+        }
+    });
+
+    updateModalSubtotal();
+}
+
+function selectSpicyLevel(level) {
+    selectedLevel = level;
+    document.querySelectorAll('.btn-level-pill').forEach(btn => {
+        const lvl = parseInt(btn.getAttribute('data-level'));
+        if (lvl === level) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    const labelEl = document.getElementById('modalLevelLabelText');
+    if (labelEl) {
+        labelEl.innerText = SPICY_TITLES[level] || `Level ${level}`;
+    }
+}
+
+function changeModalQty(delta) {
+    modalQty = Math.max(1, modalQty + delta);
+    document.getElementById('modalProductQty').innerText = modalQty;
+    updateModalSubtotal();
+}
+
+function updateModalSubtotal() {
+    const total = selectedPrice * modalQty;
+    document.getElementById('modalProductDisplayPrice').innerText = `Rp ${selectedPrice.toLocaleString('id-ID')}`;
+    document.getElementById('modalBtnSubtotal').innerText = `Rp ${total.toLocaleString('id-ID')}`;
+}
+
+// ==================== TAMBAH KE KERANJANG DARI MODAL ====================
+function tambahKeKeranjangDariModal(e) {
+    if (!currentProduct) return;
+
+    let porsiLabel = '';
+    if (currentProduct.has_portions) {
+        porsiLabel = selectedPortion === 'Single' ? (currentProduct.single_label || 'Single') : (currentProduct.double_label || 'Double');
+    }
+
+    const noteVal = document.getElementById('modalProductNote').value.trim();
+
+    // Bentuk nama item yang jelas untuk tampilan keranjang & WA
+    let namaItemKeranjang = currentProduct.nama;
+    if (porsiLabel) {
+        namaItemKeranjang += ` (${porsiLabel})`;
+    }
+    if (currentProduct.has_spicy && selectedLevel > 0) {
+        namaItemKeranjang += ` [Level ${selectedLevel}]`;
+    }
+
+    // Cek apakah item serupa persis sudah ada di keranjang
+    let index = keranjang.findIndex(item => 
+        item.nama === namaItemKeranjang && 
+        (item.catatan || '') === noteVal
+    );
+
+    if (index !== -1) {
+        keranjang[index].qty += modalQty;
+    } else {
+        keranjang.push({
+            nama: namaItemKeranjang,
+            base_nama: currentProduct.nama,
+            porsi: porsiLabel || 'Reguler',
+            level: currentProduct.has_spicy ? selectedLevel : 0,
+            catatan: noteVal,
+            harga: selectedPrice,
+            qty: modalQty
+        });
+    }
+
+    localStorage.setItem('numanke_cart', JSON.stringify(keranjang));
+    updateCartBadge();
+    renderModalCart();
+
+    // Animasi partikel terbang ke floating cart
+    animateFlyToCart(e);
+
+    // Tutup modal pop-up secara halus
+    if (bsProductModal) {
+        bsProductModal.hide();
+    }
+}
+
+// Micro-animation: Flying particle to floating cart
+function animateFlyToCart(e) {
+    const cartBtn = document.getElementById('btnKeranjangFloating');
+    if(!cartBtn || cartBtn.classList.contains('d-none')) return;
+
+    if(navigator.vibrate) navigator.vibrate(25);
+
+    const btn = e ? (e.currentTarget || e.target) : null;
+    let startX = window.innerWidth / 2;
+    let startY = window.innerHeight / 2;
+
+    if (btn && btn.getBoundingClientRect) {
+        const rect = btn.getBoundingClientRect();
+        startX = rect.left + rect.width / 2 - 8;
+        startY = rect.top + rect.height / 2 - 8;
+    }
+
+    const cartRect = cartBtn.getBoundingClientRect();
+    
+    const dot = document.createElement('div');
+    dot.className = 'flying-particle';
+    dot.style.left = startX + 'px';
+    dot.style.top = startY + 'px';
+    document.body.appendChild(dot);
+    
+    const targetX = cartRect.left + (cartRect.width/2) - 8;
+    const targetY = cartRect.top + (cartRect.height/2) - 8;
+    
+    dot.animate([
+        { transform: 'translate(0,0) scale(1)', opacity: 1 },
+        { transform: `translate(${(targetX - startX)/2}px, -45px) scale(1.3)`, opacity: 0.9 }, 
+        { transform: `translate(${targetX - startX}px, ${targetY - startY}px) scale(0.3)`, opacity: 0.4 }
+    ], { duration: 500, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }).onfinish = () => {
+        dot.remove();
+        cartBtn.animate([
+            { transform: 'scale(1)' }, { transform: 'scale(1.12) translateY(-3px)' }, { transform: 'scale(1)' }
+        ], { duration: 250 });
+    };
+}
+
+function tambahItem(index) {
+    if (keranjang[index]) {
+        keranjang[index].qty += 1;
+        localStorage.setItem('numanke_cart', JSON.stringify(keranjang));
+        updateCartBadge();
+        renderModalCart();
+    }
+}
+
+function kurangiItem(index) {
+    if (keranjang[index]) {
+        keranjang[index].qty -= 1;
+        if(keranjang[index].qty <= 0) { 
+            keranjang.splice(index, 1); 
+        }
+        localStorage.setItem('numanke_cart', JSON.stringify(keranjang));
+        updateCartBadge(); 
+        renderModalCart();
+    }
+}
+
+function updateCartBadge() {
+    let btnFloat = document.getElementById('btnKeranjangFloating');
+    let countFloat = document.getElementById('cartCountFloat');
+    let totalQty = keranjang.reduce((sum, item) => sum + item.qty, 0);
+    
+    if(totalQty > 0) {
+        if(btnFloat) { 
+            btnFloat.classList.remove('d-none'); 
+            countFloat.innerText = totalQty; 
+        }
+    } else {
+        if(btnFloat) { 
+            btnFloat.classList.add('d-none'); 
+        }
+    }
+}
+
+function renderModalCart() {
+    let list = document.getElementById('keranjangList');
+    let ringkasan = document.getElementById('ringkasanTotal');
+    let btnBayar = document.getElementById('btnBayarModal');
+    let isDiantar = document.getElementById('delivery') ? document.getElementById('delivery').checked : false;
+ 
+    if (keranjang.length === 0) {
+        list.innerHTML = '<p class="text-center py-4 text-muted small fst-italic">Keranjang belanja Anda masih kosong.<br><a href="order.php" class="btn btn-sm btn-outline-danger mt-2 rounded-pill px-3">Pilih Menu Lezat</a></p>';
+        ringkasan.innerHTML = ''; 
+        if (btnBayar) btnBayar.disabled = true; 
+        return;
+    }
+
+    if (btnBayar) btnBayar.disabled = false;
+    let html = ''; 
+    let subtotal = 0;
+
+    keranjang.forEach((item, index) => {
+        let totalItem = item.harga * item.qty; 
+        subtotal += totalItem;
+        
+        let levelBadge = '';
+        if (item.level && item.level > 0) {
+            levelBadge = `<span class="badge rounded-pill ms-1" style="background:#fee2e2; color:#b91c1c; font-size:0.7rem;">🌶️ Level ${item.level}</span>`;
+        }
+
+        let catatanText = '';
+        if (item.catatan) {
+            catatanText = `<div class="text-muted fst-italic mt-1" style="font-size:0.75rem;"><i class="fa-regular fa-comment-dots me-1"></i>"${item.catatan}"</div>`;
+        }
+
+        html += `<div class="d-flex justify-content-between align-items-center p-2 mb-2 bg-light rounded-3 border">
+        <div class="flex-grow-1 pe-2">
+            <div class="fw-bold text-dark d-flex align-items-center flex-wrap" style="font-size: 0.88rem; line-height: 1.2;">
+                <span>${item.nama}</span>
+                ${levelBadge}
+            </div>
+            ${catatanText}
+            <small class="text-muted">${item.qty} x Rp ${item.harga.toLocaleString('id-ID')}</small>
+        </div>
+        <div class="text-end d-flex align-items-center gap-2">
+            <div class="fw-bold text-dark" style="font-size: 0.88rem;">Rp ${totalItem.toLocaleString('id-ID')}</div>
+            <div class="d-flex align-items-center gap-1">
+                <button type="button" class="btn btn-sm btn-outline-danger rounded-circle p-0 d-flex align-items-center justify-content-center" style="width:24px; height:24px;" onclick="kurangiItem(${index})" title="Kurang"><i class="fa-solid fa-minus" style="font-size:0.65rem;"></i></button>
+                <button type="button" class="btn btn-sm btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center" style="width:24px; height:24px;" onclick="tambahItem(${index})" title="Tambah"><i class="fa-solid fa-plus" style="font-size:0.65rem;"></i></button>
+            </div>
+        </div>
+        </div>`;
+    });
+    list.innerHTML = html;
+
+    let htmlTotal = `<div class="d-flex justify-content-between mb-2 small"><span class="text-muted">Subtotal</span><span class="fw-bold text-dark">Rp ${subtotal.toLocaleString('id-ID')}</span></div>`;
+    
+    if(isDiantar) {
+        if(isLokasiSetuju) { 
+            htmlTotal += `<div class="d-flex justify-content-between mb-3 small"><span class="text-muted">Ongkir (${jarakPelanggan.toFixed(1)} km)</span><span class="fw-bold text-danger">Rp ${ongkirFinal.toLocaleString('id-ID')}</span></div>`; 
+        } else { 
+            htmlTotal += `<div class="d-flex justify-content-between mb-3 small"><span class="text-muted">Ongkir</span><span class="fw-bold text-danger fst-italic">Pilih Lokasi Terlebih Dahulu</span></div>`; 
+        }
+    }
+
+    let totalSemua = subtotal + (isDiantar && isLokasiSetuju ? ongkirFinal : 0);
+    htmlTotal += `<div class="d-flex justify-content-between align-items-center p-3 rounded-4 mt-2" style="background: var(--color-red-light); border: 1px solid rgba(201,42,42,0.2);">
+    <span class="fw-bold text-dark fs-6">Total Bayar</span><span class="fw-bold fs-5 text-danger">Rp ${totalSemua.toLocaleString('id-ID')}</span>
+    </div>`;
+    ringkasan.innerHTML = htmlTotal;
+}
 
 function cariMenu() {
     let input = document.getElementById('searchInput').value.toLowerCase();
@@ -439,125 +790,30 @@ function cariMenu() {
     let foundCount = 0;
 
     if (input === "") {
-        navPills.style.display = 'flex'; resultText.style.display = 'none';
-        for (let i=0; i<tabContents.length; i++) tabContents[i].querySelectorAll('.menu-item-card').forEach(el => el.style.display='block');
+        navPills.style.display = 'flex'; 
+        resultText.style.display = 'none';
+        for (let i=0; i<tabContents.length; i++) {
+            tabContents[i].querySelectorAll('.menu-item-card').forEach(el => el.style.display='block');
+        }
         return; 
     }
 
     navPills.style.display = 'none';
-    for (let i=0; i<tabContents.length; i++) tabContents[i].classList.add('show', 'active');
+    for (let i=0; i<tabContents.length; i++) {
+        tabContents[i].classList.add('show', 'active');
+    }
 
     for (let i=0; i<cards.length; i++) {
         let title = cards[i].querySelector('.card-menu-title').innerText.toLowerCase();
-        if (title.includes(input)) { cards[i].style.display = "block"; foundCount++; } 
-        else { cards[i].style.display = "none"; }
+        if (title.includes(input)) { 
+            cards[i].style.display = "block"; 
+            foundCount++; 
+        } else { 
+            cards[i].style.display = "none"; 
+        }
     }
     resultText.style.display = 'block';
     resultText.innerHTML = foundCount > 0 ? `Menemukan <b>${foundCount}</b> menu` : `Menu tidak ditemukan.`;
-}
-
-// Micro-animation: Flying particle to floating cart
-function animateFlyToCart(e) {
-    const btn = e.currentTarget;
-    const cartBtn = document.getElementById('btnKeranjangFloating');
-    if(!cartBtn || cartBtn.classList.contains('d-none')) return;
-
-    if(navigator.vibrate) navigator.vibrate(25);
-
-    const rect = btn.getBoundingClientRect();
-    const cartRect = cartBtn.getBoundingClientRect();
-    
-    const dot = document.createElement('div');
-    dot.className = 'flying-particle';
-    dot.style.left = (rect.left + rect.width/2 - 8) + 'px';
-    dot.style.top = (rect.top + rect.height/2 - 8) + 'px';
-    document.body.appendChild(dot);
-    
-    const targetX = cartRect.left + (cartRect.width/2) - 8;
-    const targetY = cartRect.top + (cartRect.height/2) - 8;
-    
-    dot.animate([
-        { transform: 'translate(0,0) scale(1)', opacity: 1 },
-        { transform: `translate(${(targetX - rect.left)/2}px, -45px) scale(1.3)`, opacity: 0.9 }, 
-        { transform: `translate(${targetX - rect.left}px, ${targetY - rect.top}px) scale(0.3)`, opacity: 0.4 }
-    ], { duration: 500, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }).onfinish = () => {
-        dot.remove();
-        cartBtn.animate([
-            { transform: 'scale(1)' }, { transform: 'scale(1.12) translateY(-3px)' }, { transform: 'scale(1)' }
-        ], { duration: 250 });
-    };
-}
-
-function tambahKeranjang(e, nama, harga) {
-    let index = keranjang.findIndex(item => item.nama === nama);
-    if (index !== -1) { keranjang[index].qty += 1; } 
-    else { keranjang.push({ nama: nama, harga: harga, qty: 1 }); }
-    
-    localStorage.setItem('numanke_cart', JSON.stringify(keranjang));
-    updateCartBadge(); renderModalCart();
-    animateFlyToCart(e); 
-}
-
-function kurangiItem(index) {
-    keranjang[index].qty -= 1;
-    if(keranjang[index].qty <= 0) { keranjang.splice(index, 1); }
-    localStorage.setItem('numanke_cart', JSON.stringify(keranjang));
-    updateCartBadge(); renderModalCart();
-}
-
-function updateCartBadge() {
-    let btnFloat = document.getElementById('btnKeranjangFloating');
-    let countFloat = document.getElementById('cartCountFloat');
-    let totalQty = keranjang.reduce((sum, item) => sum + item.qty, 0);
-    
-    if(totalQty > 0) {
-        if(btnFloat) { btnFloat.classList.remove('d-none'); countFloat.innerText = totalQty; }
-    } else {
-        if(btnFloat) { btnFloat.classList.add('d-none'); }
-    }
-}
-
-function renderModalCart() {
-    let list = document.getElementById('keranjangList');
-    let ringkasan = document.getElementById('ringkasanTotal');
-    let btnBayar = document.getElementById('btnBayarModal');
-    let isDiantar = document.getElementById('delivery').checked;
- 
-    if (keranjang.length === 0) {
-        list.innerHTML = '<p class="text-center py-4 text-muted small fst-italic">Keranjang belanja Anda masih kosong.</p>';
-        ringkasan.innerHTML = ''; btnBayar.disabled = true; return;
-    }
-
-    btnBayar.disabled = false;
-    let html = ''; let subtotal = 0;
-
-    keranjang.forEach((item, index) => {
-        let totalItem = item.harga * item.qty; subtotal += totalItem;
-        html += `<div class="d-flex justify-content-between align-items-center p-2 mb-2 bg-light rounded-3">
-        <div class="flex-grow-1 pe-2">
-            <div class="fw-bold text-dark" style="font-size: 0.88rem; line-height: 1.2;">${item.nama}</div>
-            <small class="text-muted">${item.qty} x Rp ${item.harga.toLocaleString('id-ID')}</small>
-        </div>
-        <div class="text-end d-flex align-items-center gap-2">
-            <div class="fw-bold text-dark" style="font-size: 0.88rem;">Rp ${totalItem.toLocaleString('id-ID')}</div>
-            <button class="btn btn-sm btn-outline-danger rounded-circle p-0 d-flex align-items-center justify-content-center" style="width:24px; height:24px;" onclick="kurangiItem(${index})"><i class="fa-solid fa-minus" style="font-size:0.65rem;"></i></button>
-        </div>
-        </div>`;
-    });
-    list.innerHTML = html;
-
-    let htmlTotal = `<div class="d-flex justify-content-between mb-2 small"><span class="text-muted">Subtotal</span><span class="fw-bold text-dark">Rp ${subtotal.toLocaleString('id-ID')}</span></div>`;
-    
-    if(isDiantar) {
-        if(isLokasiSetuju) { htmlTotal += `<div class="d-flex justify-content-between mb-3 small"><span class="text-muted">Ongkir (${jarakPelanggan.toFixed(1)} km)</span><span class="fw-bold text-danger">Rp ${ongkirFinal.toLocaleString('id-ID')}</span></div>`; } 
-        else { htmlTotal += `<div class="d-flex justify-content-between mb-3 small"><span class="text-muted">Ongkir</span><span class="fw-bold text-danger fst-italic">Pilih Lokasi</span></div>`; }
-    }
-
-    let totalSemua = subtotal + (isDiantar && isLokasiSetuju ? ongkirFinal : 0);
-    htmlTotal += `<div class="d-flex justify-content-between align-items-center p-3 rounded-4 mt-2" style="background: var(--color-red-light); border: 1px solid rgba(201,42,42,0.2);">
-    <span class="fw-bold text-dark fs-6">Total Bayar</span><span class="fw-bold fs-5 text-danger">Rp ${totalSemua.toLocaleString('id-ID')}</span>
-    </div>`;
-    ringkasan.innerHTML = htmlTotal;
 }
 
 function toggleAlamat() {
@@ -583,7 +839,7 @@ async function hitungJarak(lat1, lon1, lat2, lon2) {
 
 function kalkulasiOngkir(jarak) { return jarak <= 5 ? 5000 : 5000 + (Math.ceil((jarak - 5) / 0.2) * 500); }
 
-document.getElementById('alamat').addEventListener('input', function() {
+document.getElementById('alamat')?.addEventListener('input', function() {
     isGpsUsed = false; document.getElementById('btnGPS').innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Gunakan GPS';
 });
 

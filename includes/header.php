@@ -1,9 +1,25 @@
 <?php
 require_once __DIR__ . '/content_manager.php';
 $site_settings = get_site_settings();
-$top_bar = $site_settings['announcement_bar'] ?? '🔥 Buka Setiap Hari: 10:00 – 21:00 WIB • Spesial Ayam Brongot Nusantara';
 $wa_num = $site_settings['wa_order'] ?? '62882006236802';
 $wa_display = $site_settings['wa_order_display'] ?? '+62 882-0062-36802';
+
+// Cek Jam Operasional Otomatis (WIB: 10.00 – 21.00 WIB)
+date_default_timezone_set('Asia/Jakarta');
+$jam_sekarang = (int)date('G');
+$menit_sekarang = (int)date('i');
+$total_menit = ($jam_sekarang * 60) + $menit_sekarang;
+
+// Jam operasional default 10:00 s/d 21:00 WIB
+$buka_jam = 10;
+$tutup_jam = 21;
+if (!empty($site_settings['operational_hours'])) {
+    if (preg_match('/(\d{1,2})[:.](\d{2})\s*[-–]\s*(\d{1,2})[:.](\d{2})/i', $site_settings['operational_hours'], $m_jam)) {
+        $buka_jam = (int)$m_jam[1];
+        $tutup_jam = (int)$m_jam[3];
+    }
+}
+$is_open = ($total_menit >= ($buka_jam * 60) && $total_menit < ($tutup_jam * 60));
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -30,12 +46,18 @@ $wa_display = $site_settings['wa_order_display'] ?? '+62 882-0062-36802';
 </head>
 <body>
 
-<!-- TOP ANNOUNCEMENT BAR -->
+<!-- TOP ANNOUNCEMENT BAR (DENGAN INDIKATOR STATUS BUKA / TUTUP REALTIME) -->
 <div class="top-bar-announcement d-none d-md-block">
     <div class="container d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center gap-2">
-            <span class="live-dot-pulse"></span>
-            <span><?php echo htmlspecialchars($top_bar); ?></span>
+            <span class="live-dot-pulse <?php echo $is_open ? 'open' : 'closed'; ?>"></span>
+            <?php if ($is_open): ?>
+                <span class="badge" style="background: rgba(34, 197, 94, 0.25); color: #4ade80; font-size: 0.72rem; padding: 2px 8px; border-radius: 12px; font-weight: 800; border: 1px solid rgba(74, 222, 128, 0.4); letter-spacing: 0.04em;">BUKA</span>
+                <span>🔥 Buka Setiap Hari: 10.00 – 21.00 WIB • Menerima Pesanan Partai / Katering Kampus UNNES & Sekitarnya!</span>
+            <?php else: ?>
+                <span class="badge" style="background: rgba(239, 68, 68, 0.25); color: #f87171; font-size: 0.72rem; padding: 2px 8px; border-radius: 12px; font-weight: 800; border: 1px solid rgba(248, 113, 113, 0.4); letter-spacing: 0.04em;">TUTUP</span>
+                <span>Resto Sedang Tutup (Jam Operasional: 10.00 – 21.00 WIB) • Pesanan akan diproses saat resto kembali buka</span>
+            <?php endif; ?>
         </div>
         <div class="d-flex align-items-center gap-3">
             <a href="https://wa.me/<?php echo htmlspecialchars($wa_num); ?>" target="_blank" class="text-white-50 text-decoration-none hover-white" style="transition: color 0.2s;">
